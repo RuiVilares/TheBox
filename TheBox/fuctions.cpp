@@ -32,12 +32,12 @@ void saveChannels(vector<Channel> &channels){
 		vector<Program> program_list;
 		program_list = channels[i].getPrograms();
 		
-		channels_file << channels[i].getName() << endl;
-		channels_file << program_list.size() << endl;
+		channels_file << endl << channels[i].getName();
+		channels_file << endl << program_list.size();
 
 		for (int k = 0; k < program_list.size(); k++)
 		{
-			channels_file << program_list[k].getName() << endl;
+			channels_file << endl << program_list[k].getName();
 		}
 	}
 	channels_file.close();
