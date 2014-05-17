@@ -13,7 +13,6 @@
 #include <windows.h>
 #include <conio.h>
 
-
 #include "fuctions.h"
 #include "Date.h"
 #include "Box.h"
@@ -58,5 +57,6 @@ void EditPrograms();
 
 void EditMovies();
 
+void pass();
 
 #endif

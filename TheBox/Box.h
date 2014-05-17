@@ -9,6 +9,7 @@
 #include "Channel.h"
 #include "Program.h"
 #include "Movie.h"
+#include "fuctions.h"
 
 using namespace std;
 
@@ -20,23 +21,23 @@ private:
   vector<Channel> channels;
   vector<Movie> movieClub;
   vector<Movie> seenMovies;
-  vector<Program> toBeRecorded;
-  vector<Program> recorded;
+  vector<Program> recordList;
+  //  vector<Program> recorded;    // removed in the final version of the work text
 
 public:
   Date Box::GetCurrentDate(Box box);
   Box(string passwd, Date currentDate);
-  vector<Program> listByDay(string day);
-  vector<Program> listByChannel(string  channel, string day);
-  vector<Program> listByType(string  type, string day);
+  vector<Program> listByDay(string day) const;
+  vector<Program> listByChannel(string  channel, string day) const;
+  vector<Program> listByType(string  type, string day) const;
   bool rentMovies(string &title);
-  float moneySpent();
-  int timesWhatched(string &title);
+  float moneySpent()/* const*/;
+  int timesWhatched(string &title)/* const*/;
   bool changePassword();          // ask, verify and change the password
   // Channel CRUD
-  bool createdChanel();
-  bool removeChanel();
-  bool updateChanel();
+  bool createdChannel(string &n);
+  bool removeChannel(string &n);
+  bool updateChannel();
   // Program CRUD
   bool createdProgram(string &channel);
   bool removeProgram();

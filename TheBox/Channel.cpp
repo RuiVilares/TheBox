@@ -17,6 +17,10 @@
 
 using namespace std;
 
+Channel::Channel(string &n){
+	name = n;
+}
+
 void Channel::addProgram(string &n, int dur, string &t, bool state, string &d, int h, int min){
 	programs.push_back(Program(n,dur,t,state,d,h,min));
 }

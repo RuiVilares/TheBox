@@ -1,5 +1,4 @@
 ﻿#include "menu.h"
-#
 
 Date currentDate()
 {

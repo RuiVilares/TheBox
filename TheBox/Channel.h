@@ -14,7 +14,7 @@ private:
 	string name;
 	vector<Program> programs;
 public:
-	Channel(string name);
+	Channel(string &n);
 
 	// Data member mutators
 	void addProgram(string &n, int dur, string &t, bool state, string &d, int h, int min);
