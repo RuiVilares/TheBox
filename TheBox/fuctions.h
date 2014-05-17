@@ -31,6 +31,8 @@ void MoneySpent();
 
 void saveChannels(vector<Channel> &channels);
 
+string LoadPassword();
+
 void loadConfigs();
 
 #endif

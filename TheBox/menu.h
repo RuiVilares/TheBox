@@ -29,7 +29,11 @@ void advanced_menu1();
 
 void advanced_menu2();
 
-void advanced_menu_password();
+void advanced_menu_password1();
+
+void advanced_menu_password2();
+
+void advanced_menu_password3();
 
 void advanced_menu_channels();
 

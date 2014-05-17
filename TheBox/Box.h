@@ -26,6 +26,7 @@ private:
 
 public:
   Date Box::GetCurrentDate(Box box);
+  string Box::GetPassword();
   Box(string passwd, Date currentDate);
   vector<Program> listByDay(string day) const;
   vector<Program> listByChannel(string  channel, string day) const;
@@ -33,7 +34,7 @@ public:
   bool rentMovies(string &title);
   float moneySpent()/* const*/;
   int timesWhatched(string &title)/* const*/;
-  bool changePassword();          // ask, verify and change the password
+  bool changePassword(string np);         // ask, verify and change the password
   // Channel CRUD
   bool createdChannel(string &n);
   bool removeChannel(string &n);

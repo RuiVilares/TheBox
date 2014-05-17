@@ -14,7 +14,7 @@ Date currentDate()
 	return d1;
 }
 
-Box box = Box("naotem", currentDate());
+Box box = Box(LoadPassword(), currentDate());
 
 void loadConfigs();
 
@@ -136,8 +136,7 @@ void tv_menu()
 		start_menu();
 }
 
-// Password pré-definida, versão apenas de teste... Pass é "cenas"... Na versão final é para ir buscar a pass ao ficheiro
-// Caso o utilizador pretenda pass aparece este menu, caso não pretenda, avança logo para o menu 2
+
 void advanced_menu1()
 {
 	system("CLS");
@@ -147,25 +146,25 @@ void advanced_menu1()
 	cout << "  / ___ \\ (_| |\\ V / (_| | | | | (_|  __/ (_| |" << endl;
 	cout << " /_/   \\_\\__,_| \\_/ \\__,_|_| |_|\\___\\___|\\__,_|" << endl << endl << endl;
 	cout << "Please insert your password: ";
-	string pass ="";
+	string pass = "";
 	char ch;
 	ch = _getch();
-	while(ch != 13) //character 13 is enter
+	while (ch != 13) //character 13 is enter
 	{
-      if (ch == 8)
-	  {
-		  advanced_menu1();
-	  }
-	  else
-	  {
-		pass.push_back(ch);
-		cout << '*';
-		ch = _getch();
-	  }
+		if (ch == 8)
+		{
+			advanced_menu1();
+		}
+		else
+		{
+			pass.push_back(ch);
+			cout << '*';
+			ch = _getch();
+		}
 	}
-	if(pass == "cenas")
+	if (pass == box.GetPassword())
 	{
-      advanced_menu2();
+		advanced_menu2();
 	}
 	else
 	{
@@ -204,17 +203,16 @@ void advanced_menu2()
 			{
 				cin.clear();
 				cin.ignore(1000, '\n');
-				
+
 			}
-			cout << endl << "Invalid option" << endl << endl; 
+			cout << endl << "Invalid option" << endl << endl;
 			Sleep(1000);
 			advanced_menu2();
 		}
-	} 
-	while (!valid);
-	
+	} while (!valid);
+
 	if (yourchoice == 1)
-		advanced_menu_password();
+		advanced_menu_password1();
 	if (yourchoice == 2)
 		advanced_menu_channels();
 	if (yourchoice == 3)
@@ -225,7 +223,7 @@ void advanced_menu2()
 		start_menu();
 }
 
-void advanced_menu_password()
+void advanced_menu_password1()
 {
 	int yourchoice;
 	bool valid = false;
@@ -235,9 +233,49 @@ void advanced_menu_password()
 	cout << "   / _ \\ / _` \\ \\ / / _` | '_ \\ / __/ _ \\/ _` |" << endl;
 	cout << "  / ___ \\ (_| |\\ V / (_| | | | | (_|  __/ (_| |" << endl;
 	cout << " /_/   \\_\\__,_| \\_/ \\__,_|_| |_|\\___\\___|\\__,_|" << endl << endl;
-	cout << "\t \t Password advanced options" << endl <<  endl;
+	cout << "\t \t Password advanced options" << endl << endl;
 	cout << "1. Change password" << endl;
 	cout << "2. Return" << endl << endl;
+	do
+	{
+		cout << "Choose one of those options: ";
+		cin >> yourchoice;
+		if (yourchoice >= 1 && yourchoice <= 2)
+			valid = true;
+		else
+		{
+			if (cin.fail())
+			{
+				cin.clear();
+				cin.ignore(1000, '\n');
+
+			}
+			cout << endl << "Invalid option" << endl << endl;
+			Sleep(1000);
+			advanced_menu_password1();
+		}
+	} while (!valid);
+
+	if (yourchoice == 1)
+		advanced_menu_password2();
+	if (yourchoice == 2)
+		advanced_menu2();
+}
+
+void advanced_menu_password2()
+{
+	int yourchoice;
+	bool valid = false;
+	system("CLS");
+	cout << "     _       _                               _ " << endl;
+	cout << "    / \\   __| |_   ____ _ _ __   ___ ___  __| |" << endl;
+	cout << "   / _ \\ / _` \\ \\ / / _` | '_ \\ / __/ _ \\/ _` |" << endl;
+	cout << "  / ___ \\ (_| |\\ V / (_| | | | | (_|  __/ (_| |" << endl;
+	cout << " /_/   \\_\\__,_| \\_/ \\__,_|_| |_|\\___\\___|\\__,_|" << endl << endl;
+	cout << "\t \t Change Password" << endl << endl;
+	cout << "Are you sure you want to change the password?\n" << endl;
+	cout << "1. Yes" << endl;
+	cout << "2. No" << endl << endl;
 	do
 	{
 		cout << "Choose one of those options: ";
@@ -250,19 +288,79 @@ void advanced_menu_password()
 			{
 				cin.clear();
 				cin.ignore(1000, '\n');
-				
+
 			}
-			cout << endl << "Invalid option" << endl << endl; 
+			cout << endl << "Invalid option" << endl << endl;
 			Sleep(1000);
-			advanced_menu_password();
+			advanced_menu_password2();
 		}
-	} 
-	while (!valid);
-	
-	if (yourchoice == 1);
-		// completar;
+	} while (!valid);
+
+	if (yourchoice == 1)
+		advanced_menu_password3();
 	if (yourchoice == 2)
 		advanced_menu2();
+}
+
+void advanced_menu_password3()
+{
+	int yourchoice;
+	bool valid = false;
+	system("CLS");
+	cout << "     _       _                               _ " << endl;
+	cout << "    / \\   __| |_   ____ _ _ __   ___ ___  __| |" << endl;
+	cout << "   / _ \\ / _` \\ \\ / / _` | '_ \\ / __/ _ \\/ _` |" << endl;
+	cout << "  / ___ \\ (_| |\\ V / (_| | | | | (_|  __/ (_| |" << endl;
+	cout << " /_/   \\_\\__,_| \\_/ \\__,_|_| |_|\\___\\___|\\__,_|" << endl << endl;
+	cout << "\t \t Change Password" << endl << endl << endl;
+	cout << "Enter current password: ";
+	string pass = "";
+	string newpass = "";
+	char ch1, ch2;
+	ch1 = _getch();
+	while (ch1 != 13) //character 13 is enter
+	{
+		if (ch1 == 8)
+		{
+			advanced_menu_password3();
+		}
+		else
+		{
+			pass.push_back(ch1);
+			cout << '*';
+			ch1 = _getch();
+		}
+	}
+	if (pass == box.GetPassword())
+	{
+		cout << "\nEnter new password: ";
+		ch2 = _getch();
+		while (ch2 != 13) //character 13 is enter
+		{
+			if (ch2 == 8)
+			{
+				advanced_menu_password3(); // Corrigir esta parte, poder apagar pass passo a passo
+			}
+			else
+			{
+				newpass.push_back(ch2);
+				cout << '*';
+				ch2 = _getch();
+			}
+		}
+		cout << endl << endl << endl << "Password successfully changed";
+		box.changePassword(newpass);
+		Sleep(1000);
+		//advanced_menu_password1();
+		start_menu();
+	}
+	else
+	{
+		cout << endl << endl << "Incorrect password" << endl;
+		Sleep(1000);
+		start_menu();
+		//advanced_menu_password1(); 
+	}
 }
 
 void advanced_menu_channels()

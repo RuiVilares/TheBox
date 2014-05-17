@@ -11,6 +11,11 @@ Date Box::GetCurrentDate(Box box)
 	return box.currentDate;
 }
 
+string Box::GetPassword()
+{
+	return password;
+}
+
 bool Box::rentMovies(string &title){
 	for (int i = 0; i < movieClub.size(); i++)
 	{
@@ -24,7 +29,12 @@ bool Box::rentMovies(string &title){
 	return false;
 }
 
-bool Box::changePassword(){
+bool Box::changePassword(string np){
+	password = np;
+	return true;
+}
+
+/*bool Box::changePassword(){
 	system("cls");
 	cout << "Are you sure you want to change the password?\nEnter Y to yes or N to no \n";
 	char ans;
@@ -69,7 +79,7 @@ bool Box::changePassword(){
 		}
 	}
 }
-
+*/
 float Box::moneySpent()/* const*/{
 	float totalCost = 0;
 

@@ -43,6 +43,16 @@ void saveChannels(vector<Channel> &channels){
 	channels_file.close();
 }
 
+string LoadPassword()
+{
+	string pass;
+	ifstream file;
+	file.open("info//General Information.txt");
+	getline(file, pass);
+	file.close();
+	return pass;
+}
+
 void loadConfigs(){
 
 }
