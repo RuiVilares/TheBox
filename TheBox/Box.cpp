@@ -34,52 +34,42 @@ bool Box::changePassword(string np){
 	return true;
 }
 
-/*bool Box::changePassword(){
-	system("cls");
-	cout << "Are you sure you want to change the password?\nEnter Y to yes or N to no \n";
-	char ans;
-	cin >> ans;
-	if ('N'==ans)
+
+void Box::show_movies_movieClub()
+{
+	cout << "NAME" << setw(35) << "COST" << endl;
+	for (int i = 0; i < movieClub.size(); i++)
 	{
-		cin.clear();
-		cin.ignore(10000, '\n');
-		return false;
+		cout << movieClub.at(i).getTitle() << setw(40 - movieClub.at(i).getTitle().length()) << movieClub.at(i).getCost() << endl;
 	}
-	if ('Y' == ans)
-	{
-		system("cls");
-		cin.clear();
-		cin.ignore(10000, '\n');
-		string pass;
-		string new_pass;
-		cout << "Enter current password:\n";
-		cin >> pass;
-		while (pass!=password)
-		{
-			cout << "Password mismatch\nRepeat password:\n";
-			cin >> pass;
-		}
-		while (pass != new_pass)
-		{
-			system("cls");
-
-			cout << "Enter new password:\n";
-			cin >> pass;
-
-			system("cls");
-
-			cout << "Repeat the new password:\n";
-			cin >> new_pass;
-
-			if (pass != new_pass)
-			{
-				cout << "Password mismatch";
-				Sleep(2000);
-			}
-		}
-	}
+	cout << "\n \n \n";
 }
-*/
+
+void Box::load_movies_movieClub()
+{
+	vector<Movie> Club;
+	string s;
+	float c;
+	ifstream file;
+	file.open("info//Movie Club.txt");
+	while (!file.eof())
+	{
+		getline(file, s);
+		int i = 1;
+		string name;
+		do
+		{
+			name.push_back(s.at(i));
+			i++;
+		} while (s.at(i) != '\"');
+		c = string_to_int(s.substr(i + 2, s.length()));
+		Movie temp(name, c);
+		Club.push_back(temp);
+	}
+	file.close();
+	movieClub = Club;
+}
+
 float Box::moneySpent()/* const*/{
 	float totalCost = 0;
 
@@ -117,7 +107,8 @@ bool Box::createdChannel(string &n){
 			return false;
 		}
 	}
-	Channel new_channel = Channel(n);				// Isto dá erro
+	
+	Channel new_channel(n);	// Isto dá erro
 	channels.push_back(new_channel);
 	saveChannels(channels);
 	return true;

@@ -4,6 +4,7 @@
 #include<iostream>
 #include<vector>
 #include<string>
+#include<iomanip>
 
 #include "Date.h"
 #include "Channel.h"
@@ -35,6 +36,8 @@ public:
   float moneySpent()/* const*/;
   int timesWhatched(string &title)/* const*/;
   bool changePassword(string np);         // ask, verify and change the password
+  void show_movies_movieClub();
+  void load_movies_movieClub();
   // Channel CRUD
   bool createdChannel(string &n);
   bool removeChannel(string &n);

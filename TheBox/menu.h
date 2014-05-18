@@ -23,6 +23,8 @@ void start_menu();
 
 void movieclub_menu();
 
+void movieclub_menu_neverSeen();
+
 void tv_menu();
 
 void advanced_menu1();

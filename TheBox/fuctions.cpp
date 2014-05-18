@@ -1,5 +1,5 @@
 #include "fuctions.h"
-
+#include "menu.h"
 
 
 
@@ -53,6 +53,12 @@ string LoadPassword()
 	return pass;
 }
 
-void loadConfigs(){
 
+float string_to_int(string s)
+{
+	float d = std::stof(s);
+	return d;
+}
+
+void loadConfigs(){
 }
