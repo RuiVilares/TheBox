@@ -38,11 +38,13 @@ public:
   bool changePassword(string np);         // ask, verify and change the password
   void show_movies_movieClub();
   void load_movies_movieClub();
+
   // Channel CRUD
   bool createdChannel(string &n);
   bool removeChannel(string &n);
-  bool updateChannel();
+  bool updateChannel(string &channel_name);
   // Program CRUD
+  int searchProgram(string &program_name);
   bool createdProgram(string &channel);
   bool removeProgram();
   bool updateProgram();
