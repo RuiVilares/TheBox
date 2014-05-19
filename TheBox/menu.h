@@ -25,6 +25,10 @@ void movieclub_menu();
 
 void movieclub_menu_neverSeen();
 
+void movieclub_menu_seen();
+
+void movieclub_menu_totalCost();
+
 void tv_menu();
 
 void advanced_menu1();

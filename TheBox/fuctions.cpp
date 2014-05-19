@@ -54,9 +54,15 @@ string LoadPassword()
 }
 
 
-float string_to_int(string s)
+float string_to_float(string s)
 {
 	float d = std::stof(s);
+	return d;
+}
+
+int string_to_int(string s)
+{
+	int d = std::stoi(s);
 	return d;
 }
 

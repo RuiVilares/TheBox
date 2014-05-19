@@ -17,12 +17,18 @@
 using namespace std;
 
 
-Movie::Movie(string &t, /*string type,*/ float &c){
+Movie::Movie(const string &t, /*string type,*/ float c){
 	title = t;
 	cost = c;
 	timesRented = 0;
 }
 
+Movie::Movie(const string &n, float c, int t)
+{
+	title = n;
+	cost = c;
+	timesRented = t;
+}
 
 // Data member mutators
 void Movie::setTitle(string &t){

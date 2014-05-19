@@ -33,7 +33,9 @@ void saveChannels(vector<Channel> &channels);
 
 string LoadPassword();
 
-float string_to_int(string s);
+float string_to_float(string s);
+
+int string_to_int(string s);
 
 void loadConfigs();
 

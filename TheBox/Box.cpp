@@ -37,10 +37,22 @@ bool Box::changePassword(string np){
 
 void Box::show_movies_movieClub()
 {
-	cout << "NAME" << setw(35) << "COST" << endl;
+	cout << "NAME" << setw(40) << "COST (EUR)" << endl;
 	for (int i = 0; i < movieClub.size(); i++)
 	{
 		cout << movieClub.at(i).getTitle() << setw(40 - movieClub.at(i).getTitle().length()) << movieClub.at(i).getCost() << endl;
+	}
+	cout << "\n \n \n";
+}
+
+
+void Box::show_movies_seen()
+{
+	cout << "NAME" << setw(40) << "COST (EUR)" << setw(20) << "TIMES WATCHED" << endl;
+	for (int i = 0; i < seenMovies.size(); i++)
+	{
+		cout << seenMovies.at(i).getTitle() << setw(40 - seenMovies.at(i).getTitle().length()) << seenMovies.at(i).getCost();
+		cout << setw(15) << seenMovies.at(i).getTimesRented() << endl;
 	}
 	cout << "\n \n \n";
 }
@@ -52,30 +64,69 @@ void Box::load_movies_movieClub()
 	float c;
 	ifstream file;
 	file.open("info//Movie Club.txt");
-	while (!file.eof())
+	if (!file.fail())
 	{
-		getline(file, s);
-		int i = 1;
-		string name;
-		do
+		while (!file.eof())
 		{
-			name.push_back(s.at(i));
-			i++;
-		} while (s.at(i) != '\"');
-		c = string_to_int(s.substr(i + 2, s.length()));
-		Movie temp(name, c);
-		Club.push_back(temp);
+			getline(file, s);
+			int i = 1;
+			string name;
+			do
+			{
+				name.push_back(s.at(i));
+				i++;
+			} while (s.at(i) != '\"');
+			c = string_to_float(s.substr(i + 2, s.length()));
+			Movie temp(name, c);
+			Club.push_back(temp);
+		}
+		file.close();
 	}
-	file.close();
 	movieClub = Club;
 }
 
-float Box::moneySpent()/* const*/{
+void Box::load_movies_seen()
+{
+	vector<Movie> Seen;
+	string s;
+	float c;
+	int t;
+	ifstream file;
+	file.open("info//Seen Movies.txt");
+	if (!file.fail())
+	{
+		while (!file.eof())
+		{
+			getline(file, s);
+			int i = 1;
+			string name, aux;
+			do
+			{
+				name.push_back(s.at(i));
+				i++;
+			} while (s.at(i) != '\"');
+			i+=2;
+			do
+			{
+				aux.push_back(s.at(i));
+				i++;
+			} while (s.at(i) != ' ');
+			c = string_to_float(aux);
+			t = string_to_int(s.substr(i + 1, s.length()));
+			Movie temp(name, c, t);
+			Seen.push_back(temp);
+		}
+		file.close();
+	}
+	seenMovies = Seen;
+}
+
+float Box::moneySpent(){
 	float totalCost = 0;
 
 	for (int i = 0; i < seenMovies.size(); i++)
 	{
-		totalCost = totalCost + seenMovies[i].getCost();
+		totalCost = totalCost + seenMovies[i].getCost()*seenMovies[i].getTimesRented();
 	}
 	return totalCost;
 }

@@ -27,6 +27,7 @@ void welcome()
 	cout <<  "   \\ V  V /  __/ | (_| (_) | | | | | |  __/" << endl;
 	cout <<  "    \\_/\\_/ \\___|_|\\___\\___/|_| |_| |_|\\___|" << endl << endl << endl;
 	box.load_movies_movieClub();
+	box.load_movies_seen();
 }
 
 void goodbye()
@@ -85,9 +86,9 @@ void movieclub_menu()
 	if (yourchoice == 2)
 		movieclub_menu_neverSeen();
 	if (yourchoice == 3)
-		ListPreviouslySeen();
+		movieclub_menu_seen();
 	if (yourchoice == 4)
-		MoneySpent();
+		movieclub_menu_totalCost();
 	if (yourchoice == 5)
 		start_menu();
 }
@@ -134,6 +135,86 @@ void movieclub_menu_neverSeen()
 
 }
 
+void movieclub_menu_seen()
+{
+	int yourchoice;
+	bool valid = false;
+	system("CLS");
+	cout << "  __  __            _             _       _     " << endl;
+	cout << " |  \\/  | _____   _(_) ___    ___| |_   _| |__  " << endl;
+	cout << " | |\\/| |/ _ \\ \\ / / |/ _ \\  / __| | | | | '_ \\ " << endl;
+	cout << " | |  | | (_) \\ V /| |  __/ | (__| | |_| | |_) |" << endl;
+	cout << " |_|  |_|\\___/ \\_/ |_|\\___|  \\___|_|\\__,_|_.__/ " << endl << endl << endl;
+	cout << "\t \t List of movies previously seen" << endl << endl;
+	box.show_movies_seen();
+	cout << "1. Rent a movie" << endl;
+	cout << "2. Return" << endl << endl;
+	do
+	{
+		cout << "Choose one of those options: ";
+		cin >> yourchoice;
+		if (yourchoice >= 1 && yourchoice <= 2)
+			valid = true;
+		else
+
+		{
+			if (cin.fail())
+			{
+				cin.clear();
+				cin.ignore(1000, '\n');
+
+			}
+			cout << endl << "Invalid option" << endl << endl;
+			Sleep(1000);
+			movieclub_menu_seen();
+		}
+	} while (!valid);
+
+	if (yourchoice == 1)
+		RentMovie();
+	if (yourchoice == 2)
+		movieclub_menu();
+
+}
+
+void movieclub_menu_totalCost()
+{
+	int yourchoice;
+	bool valid = false;
+	system("CLS");
+	cout << "  __  __            _             _       _     " << endl;
+	cout << " |  \\/  | _____   _(_) ___    ___| |_   _| |__  " << endl;
+	cout << " | |\\/| |/ _ \\ \\ / / |/ _ \\  / __| | | | | '_ \\ " << endl;
+	cout << " | |  | | (_) \\ V /| |  __/ | (__| | |_| | |_) |" << endl;
+	cout << " |_|  |_|\\___/ \\_/ |_|\\___|  \\___|_|\\__,_|_.__/ " << endl << endl << endl;
+	cout << "\t \t Money spent in watching movies" << endl << endl << endl << endl;
+	cout << "You already spent: EUR " << box.moneySpent() << endl << endl << endl << endl << endl;
+	cout << "1. Return" << endl << endl;
+	do
+	{
+		cout << "Choose one of those options: ";
+		cin >> yourchoice;
+		if (yourchoice == 1)
+			valid = true;
+		else
+
+		{
+			if (cin.fail())
+			{
+				cin.clear();
+				cin.ignore(1000, '\n');
+
+			}
+			cout << endl << "Invalid option" << endl << endl;
+			Sleep(1000);
+			movieclub_menu_totalCost();
+		}
+	} while (!valid);
+
+	if (yourchoice == 1)
+		movieclub_menu();
+
+}
 
 void tv_menu()
 {

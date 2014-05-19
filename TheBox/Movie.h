@@ -13,7 +13,8 @@ private:
   unsigned timesRented;
   /*string type;*/
 public:
-  Movie(string &t, /*string type,*/ float &c);
+  Movie(const string &t, /*string type,*/ float c);
+  Movie(const string &n, float c, int t);
   // Data member mutators
   void setTitle(string &t);
   void setCost(float &c);

@@ -38,6 +38,9 @@ public:
   bool changePassword(string np);         // ask, verify and change the password
   void show_movies_movieClub();
   void load_movies_movieClub();
+  void show_movies_seen();
+  void load_movies_seen();
+
 
   // Channel CRUD
   bool createdChannel(string &n);
