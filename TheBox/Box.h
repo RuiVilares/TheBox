@@ -54,7 +54,10 @@ public:
   bool removeChannel(string &n);
   bool updateChannel(string &channel_name);
   // Program CRUD
+  bool checkProgramDate(Date new_program_date, int duration);
   int searchProgram(string &program_name);
+
+
   bool createdProgram(string &channel);
   bool removeProgram();
   bool updateProgram();

@@ -251,6 +251,27 @@ bool Box::updateChannel(string &channel_name){
 
 
 // Program CRUD
+bool Box::checkProgramDate(Date new_program_date, int duration){
+	for (int i = 0; i < recordList.size(); i++)
+	{
+		Date program_date = recordList[i].getDate();
+
+		int begin_new_program, end_new_program;			//Valor dos minutos a que começa o programa durante a semana. O inicio da contagem é à meia noite de domingo.
+		begin_new_program = (new_program_date.getInt(new_program_date.getDay()) - 1) * 24 * 60 + new_program_date.getHour() * 60 + new_program_date.getMinutes();
+		end_new_program = begin_new_program + duration;
+
+		int begin_program, end_program;
+
+		begin_program = (recordList[i].getDate.getInt(recordList[i].getDate.getDay()) - 1) * 24 * 60 + recordList[i].getDate.getHour() * 60 + recordList[i].getDate.getMinutes();
+		end_program = begin_program + recordList[i].getDuration();
+
+		if ((begin_program < begin_new_program && end_program > begin_new_program) || (begin_program < end_new_program && end_program > end_new_program))
+		{
+			return false;
+		}
+	}
+	return true;
+}
 
 
 int Box::searchProgram(string &program_name){					// Se encontrar o programa na lista de programas, retorna a posição do programa no vetor, senão retorna -1
@@ -265,6 +286,7 @@ int Box::searchProgram(string &program_name){					// Se encontrar o programa na 
 }
 
 
+<<<<<<< HEAD
 //bool Box::createdProgram(string &channel){
 //	string new_program;
 //	cout << "|||| CREATE PROGRAM ||||";
@@ -458,3 +480,180 @@ void Box::removeMovie()
 	}
 }
 
+=======
+bool Box::createdProgram(string &channel){
+	string new_program;
+	cout << "|||| CREATE PROGRAM ||||";
+	cout << endl << "Program name:\n";
+	cin >> new_program;
+	while (-1 != searchProgram(new_program))
+	{
+		system("cls");
+		cout << "|||| CREATE PROGRAM ||||";
+		cout << endl << "This name is already in use by another program\n Enter another name:\n";
+		cin >> new_program;
+
+	}
+
+	system("cls");
+	int duration, hour, min;
+	string type, day;
+
+
+
+
+	/////////////////////////////////////////////
+	// VERIFICAR A COMPATIBILIDADE DE HORÁRIOS //
+	//										   //
+	/////////////////////////////////////////////
+
+
+	Date new_program_date = Date();
+
+
+
+
+	do
+	{
+		cout << "Insert the programs:\n";
+		//INSERIR DURACAO
+		cout << "Duration(in minutes): ";
+		cin >> duration;
+		while (cin.fail() || duration < 1)
+		{
+			cin.clear();
+			cin.ignore(10000, '\n');
+			cout << "Wrong format. Please insert a number equal or bigger then 1: ";
+			cin >> duration;
+		}
+
+
+		//INSERIR HORA INÍCIO
+
+		cout << "\nStarting hour: "; cin >> hour;
+		while (cin.fail() || hour > 23 || hour < 0)
+		{
+			cin.clear();
+			cin.ignore(10000, '\n');
+			cout << "Wrong format. Please insert a number between 0 and 23: ";
+			cin >> hour;
+		}
+
+
+		// INSERIR MINUTOS
+		cout << "minutes: "; cin >> min;
+		while (cin.fail() || min > 59 || min < 0)
+		{
+			cin.clear();
+			cin.ignore(10000, '\n');
+			cout << "Wrong format. Please insert a number between 0 and 59: ";
+			cin >> min;
+		}
+
+
+		// INSERIR DIA DA SEMANA
+		int option;
+		cout << "Choose a day of the week:\n1.Sunday\n2.Monday\n3.Tuesday\n4.Wednesday\n5.Thursday\n6.Friday\n7.Saturday\n";
+		cin >> option;
+
+		while (cin.fail())
+		{
+			cin.clear();
+			cin.ignore(10000, '\n');
+			cout << "Option mismatch. Please choose a number between 1 and 7: ";
+			cin >> option;
+		}
+		bool repeat;
+		do
+		{
+			repeat = false;
+			switch (option)
+			{
+			case 1:
+				day = "Sunday";
+				break;
+			case 2:
+				day = "Monday";
+				break;
+			case 3:
+				day = "Tuesday";
+				break;
+			case 4:
+				day = "Wednesday";
+				break;
+			case 5:
+				day = "Thursday";
+				break;
+			case 6:
+				day = "Friday";
+				break;
+			case 7:
+				day = "Saturday";
+				break;
+			default:
+				repeat = true;
+				cout << "Option mismatch. Please choose a number between 1 and 7: ";
+				cin >> option;
+				while (cin.fail())
+				{
+					cin.clear();
+					cin.ignore(10000, '\n');
+					cout << "Option mismatch. Please choose a number between 1 and 7: ";
+					cin >> option;
+				}
+				break;
+			}
+		} while (repeat);
+
+		new_program_date.setDay(day);
+
+		if (!checkProgramDate)
+		{
+			system("cls");
+			cout << "|||| CREATE PROGRAM ||||";
+			cout << endl << "Error. The exhibitio time matches the exhibition time of an already existing program.\nPlease enter different values\n";
+		}
+
+
+	} while (checkProgramDate(new_program_date, duration));
+
+
+	// ADICIONAR TIPO DE PROGRAMA
+
+	cout << "Program Type: ";
+	cin.clear();
+	cin.ignore(1000, '\n');
+	cin >> type;
+
+
+	// ADICIONAR RECORDED
+
+	bool recorded;
+
+	int begin_new_program = (new_program_date.getInt(new_program_date.getDay()) - 1) * 24 * 60 + new_program_date.getHour() * 60 + new_program_date.getMinutes();
+	int current_date_min = (currentDate.getInt(currentDate.getDay()) - 1) * 24 * 60 + currentDate.getHour() * 60 + currentDate.getMinutes();
+	if (begin_new_program > current_date_min)
+	{
+		recorded = false;
+	}
+	else
+	{
+		recorded = true;
+	}
+
+
+	Program add_program = Program(new_program, duration, type, recorded, day, hour, min);
+
+
+
+
+	for (int i = 0; i < channels.size(); i++)
+	{
+		if (channel == channels[i].getName())
+		{
+			channels[i].addProgram(new_program, duration, type, recorded, day, hour, min);
+			recordList.push_back(add_program);
+		}
+	}
+}
+>>>>>>> 8a68509fef09c6ba70d849d678350f43ceff0ed8
