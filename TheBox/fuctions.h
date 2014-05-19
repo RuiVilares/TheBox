@@ -37,6 +37,8 @@ float string_to_float(string s);
 
 int string_to_int(string s);
 
+string string_to_upper(string s);
+
 void loadConfigs();
 
 #endif

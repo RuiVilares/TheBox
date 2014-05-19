@@ -131,19 +131,52 @@ float Box::moneySpent(){
 	return totalCost;
 }
 
-int Box::timesWhatched(string &title)/* const*/{
+bool Box::Whatched(const string &title){
 	for (int i = 0; i < seenMovies.size(); i++)
 	{
-		if (title == movieClub[i].getTitle())
+		if (string_to_upper(title) == string_to_upper(seenMovies[i].getTitle()))
 		{
-			return movieClub[i].getTimesRented();
+			return true;
+		}
+	}
+	return false;
+}
+
+void Box::show_timesWhatched(const string &title){
+	for (int i = 0; i < seenMovies.size(); i++)
+	{
+		if (string_to_upper(title) == string_to_upper(seenMovies[i].getTitle()))
+		{
+			cout << "NAME" << setw(40) << "COST (EUR)" << setw(20) << "TIMES WATCHED" << endl;
+			cout << seenMovies.at(i).getTitle() << setw(40 - seenMovies.at(i).getTitle().length()) << seenMovies.at(i).getCost();
+			cout << setw(15) << seenMovies.at(i).getTimesRented() << endl;
+			break;
 		}
 	}
 }
 
+bool Box::exist_in_movieClub(const string &title){
+	for (int i = 0; i < movieClub.size(); i++)
+	{
+		if (string_to_upper(title) == string_to_upper(movieClub[i].getTitle()))
+		{
+			return true;
+		}
+	}
+	return false;
+}
 
 
 
+vector<Movie> Box::GetSeenMovies()
+{
+	return seenMovies;
+}
+
+vector<Movie> Box::GetmovieClub()
+{
+	return movieClub;
+}
 
 
 

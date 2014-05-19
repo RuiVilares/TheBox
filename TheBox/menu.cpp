@@ -45,8 +45,8 @@ void goodbye()
 
 void movieclub_menu()
 {
-	int yourchoice;
 	bool valid = false;
+	int yourchoice;
 	system("CLS");
 	cout << "  __  __            _             _       _     " << endl;
 	cout << " |  \\/  | _____   _(_) ___    ___| |_   _| |__  " << endl;
@@ -55,15 +55,16 @@ void movieclub_menu()
 	cout << " |_|  |_|\\___/ \\_/ |_|\\___|  \\___|_|\\__,_|_.__/ " << endl << endl << endl;
 	
 	cout << "1. Rent a movie" << endl;
-	cout << "2. List of movies never seen" << endl;
-	cout << "3. List of movies previously seen" << endl;
-	cout << "4. Money spent in watching movies" << endl;
-	cout << "5. Return" << endl << endl;
+	cout << "2. Number of times a movie has been watched" << endl;
+	cout << "3. List of movies never seen" << endl;
+	cout << "4. List of movies previously seen" << endl;
+	cout << "5. Money spent in watching movies" << endl;
+	cout << "6. Return" << endl << endl;
 	do
 	{
 		cout << "Choose one of those options: ";
 		cin >> yourchoice;
-		if (yourchoice >= 1 && yourchoice <= 5)
+		if (yourchoice >= 1 && yourchoice <= 6)
 			valid = true;
 		else
 			
@@ -84,13 +85,72 @@ void movieclub_menu()
 	if (yourchoice == 1)
 		RentMovie();
 	if (yourchoice == 2)
-		movieclub_menu_neverSeen();
+		movieclub_menu_timesWatched();
 	if (yourchoice == 3)
-		movieclub_menu_seen();
+		movieclub_menu_neverSeen();
 	if (yourchoice == 4)
-		movieclub_menu_totalCost();
+		movieclub_menu_seen();
 	if (yourchoice == 5)
+		movieclub_menu_totalCost();
+	if (yourchoice == 6)
 		start_menu();
+}
+
+void movieclub_menu_timesWatched()
+{
+	int yourchoice;
+	bool valid = false;
+	string name;
+	system("CLS");
+	cout << "  __  __            _             _       _     " << endl;
+	cout << " |  \\/  | _____   _(_) ___    ___| |_   _| |__  " << endl;
+	cout << " | |\\/| |/ _ \\ \\ / / |/ _ \\  / __| | | | | '_ \\ " << endl;
+	cout << " | |  | | (_) \\ V /| |  __/ | (__| | |_| | |_) |" << endl;
+	cout << " |_|  |_|\\___/ \\_/ |_|\\___|  \\___|_|\\__,_|_.__/ " << endl << endl << endl;
+	cout << "\t \t Number of times a movie has been watched" << endl << endl << endl << endl;
+	cout << "Insert a movie's name: ";
+	cin.clear();
+	cin.ignore();
+	getline(cin, name);
+	cout << endl << endl;
+	if (box.Whatched(name))
+	{
+		cout << endl;
+		box.show_timesWhatched(name);
+		cout << endl << endl;
+	}
+	else
+	{
+		if (box.exist_in_movieClub(name))
+			cout << "\"" << name << "\"" << " exists in the Movieclub, but it was never seen." << endl << endl << endl;
+		else
+			cout << "\"" << name << "\"" << " doesn't exist." << endl << endl << endl;
+			
+	}
+	cout << "1. Return" << endl << endl;
+	do
+	{
+		cout << "Choose one of those options: ";
+		cin >> yourchoice;
+		if (yourchoice == 1)
+			valid = true;
+		else
+
+		{
+			if (cin.fail())
+			{
+				cin.clear();
+				cin.ignore(1000, '\n');
+
+			}
+			cout << endl << "Invalid option" << endl << endl;
+			Sleep(1000);
+			movieclub_menu_timesWatched();
+		}
+	} while (!valid);
+
+	if (yourchoice == 1)
+		movieclub_menu();
 }
 
 void movieclub_menu_neverSeen()

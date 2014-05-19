@@ -66,5 +66,12 @@ int string_to_int(string s)
 	return d;
 }
 
+string string_to_upper(string s)
+{
+	for (size_t i = 0; i<s.length(); i++)
+		s[i] = toupper(s[i]);
+	return s;
+}
+
 void loadConfigs(){
 }

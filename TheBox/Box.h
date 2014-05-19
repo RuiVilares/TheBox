@@ -32,14 +32,21 @@ public:
   vector<Program> listByDay(string day) const;
   vector<Program> listByChannel(string  channel, string day) const;
   vector<Program> listByType(string  type, string day) const;
-  bool rentMovies(string &title);
-  float moneySpent()/* const*/;
-  int timesWhatched(string &title)/* const*/;
+  
+ //Password
   bool changePassword(string np);         // ask, verify and change the password
+  //Movies
+  bool rentMovies(string &title);
+  float moneySpent();
+  void show_timesWhatched(const string &title);
+  bool Whatched(const string &title);
+  bool exist_in_movieClub(const string &title);
   void show_movies_movieClub();
   void load_movies_movieClub();
   void show_movies_seen();
   void load_movies_seen();
+  vector<Movie> GetSeenMovies();
+  vector<Movie> GetmovieClub();
 
 
   // Channel CRUD
