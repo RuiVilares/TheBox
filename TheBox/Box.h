@@ -36,7 +36,7 @@ public:
  //Password
   bool changePassword(string np);         // ask, verify and change the password
   //Movies
-  bool rentMovies(string &title);
+  void rentMovies(const string &title);
   float moneySpent();
   void show_timesWhatched(const string &title);
   bool Whatched(const string &title);

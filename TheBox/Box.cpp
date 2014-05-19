@@ -16,17 +16,35 @@ string Box::GetPassword()
 	return password;
 }
 
-bool Box::rentMovies(string &title){
+void Box::rentMovies(const string &title){
+	bool mfound = false, sfound = false;
 	for (int i = 0; i < movieClub.size(); i++)
 	{
-		if (title == movieClub[i].getTitle())
+		if (string_to_upper(title) == string_to_upper(movieClub[i].getTitle()))
 		{
+			mfound = true;
+			movieClub[i].addTimesRented();
 			seenMovies.push_back(movieClub[i]);
 			movieClub.erase(movieClub.begin() + i);
-			return true;
+			cout << "The movie \"" << seenMovies[seenMovies.size() - 1].getTitle() << "\" was rent by the MovieClub.";
+			cout << endl << endl << endl << endl;
+			break;
 		}
 	}
-	return false;
+	if (!mfound)
+		for (int i = 0; i < seenMovies.size(); i++)
+		{
+			if (string_to_upper(title) == string_to_upper(seenMovies[i].getTitle()))
+			{
+				sfound = true;
+				seenMovies[i].addTimesRented();
+				cout << "The movie \"" << seenMovies[i].getTitle() << "\" was rent again.";
+				cout << endl << endl << endl << endl;
+				break;
+			}
+		}
+		if (!mfound && !sfound)
+			cout << "The movie \"" << title << "\"" << " doesn't exist." << endl << endl << endl << endl;
 }
 
 bool Box::changePassword(string np){

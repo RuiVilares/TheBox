@@ -83,7 +83,7 @@ void movieclub_menu()
 	while (!valid);
 	
 	if (yourchoice == 1)
-		RentMovie();
+		movieclub_menu_RentMovie();
 	if (yourchoice == 2)
 		movieclub_menu_timesWatched();
 	if (yourchoice == 3)
@@ -94,6 +94,53 @@ void movieclub_menu()
 		movieclub_menu_totalCost();
 	if (yourchoice == 6)
 		start_menu();
+}
+
+void movieclub_menu_RentMovie()
+{
+	int yourchoice;
+	bool valid = false;
+	string name;
+	system("CLS");
+	cout << "  __  __            _             _       _     " << endl;
+	cout << " |  \\/  | _____   _(_) ___    ___| |_   _| |__  " << endl;
+	cout << " | |\\/| |/ _ \\ \\ / / |/ _ \\  / __| | | | | '_ \\ " << endl;
+	cout << " | |  | | (_) \\ V /| |  __/ | (__| | |_| | |_) |" << endl;
+	cout << " |_|  |_|\\___/ \\_/ |_|\\___|  \\___|_|\\__,_|_.__/ " << endl << endl << endl;
+	cout << "\t \t Rent a movie" << endl << endl << endl << endl;
+	cout << "Insert a movie's name: ";
+	cin.clear();
+	cin.ignore();
+	getline(cin, name);
+	cout << endl << endl;
+	box.rentMovies(name);
+	cout << "1. Refresh" << endl;
+	cout << "2. Return" << endl << endl;
+	do
+	{
+		cout << "Choose one of those options: ";
+		cin >> yourchoice;
+		if (yourchoice >= 1 && yourchoice <= 2)
+			valid = true;
+		else
+
+		{
+			if (cin.fail())
+			{
+				cin.clear();
+				cin.ignore(1000, '\n');
+
+			}
+			cout << endl << "Invalid option" << endl << endl;
+			Sleep(1000);
+			movieclub_menu_timesWatched();
+		}
+	} while (!valid);
+
+	if (yourchoice == 1)
+		movieclub_menu_RentMovie();
+	if (yourchoice == 2)
+		movieclub_menu();
 }
 
 void movieclub_menu_timesWatched()
@@ -122,17 +169,18 @@ void movieclub_menu_timesWatched()
 	else
 	{
 		if (box.exist_in_movieClub(name))
-			cout << "\"" << name << "\"" << " exists in the Movieclub, but it was never seen." << endl << endl << endl;
+			cout <<  "The movie \"" << name << "\"" << " exists in the Movieclub, but it was never seen." << endl << endl << endl;
 		else
-			cout << "\"" << name << "\"" << " doesn't exist." << endl << endl << endl;
+			cout << "The movie \"" << name << "\"" << " doesn't exist." << endl << endl << endl;
 			
 	}
-	cout << "1. Return" << endl << endl;
+	cout << "1. Refresh" << endl;
+	cout << "2. Return" << endl << endl;
 	do
 	{
 		cout << "Choose one of those options: ";
 		cin >> yourchoice;
-		if (yourchoice == 1)
+		if (yourchoice >= 1 && yourchoice <= 2)
 			valid = true;
 		else
 
@@ -150,6 +198,8 @@ void movieclub_menu_timesWatched()
 	} while (!valid);
 
 	if (yourchoice == 1)
+		movieclub_menu_timesWatched();
+	if (yourchoice == 2)
 		movieclub_menu();
 }
 
@@ -249,12 +299,13 @@ void movieclub_menu_totalCost()
 	cout << " |_|  |_|\\___/ \\_/ |_|\\___|  \\___|_|\\__,_|_.__/ " << endl << endl << endl;
 	cout << "\t \t Money spent in watching movies" << endl << endl << endl << endl;
 	cout << "You already spent: EUR " << box.moneySpent() << endl << endl << endl << endl << endl;
-	cout << "1. Return" << endl << endl;
+	cout << "1. Start Menu" << endl;
+	cout << "2. Return" << endl << endl;
 	do
 	{
 		cout << "Choose one of those options: ";
 		cin >> yourchoice;
-		if (yourchoice == 1)
+		if (yourchoice >= 1 && yourchoice <= 2)
 			valid = true;
 		else
 
@@ -272,6 +323,8 @@ void movieclub_menu_totalCost()
 	} while (!valid);
 
 	if (yourchoice == 1)
+		start_menu();
+	if (yourchoice == 2)
 		movieclub_menu();
 
 }

@@ -23,6 +23,8 @@ void start_menu();
 
 void movieclub_menu();
 
+void movieclub_menu_RentMovie();
+
 void movieclub_menu_timesWatched();
 
 void movieclub_menu_neverSeen();

@@ -18,6 +18,7 @@ public:
   // Data member mutators
   void setTitle(string &t);
   void setCost(float &c);
+  void setTimesRented(int t);
   void addTimesRented();
   // Data member accessors
   string getTitle();

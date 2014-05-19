@@ -38,6 +38,10 @@ void Movie::setCost(float &c){
 	cost = c;
 }
 
+void Movie::setTimesRented(int t){
+	timesRented = t;
+}
+
 void Movie::addTimesRented(){
 	timesRented++;
 }
