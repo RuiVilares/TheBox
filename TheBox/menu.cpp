@@ -711,15 +711,14 @@ void advanced_menu_movies()
 	cout << " /_/   \\_\\__,_| \\_/ \\__,_|_| |_|\\___\\___|\\__,_|" << endl << endl;
 	cout << "\t \t Movies advanced options" << endl <<  endl;
 	cout << "1. Create" << endl;
-	cout << "2. Read" << endl;
-	cout << "3. Update" << endl;
-	cout << "4. Delete" << endl;
-	cout << "5. Return" << endl << endl;
+	cout << "2. Update" << endl;
+	cout << "3. Delete" << endl;
+	cout << "4. Return" << endl << endl;
 	do
 	{
 		cout << "Choose one of those options: ";
 		cin >> yourchoice;
-		if (yourchoice >= 1 && yourchoice <= 5)
+		if (yourchoice >= 1 && yourchoice <= 4)
 			valid = true;
 		else
 		{
@@ -736,16 +735,98 @@ void advanced_menu_movies()
 	} 
 	while (!valid);
 	
-	if (yourchoice == 1);
-		//Completar
+	if (yourchoice == 1)
+		advanced_menu_movies_create();
 	if (yourchoice == 2);
 		//Completar
-	if (yourchoice == 3);
-		//Completar
-	if (yourchoice == 4);
-		//Completar
-	if (yourchoice == 5)
+	if (yourchoice == 3)
+		advanced_menu_movies_remove();
+	if (yourchoice == 4)
 		advanced_menu2();
+	
+		
+}
+
+void advanced_menu_movies_create()
+{
+	int yourchoice;
+	bool valid = false;
+	system("CLS");
+	cout << "     _       _                               _ " << endl;
+	cout << "    / \\   __| |_   ____ _ _ __   ___ ___  __| |" << endl;
+	cout << "   / _ \\ / _` \\ \\ / / _` | '_ \\ / __/ _ \\/ _` |" << endl;
+	cout << "  / ___ \\ (_| |\\ V / (_| | | | | (_|  __/ (_| |" << endl;
+	cout << " /_/   \\_\\__,_| \\_/ \\__,_|_| |_|\\___\\___|\\__,_|" << endl << endl;
+	cout << "\t \t Create a movie" << endl << endl;
+	box.createMovie();
+	cout << "1. Refresh" << endl;
+	cout << "2. Return" << endl << endl;
+	do
+	{
+		cout << "Choose one of those options: ";
+		cin >> yourchoice;
+		if (yourchoice >= 1 && yourchoice <= 2)
+			valid = true;
+		else
+		{
+			if (cin.fail())
+			{
+				cin.clear();
+				cin.ignore(1000, '\n');
+
+			}
+			cout << endl << "Invalid option" << endl << endl;
+			Sleep(1000);
+			advanced_menu_movies();
+		}
+	} while (!valid);
+
+	if (yourchoice == 1)
+		advanced_menu_movies_create();
+	if (yourchoice == 2)
+		advanced_menu_movies();
+
+}
+
+void advanced_menu_movies_remove()
+{
+	int yourchoice;
+	bool valid = false;
+	system("CLS");
+	cout << "     _       _                               _ " << endl;
+	cout << "    / \\   __| |_   ____ _ _ __   ___ ___  __| |" << endl;
+	cout << "   / _ \\ / _` \\ \\ / / _` | '_ \\ / __/ _ \\/ _` |" << endl;
+	cout << "  / ___ \\ (_| |\\ V / (_| | | | | (_|  __/ (_| |" << endl;
+	cout << " /_/   \\_\\__,_| \\_/ \\__,_|_| |_|\\___\\___|\\__,_|" << endl << endl;
+	cout << "\t \t Remove a movie" << endl << endl;
+	box.removeMovie();
+	cout << "1. Refresh" << endl;
+	cout << "2. Return" << endl << endl;
+	do
+	{
+		cout << "Choose one of those options: ";
+		cin >> yourchoice;
+		if (yourchoice >= 1 && yourchoice <= 2)
+			valid = true;
+		else
+		{
+			if (cin.fail())
+			{
+				cin.clear();
+				cin.ignore(1000, '\n');
+
+			}
+			cout << endl << "Invalid option" << endl << endl;
+			Sleep(1000);
+			advanced_menu_movies();
+		}
+	} while (!valid);
+
+	if (yourchoice == 1)
+		advanced_menu_movies_remove();
+	if (yourchoice == 2)
+		advanced_menu_movies();
+
 }
 
 

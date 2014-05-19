@@ -59,9 +59,9 @@ public:
   bool removeProgram();
   bool updateProgram();
   // Movie CRUD
-  bool createdMovie();
-  bool removeMovie();
-  bool updateMovie();
+  void createMovie();
+  void removeMovie();
+  void updateMovie();
 
 };
 

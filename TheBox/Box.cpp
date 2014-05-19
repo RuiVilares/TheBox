@@ -16,6 +16,13 @@ string Box::GetPassword()
 	return password;
 }
 
+
+bool Box::changePassword(string np){
+	password = np;
+	return true;
+}
+
+
 void Box::rentMovies(const string &title){
 	bool mfound = false, sfound = false;
 	for (int i = 0; i < movieClub.size(); i++)
@@ -32,26 +39,20 @@ void Box::rentMovies(const string &title){
 		}
 	}
 	if (!mfound)
-		for (int i = 0; i < seenMovies.size(); i++)
+	for (int i = 0; i < seenMovies.size(); i++)
+	{
+		if (string_to_upper(title) == string_to_upper(seenMovies[i].getTitle()))
 		{
-			if (string_to_upper(title) == string_to_upper(seenMovies[i].getTitle()))
-			{
-				sfound = true;
-				seenMovies[i].addTimesRented();
-				cout << "The movie \"" << seenMovies[i].getTitle() << "\" was rent again.";
-				cout << endl << endl << endl << endl;
-				break;
-			}
+			sfound = true;
+			seenMovies[i].addTimesRented();
+			cout << "The movie \"" << seenMovies[i].getTitle() << "\" was rent again.";
+			cout << endl << endl << endl << endl;
+			break;
 		}
-		if (!mfound && !sfound)
-			cout << "The movie \"" << title << "\"" << " doesn't exist." << endl << endl << endl << endl;
+	}
+	if (!mfound && !sfound)
+		cout << "The movie \"" << title << "\"" << " doesn't exist." << endl << endl << endl << endl;
 }
-
-bool Box::changePassword(string np){
-	password = np;
-	return true;
-}
-
 
 void Box::show_movies_movieClub()
 {
@@ -371,4 +372,89 @@ int Box::searchProgram(string &program_name){					// Se encontrar o programa na 
 //			channels[i].addProgram();
 //		}
 //	}
-//}
+//}*/
+
+// MOVIE CRDU 
+void Box::createMovie()
+{
+	string name;
+	bool valid=false;
+	float cost;
+	cout << "Insert a movie's name: ";
+	cin.clear();
+	cin.ignore();
+	getline(cin, name);
+	if (!exist_in_movieClub(name) && !Whatched(name))
+	{
+		do
+		{
+			cout << "Insert a movie's cost (EUR): ";
+			cin >> cost;
+			if (cost >= 0)
+				valid = true;
+			else
+
+			{
+				if (cin.fail())
+				{
+					cin.clear();
+					cin.ignore(1000, '\n');
+
+				}
+			}
+		} while (!valid);
+		Movie temp(name, cost);
+		movieClub.push_back(temp);
+		cout << endl << endl << "The movie \"" << name << "\" which costs " << cost << " (EUR), was successfully created." << endl << endl << endl;
+	}
+	else
+	{
+		if (exist_in_movieClub(name) || Whatched(name))
+			cout << endl << endl << "The movie \"" << name << "\" already exists." << endl << endl << endl;
+		else
+			cout << endl << endl << "Invalid Option." << endl << endl << endl;
+	}
+}
+
+void Box::removeMovie()
+{
+	string name;
+	bool valid = false;
+	float cost;
+	cout << "Insert a movie's name: ";
+	cin.clear();
+	cin.ignore();
+	getline(cin, name);
+	cout << endl << endl;
+	if (!exist_in_movieClub(name) && !Whatched(name))
+		cout << "The movie \"" << name << "\" doesn't exist." << endl << endl << endl;
+	else
+	{
+		if (exist_in_movieClub(name))
+		{
+			for (int i = 0; i < movieClub.size(); i++)
+			{
+				if (string_to_upper(name) == string_to_upper(movieClub[i].getTitle()))
+				{
+					cout << "The movie \"" << movieClub[i].getTitle() << "\" was successfully removed by the Movieclub." << endl << endl << endl;
+					movieClub.erase(movieClub.begin() + i);
+					break;
+				}
+			}
+		}
+		else
+		{
+			for (int i = 0; i < seenMovies.size(); i++)
+			{
+				if (string_to_upper(name) == string_to_upper(seenMovies[i].getTitle()))
+				{
+					cout << "The movie \"" << seenMovies[i].getTitle() << "\" was successfully removed by the list of movies previously seen." << endl << endl << endl;
+					seenMovies.erase(seenMovies.begin() + i);
+					break;
+				}
+			}
+		}
+
+	}
+}
+
