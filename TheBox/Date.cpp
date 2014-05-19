@@ -3,15 +3,17 @@
 
 Date::Date()
 {
-	
+	weekDay = "Sunday";
+	hour = 0;
+	minutes = 0;
 }
 
 
 Date::Date(string day, unsigned h, unsigned m)
 {
-	day = weekDay;
-	h = hour;
-	m = minutes;
+	weekDay = day;
+	hour = h;
+	minutes = m;
 }
 
 //-----------------------------------------------
