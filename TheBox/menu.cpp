@@ -239,7 +239,7 @@ void movieclub_menu_neverSeen()
 	} while (!valid);
 
 	if (yourchoice == 1)
-		RentMovie();
+		movieclub_menu_RentMovie();
 	if (yourchoice == 2)
 		movieclub_menu();
 
@@ -281,7 +281,7 @@ void movieclub_menu_seen()
 	} while (!valid);
 
 	if (yourchoice == 1)
-		RentMovie();
+		movieclub_menu_RentMovie();
 	if (yourchoice == 2)
 		movieclub_menu();
 
@@ -737,8 +737,8 @@ void advanced_menu_movies()
 	
 	if (yourchoice == 1)
 		advanced_menu_movies_create();
-	if (yourchoice == 2);
-		//Completar
+	if (yourchoice == 2)
+		advanced_menu_movies_update1();
 	if (yourchoice == 3)
 		advanced_menu_movies_remove();
 	if (yourchoice == 4)
@@ -783,6 +783,155 @@ void advanced_menu_movies_create()
 
 	if (yourchoice == 1)
 		advanced_menu_movies_create();
+	if (yourchoice == 2)
+		advanced_menu_movies();
+
+}
+
+void advanced_menu_movies_update1()
+{
+	string name;
+	int yourchoice;
+	bool valid = false;
+	system("CLS");
+	cout << "     _       _                               _ " << endl;
+	cout << "    / \\   __| |_   ____ _ _ __   ___ ___  __| |" << endl;
+	cout << "   / _ \\ / _` \\ \\ / / _` | '_ \\ / __/ _ \\/ _` |" << endl;
+	cout << "  / ___ \\ (_| |\\ V / (_| | | | | (_|  __/ (_| |" << endl;
+	cout << " /_/   \\_\\__,_| \\_/ \\__,_|_| |_|\\___\\___|\\__,_|" << endl << endl;
+	cout << "\t \t Update a movie" << endl << endl;
+	cout << "Insert a movie's name: ";
+	cin.clear();
+	cin.ignore();
+	getline(cin, name);
+	cout << endl << endl;
+	if (!box.exist_in_movieClub(name) && !box.Whatched(name))
+	{
+		cout << "The movie \"" << name << "\" doesn't exist." << endl << endl << endl;
+		cout << "1. Refresh" << endl;
+		cout << "2. Return" << endl << endl;
+		do
+		{
+			cout << "Choose one of those options: ";
+			cin >> yourchoice;
+			if (yourchoice >= 1 && yourchoice <= 2)
+				valid = true;
+			else
+			{
+				if (cin.fail())
+				{
+					cin.clear();
+					cin.ignore(1000, '\n');
+
+				}
+				cout << endl << "Invalid option" << endl << endl;
+				Sleep(1000);
+				advanced_menu_movies();
+			}
+		} while (!valid);
+
+		if (yourchoice == 1)
+			advanced_menu_movies_update1();
+		if (yourchoice == 2)
+			advanced_menu_movies();
+	}
+	else
+	{
+		if (box.exist_in_movieClub(name))
+		{
+			cout << "The movie \"" << name << "\" exists in the Movieclub." << endl << endl << endl;
+			cout << "1. Set title of the movie" << endl;
+			cout << "2. Set cost of its rental" << endl;
+			cout << "3. Return" << endl << endl;
+			do
+			{
+				cout << "Choose one of those options: ";
+				cin >> yourchoice;
+				if (yourchoice >= 1 && yourchoice <= 3)
+					valid = true;
+				else
+				{
+					if (cin.fail())
+					{
+						cin.clear();
+						cin.ignore(1000, '\n');
+
+					}
+					cout << endl << "Invalid option" << endl << endl;
+					Sleep(1000);
+					advanced_menu_movies();
+				}
+			} while (!valid);
+
+			if (yourchoice == 1)
+				box.updateMovie(1, name);
+			if (yourchoice == 2)
+				box.updateMovie(2, name);
+			if (yourchoice == 3)
+				advanced_menu_movies();
+		}
+		else
+		{
+			cout << "The movie \"" << name << "\" exists in the list of movies previously seen." << endl << endl << endl;
+			cout << "1. Set title of the movie" << endl;
+			cout << "2. Set cost of its rental" << endl;
+			cout << "3. Set number of times the movie was rented" << endl;
+			cout << "4. Return" << endl << endl;
+			do
+			{
+				cout << "Choose one of those options: ";
+				cin >> yourchoice;
+				if (yourchoice >= 1 && yourchoice <= 4)
+					valid = true;
+				else
+				{
+					if (cin.fail())
+					{
+						cin.clear();
+						cin.ignore(1000, '\n');
+
+					}
+					cout << endl << "Invalid option" << endl << endl;
+					Sleep(1000);
+					advanced_menu_movies();
+				}
+			} while (!valid);
+
+			if (yourchoice == 1)
+				box.updateMovie(3, name);
+			if (yourchoice == 2)
+				box.updateMovie(4, name);
+			if (yourchoice == 3)
+				box.updateMovie(5, name);
+			if (yourchoice == 4)
+				advanced_menu_movies();
+		}
+		
+	}
+	cout << "1. Refresh" << endl;
+	cout << "2. Return" << endl << endl;
+	do
+	{
+		cout << "Choose one of those options: ";
+		cin >> yourchoice;
+		if (yourchoice >= 1 && yourchoice <= 2)
+			valid = true;
+		else
+		{
+			if (cin.fail())
+			{
+				cin.clear();
+				cin.ignore(1000, '\n');
+
+			}
+			cout << endl << "Invalid option" << endl << endl;
+			Sleep(1000);
+			advanced_menu_movies();
+		}
+	} while (!valid);
+
+	if (yourchoice == 1)
+		advanced_menu_movies_remove();
 	if (yourchoice == 2)
 		advanced_menu_movies();
 

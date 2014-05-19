@@ -262,7 +262,7 @@ bool Box::checkProgramDate(Date new_program_date, int duration){
 
 		int begin_program, end_program;
 
-		begin_program = (recordList[i].getDate.getInt(recordList[i].getDate.getDay()) - 1) * 24 * 60 + recordList[i].getDate.getHour() * 60 + recordList[i].getDate.getMinutes();
+		begin_program = (recordList[i].getDate().getInt(recordList[i].getDate().getDay()) - 1) * 24 * 60 + recordList[i].getDate().getHour() * 60 + recordList[i].getDate().getMinutes();
 		end_program = begin_program + recordList[i].getDuration();
 
 		if ((begin_program < begin_new_program && end_program > begin_new_program) || (begin_program < end_new_program && end_program > end_new_program))
@@ -286,7 +286,6 @@ int Box::searchProgram(string &program_name){					// Se encontrar o programa na 
 }
 
 
-<<<<<<< HEAD
 //bool Box::createdProgram(string &channel){
 //	string new_program;
 //	cout << "|||| CREATE PROGRAM ||||";
@@ -458,7 +457,8 @@ void Box::removeMovie()
 			{
 				if (string_to_upper(name) == string_to_upper(movieClub[i].getTitle()))
 				{
-					cout << "The movie \"" << movieClub[i].getTitle() << "\" was successfully removed by the Movieclub." << endl << endl << endl;
+					cout << "The movie \"" << movieClub[i].getTitle() << "\" was successfully";
+					cout << " removed by the Movieclub." << endl << endl << endl;
 					movieClub.erase(movieClub.begin() + i);
 					break;
 				}
@@ -470,7 +470,8 @@ void Box::removeMovie()
 			{
 				if (string_to_upper(name) == string_to_upper(seenMovies[i].getTitle()))
 				{
-					cout << "The movie \"" << seenMovies[i].getTitle() << "\" was successfully removed by the list of movies previously seen." << endl << endl << endl;
+					cout << "The movie \"" << seenMovies[i].getTitle() << "\" was successfully";
+					cout << " removed by the list of movies previously seen." << endl << endl << endl;
 					seenMovies.erase(seenMovies.begin() + i);
 					break;
 				}
@@ -480,7 +481,110 @@ void Box::removeMovie()
 	}
 }
 
-=======
+void Box::updateMovie(int i, string name)
+{
+	cin.clear();
+	cin.ignore();
+	if (i == 1)
+	{
+		string aux;
+		for (int i = 0; i < movieClub.size(); i++)
+		{
+			if (string_to_upper(name) == string_to_upper(movieClub[i].getTitle()))
+			{
+				cout << "Insert a new title to this movie: ";
+				getline(cin, aux);
+				cout << endl << endl << "The title of the movie \"" << movieClub[i].getTitle() << "\"";
+				cout << " was change to \"" << aux << "\"";
+				movieClub[i].setTitle(aux);
+				break;
+			}
+		}
+	}
+	if (i == 2)
+	{
+		float aux;
+		for (int i = 0; i < movieClub.size(); i++)
+		{
+			if (string_to_upper(name) == string_to_upper(movieClub[i].getTitle()))
+			{
+				cout << "Insert a new cost to this movie: ";
+				do
+				{
+					cin >> aux;
+				} while (aux < 0);
+				cout << endl << endl << "The movie \"" << movieClub[i].getTitle() << "\"";
+				cout << " was change it's rent cost from " << movieClub[i].getCost() << " (EUR) to " << aux << "(EUR).";
+				movieClub[i].setCost(aux);
+				break;
+			}
+		}
+	}
+	if (i == 3)
+	{
+		string aux;
+		for (int i = 0; i < seenMovies.size(); i++)
+		{
+			if (string_to_upper(name) == string_to_upper(seenMovies[i].getTitle()))
+			{
+				cout << "Insert a new title to this movie: ";
+				getline(cin, aux);
+				cout << endl << endl << "The title of the movie \"" << seenMovies[i].getTitle() << "\"";
+				cout << " was change to \"" << aux << "\"";
+				seenMovies[i].setTitle(aux);
+				break;
+			}
+		}
+	}
+	if (i == 4)
+	{
+		float aux;
+		for (int i = 0; i < seenMovies.size(); i++)
+		{
+			if (string_to_upper(name) == string_to_upper(seenMovies[i].getTitle()))
+			{
+				cout << "Insert a new cost to this movie: ";
+				do
+				{
+					cin >> aux;
+				} while (aux<0);
+				cout << endl << endl << "The movie \"" << seenMovies[i].getTitle() << "\"";
+				cout << " was change it's rent cost from " << seenMovies[i].getCost() << " (EUR) to " << aux << "(EUR).";
+				seenMovies[i].setCost(aux);
+				break;
+			}
+		}
+	}
+	if (i == 5)
+	{
+		int aux;
+		for (int i = 0; i < seenMovies.size(); i++)
+		{
+			if (string_to_upper(name) == string_to_upper(seenMovies[i].getTitle()))
+			{
+				cout << "Insert a new number of times the movie was rent: ";
+				do
+				{
+					cin >> aux;
+				} while (aux < 0);
+				cout << endl << endl << "The movie \"" << seenMovies[i].getTitle() << "\"";
+				cout << " was change it's number of times that it was rent from " << seenMovies[i].getTimesRented() << endl;
+				cout << " to " << aux << ".";
+				if (aux == 0)
+				{
+					Movie temp(seenMovies[i].getTitle(), seenMovies[i].getCost());
+					seenMovies.erase(seenMovies.begin() + i);
+					movieClub.push_back(temp);
+				}
+				else
+					seenMovies[i].setTimesRented(aux);
+				break;
+			}
+		}
+	}
+	cout << endl << endl << endl;
+}
+
 bool Box::createdProgram(string &channel){
 	string new_program;
 	cout << "|||| CREATE PROGRAM ||||";
@@ -606,7 +710,7 @@ bool Box::createdProgram(string &channel){
 		} while (repeat);
 
 		new_program_date.setDay(day);
-
+		/*
 		if (!checkProgramDate)
 		{
 			system("cls");
@@ -614,7 +718,7 @@ bool Box::createdProgram(string &channel){
 			cout << endl << "Error. The exhibitio time matches the exhibition time of an already existing program.\nPlease enter different values\n";
 		}
 
-
+		*/
 	} while (checkProgramDate(new_program_date, duration));
 
 
@@ -655,5 +759,6 @@ bool Box::createdProgram(string &channel){
 			recordList.push_back(add_program);
 		}
 	}
+	return true;
 }
->>>>>>> 8a68509fef09c6ba70d849d678350f43ceff0ed8
+

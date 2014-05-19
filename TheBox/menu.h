@@ -53,6 +53,8 @@ void advanced_menu_movies();
 
 void advanced_menu_movies_create();
 
+void advanced_menu_movies_update1();
+
 void advanced_menu_movies_remove();
 
 void endprogram_menu();

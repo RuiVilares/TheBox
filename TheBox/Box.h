@@ -5,6 +5,7 @@
 #include<vector>
 #include<string>
 #include<iomanip>
+#include<stdlib.h>
 
 #include "Date.h"
 #include "Channel.h"
@@ -64,7 +65,7 @@ public:
   // Movie CRUD
   void createMovie();
   void removeMovie();
-  void updateMovie();
+  void updateMovie(int i, string name);
 
 };
 
