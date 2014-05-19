@@ -1,60 +1,9 @@
-﻿Build started 18/05/2014 23:07:32.
-     1>Project "C:\Users\Rui Vilares\Documents\GitHub\TheBox\TheBox\TheBox.vcxproj" on node 2 (Build target(s)).
-     1>ClCompile:
-         C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\CL.exe /c /ZI /nologo /W3 /WX- /sdl /Od /Oy- /D WIN32 /D _DEBUG /D _CONSOLE /D _UNICODE /D UNICODE /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo"Debug\\" /Fd"Debug\vc120.pdb" /Gd /TP /analyze- /errorReport:prompt Box.cpp Channel.cpp Date.cpp Movie.cpp Program.cpp fuctions.cpp main.cpp menu.cpp
-         menu.cpp
-     1>c:\users\rui vilares\documents\github\thebox\thebox\menu.cpp(8): warning C4244: 'argument' : conversion from 'time_t' to 'unsigned int', possible loss of data
-     1>c:\users\rui vilares\documents\github\thebox\thebox\menu.cpp(351): warning C4101: 'yourchoice' : unreferenced local variable
-     1>c:\users\rui vilares\documents\github\thebox\thebox\menu.cpp(449): warning C4390: ';' : empty controlled statement found; is this the intent?
-     1>c:\users\rui vilares\documents\github\thebox\thebox\menu.cpp(451): warning C4390: ';' : empty controlled statement found; is this the intent?
-     1>c:\users\rui vilares\documents\github\thebox\thebox\menu.cpp(453): warning C4390: ';' : empty controlled statement found; is this the intent?
-     1>c:\users\rui vilares\documents\github\thebox\thebox\menu.cpp(455): warning C4390: ';' : empty controlled statement found; is this the intent?
-     1>c:\users\rui vilares\documents\github\thebox\thebox\menu.cpp(498): warning C4390: ';' : empty controlled statement found; is this the intent?
-     1>c:\users\rui vilares\documents\github\thebox\thebox\menu.cpp(500): warning C4390: ';' : empty controlled statement found; is this the intent?
-     1>c:\users\rui vilares\documents\github\thebox\thebox\menu.cpp(502): warning C4390: ';' : empty controlled statement found; is this the intent?
-     1>c:\users\rui vilares\documents\github\thebox\thebox\menu.cpp(504): warning C4390: ';' : empty controlled statement found; is this the intent?
-     1>c:\users\rui vilares\documents\github\thebox\thebox\menu.cpp(547): warning C4390: ';' : empty controlled statement found; is this the intent?
-     1>c:\users\rui vilares\documents\github\thebox\thebox\menu.cpp(549): warning C4390: ';' : empty controlled statement found; is this the intent?
-     1>c:\users\rui vilares\documents\github\thebox\thebox\menu.cpp(551): warning C4390: ';' : empty controlled statement found; is this the intent?
-     1>c:\users\rui vilares\documents\github\thebox\thebox\menu.cpp(553): warning C4390: ';' : empty controlled statement found; is this the intent?
-     1>c:\users\rui vilares\documents\github\thebox\thebox\menu.cpp(567): warning C4129: '_' : unrecognized character escape sequence
-         main.cpp
-         fuctions.cpp
-     1>c:\users\rui vilares\documents\github\thebox\thebox\fuctions.cpp(30): warning C4018: '<' : signed/unsigned mismatch
-     1>c:\users\rui vilares\documents\github\thebox\thebox\fuctions.cpp(38): warning C4018: '<' : signed/unsigned mismatch
-         Program.cpp
-         Movie.cpp
-         Date.cpp
-     1>c:\users\rui vilares\documents\github\thebox\thebox\date.cpp(130): warning C4553: '==' : operator has no effect; did you intend '='?
-     1>c:\users\rui vilares\documents\github\thebox\thebox\date.cpp(132): warning C4553: '==' : operator has no effect; did you intend '='?
-     1>c:\users\rui vilares\documents\github\thebox\thebox\date.cpp(134): warning C4553: '==' : operator has no effect; did you intend '='?
-     1>c:\users\rui vilares\documents\github\thebox\thebox\date.cpp(136): warning C4553: '==' : operator has no effect; did you intend '='?
-         Channel.cpp
-     1>c:\users\rui vilares\documents\github\thebox\thebox\channel.cpp(32): warning C4018: '<' : signed/unsigned mismatch
-         Box.cpp
-     1>c:\users\rui vilares\documents\github\thebox\thebox\box.cpp(20): warning C4018: '<' : signed/unsigned mismatch
-     1>c:\users\rui vilares\documents\github\thebox\thebox\box.cpp(41): warning C4018: '<' : signed/unsigned mismatch
-     1>c:\users\rui vilares\documents\github\thebox\thebox\box.cpp(76): warning C4018: '<' : signed/unsigned mismatch
-     1>c:\users\rui vilares\documents\github\thebox\thebox\box.cpp(84): warning C4018: '<' : signed/unsigned mismatch
-     1>c:\users\rui vilares\documents\github\thebox\thebox\box.cpp(103): warning C4018: '<' : signed/unsigned mismatch
-     1>c:\users\rui vilares\documents\github\thebox\thebox\box.cpp(120): warning C4018: '<' : signed/unsigned mismatch
-     1>c:\users\rui vilares\documents\github\thebox\thebox\box.cpp(137): warning C4018: '<' : signed/unsigned mismatch
-     1>c:\users\rui vilares\documents\github\thebox\thebox\box.cpp(154): warning C4018: '<' : signed/unsigned mismatch
-         Generating Code...
-     1>c:\users\rui vilares\documents\github\thebox\thebox\box.cpp(91): warning C4715: 'Box::timesWhatched' : not all control paths return a value
-       Link:
-         C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\link.exe /ERRORREPORT:PROMPT /OUT:"C:\Users\Rui Vilares\Documents\GitHub\TheBox\Debug\TheBox.exe" /INCREMENTAL /NOLOGO kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /DEBUG /PDB:"C:\Users\Rui Vilares\Documents\GitHub\TheBox\Debug\TheBox.pdb" /SUBSYSTEM:CONSOLE /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"C:\Users\Rui Vilares\Documents\GitHub\TheBox\Debug\TheBox.lib" /MACHINE:X86 Debug\Box.obj
-         Debug\Channel.obj
-         Debug\Date.obj
-         Debug\fuctions.obj
-         Debug\main.obj
-         Debug\menu.obj
-         Debug\Movie.obj
-         Debug\Program.obj
-         LINK : C:\Users\Rui Vilares\Documents\GitHub\TheBox\Debug\TheBox.exe not found or not built by the last incremental link; performing full link
-         TheBox.vcxproj -> C:\Users\Rui Vilares\Documents\GitHub\TheBox\Debug\TheBox.exe
-     1>Done Building Project "C:\Users\Rui Vilares\Documents\GitHub\TheBox\TheBox\TheBox.vcxproj" (Build target(s)).
+﻿Build started 19/05/2014 16:26:22.
+     1>Project "C:\Users\Duarte\Documents\GitHub\TheBox\TheBox\TheBox.vcxproj" on node 2 (Build target(s)).
+     1>Link:
+         TheBox.vcxproj -> C:\Users\Duarte\Documents\GitHub\TheBox\Debug\TheBox.exe
+     1>Done Building Project "C:\Users\Duarte\Documents\GitHub\TheBox\TheBox\TheBox.vcxproj" (Build target(s)).
 
 Build succeeded.
 
-Time Elapsed 00:00:08.77
+Time Elapsed 00:00:00.07
