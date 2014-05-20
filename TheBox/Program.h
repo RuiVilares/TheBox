@@ -24,7 +24,7 @@ class Program{
   void setDuration(int &dur);
   void setDate(string &d, int &h, int &min);
   void setType(string &t);
-  void setRecord(bool &state);
+  void setRecord(bool state);
 
   // Data member accessors
   string getName();

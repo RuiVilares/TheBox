@@ -29,7 +29,6 @@ void ListPreviouslySeen();
 
 void MoneySpent();
 
-void saveChannels(vector<Channel> &channels);
 
 string LoadPassword();
 

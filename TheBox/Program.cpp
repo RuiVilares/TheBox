@@ -39,7 +39,7 @@ void Program::setDate(string &d, int &h, int &min){
 	exhibitionDate = Date(d, h, min);
 }
 
-void Program::setRecord(bool &state){
+void Program::setRecord(bool state){
 	recorded = state;
 }
 

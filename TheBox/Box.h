@@ -49,6 +49,8 @@ public:
   vector<Movie> GetSeenMovies();
   vector<Movie> GetmovieClub();
 
+  //Channels
+  void saveChannels();
 
   // Channel CRUD
   bool createdChannel(string &n);
@@ -60,8 +62,8 @@ public:
 
 
   bool createdProgram(string &channel);
-  bool removeProgram();
-  bool updateProgram();
+  bool removeProgram(string &channel, string &program);
+  bool updateProgram(string &channel, string &program);
   // Movie CRUD
   void createMovie();
   void removeMovie();
