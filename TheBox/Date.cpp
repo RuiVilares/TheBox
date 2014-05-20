@@ -85,7 +85,18 @@ void Date::setMinutes(unsigned int m)
 
  void Date::show()
  {
-	 cout << weekDay << " " << hour << ":" /*<< minutes;*/;
+	 cout << weekDay << " ";
+	 
+	 if (hour < 10)
+	 {
+		 cout << 0 << hour;
+	 }
+	 else
+	 {
+		 cout << hour;
+	 }
+
+	 cout <<  ":";
 
 	 if (minutes < 10)
 	 {

@@ -24,16 +24,16 @@ private:
   vector<Movie> movieClub;
   vector<Movie> seenMovies;
   vector<Program> recordList;
-  //  vector<Program> recorded;    // removed in the final version of the work text
+  vector<Program> recorded;    // removed in the final version of the work text
 
 public:
-  Date Box::GetCurrentDate(Box box);
+  Date Box::GetCurrentDate();
   string Box::GetPassword();
   Box(string passwd, Date currentDate);
   vector<Program> listByDay(string day) const;
   vector<Program> listByChannel(string  channel, string day) const;
   vector<Program> listByType(string  type, string day) const;
-  
+  void saveInfo();
  //Password
   bool changePassword(string np);         // ask, verify and change the password
   //Movies
@@ -46,8 +46,10 @@ public:
   void load_movies_movieClub();
   void show_movies_seen();
   void load_movies_seen();
-  vector<Movie> GetSeenMovies();
-  vector<Movie> GetmovieClub();
+  void save_movies();
+
+  //Television
+  void SetProgramRecorded();
 
   //Channels
   void saveChannels();

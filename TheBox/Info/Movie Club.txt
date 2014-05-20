@@ -1,7 +1,6 @@
-"The Shawshank Redemption" 1.50
+"The Shawshank Redemption" 1.5
 "The Godfather" 2.31
 "The DarkKnight" 5.98
 "Schindler's List" 2.01
-"Inception" 1.95
 "Goodfellas" 4.32
 "The Matrix" 9.98

@@ -35,6 +35,8 @@ void movieclub_menu_totalCost();
 
 void tv_menu();
 
+void tv_menu_setprogram();
+
 void advanced_menu1();
 
 void advanced_menu2();

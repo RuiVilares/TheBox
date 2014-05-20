@@ -40,6 +40,8 @@ void goodbye()
 	cout << " | |_| | (_) | (_) | (_| | |_) | |_| |  __/" << endl;
 	cout << "  \\____|\\___/ \\___/ \\__,_|_.__/ \\__, |\\___|" << endl;
 	cout << "                                |___/      " << endl << endl << endl;
+	box.save_movies();
+	box.saveInfo();
 	exit(0);
 }
 
@@ -339,15 +341,20 @@ void tv_menu()
 	cout << "   | |/ _ \\ |/ _ \\ \\ / / / __| |/ _ \\| '_ \\ " << endl;
 	cout << "   | |  __/ |  __/\\ V /| \\__ \\ | (_) | | | |" << endl;
 	cout << "   |_|\\___|_|\\___| \\_/ |_|___/_|\\___/|_| |_|" << endl << endl << endl;
-	cout << "1. List the programs by day" << endl;
-	cout << "2. List the programs by channel" << endl;
-	cout << "3. List the programs by type of program" << endl;
-	cout << "4. Return" << endl << endl;
+	cout << "1. Set a program to be recorded" << endl;
+	cout << "2. Remove a program to be recorded" << endl;
+	cout << "3. Remove a program already recorded" << endl;
+	cout << "4. List the programs to be recorded" << endl;
+	cout << "5. List the programs already recorded" << endl;
+	cout << "6. List the programs by day" << endl;
+	cout << "7. List the programs by channel" << endl;
+	cout << "8. List the programs by type of program" << endl;
+	cout << "9. Return" << endl << endl;
 	do
 	{
 		cout << "Choose one of those options: ";
 		cin >> yourchoice;
-		if (yourchoice >= 1 && yourchoice <= 5)
+		if (yourchoice >= 1 && yourchoice <= 9)
 			valid = true;
 		else
 		{
@@ -365,12 +372,62 @@ void tv_menu()
 	while (!valid);
 	
 	if (yourchoice == 1)
-		ListbyDay();
+		tv_menu_setprogram();
 	if (yourchoice == 2)
-		ListbyChannel();
+		start_menu();
 	if (yourchoice == 3)
-		ListbyType();
+		start_menu();
 	if (yourchoice == 4)
+		start_menu();
+	if (yourchoice == 5)
+		start_menu();
+	if (yourchoice == 6)
+		start_menu();
+	if (yourchoice == 7)
+		start_menu();
+	if (yourchoice == 8)
+		start_menu();
+	if (yourchoice == 9)
+		start_menu();
+}
+
+void tv_menu_setprogram()
+{
+	int yourchoice;
+	bool valid = false;
+	system("CLS");
+	cout << "  _____    _            _     _             " << endl;
+	cout << " |_   _|__| | _____   _(_)___(_) ___  _ __  " << endl;
+	cout << "   | |/ _ \\ |/ _ \\ \\ / / / __| |/ _ \\| '_ \\ " << endl;
+	cout << "   | |  __/ |  __/\\ V /| \\__ \\ | (_) | | | |" << endl;
+	cout << "   |_|\\___|_|\\___| \\_/ |_|___/_|\\___/|_| |_|" << endl << endl << endl;
+	cout << "\t \t Set a program to be recorded" << endl << endl;
+	box.SetProgramRecorded();
+	cout << "1. Refresh" << endl;
+	cout << "2. Return"  << endl << endl;
+	do
+	{
+		cout << "Choose one of those options: ";
+		cin >> yourchoice;
+		if (yourchoice >= 1 && yourchoice <= 2)
+			valid = true;
+		else
+		{
+			if (cin.fail())
+			{
+				cin.clear();
+				cin.ignore(1000, '\n');
+
+			}
+			cout << endl << "Invalid option" << endl << endl;
+			Sleep(1000);
+			start_menu();
+		}
+	} while (!valid);
+
+	if (yourchoice == 1)
+		tv_menu_setprogram();
+	if (yourchoice == 2)
 		start_menu();
 }
 
@@ -931,7 +988,7 @@ void advanced_menu_movies_update1()
 	} while (!valid);
 
 	if (yourchoice == 1)
-		advanced_menu_movies_remove();
+		advanced_menu_movies_update1();
 	if (yourchoice == 2)
 		advanced_menu_movies();
 
@@ -1032,7 +1089,7 @@ void start_menu()
 	cout << " \\___ \\| __/ _` | '__| __| | |\\/| |/ _ \\ '_ \\| | | |" << endl;
 	cout << "  ___) | || (_| | |  | |_  | |  | |  __/ | | | |_| |" << endl;
 	cout << " |____/ \\__\\__,_|_|   \\__| |_|  |_|\\___|_| |_|\\__,_|" << endl << '\t' << '\t' << '\t' << '\t';// << endl << endl;
-	box.GetCurrentDate(box).show();
+	box.GetCurrentDate().show();
 	cout << endl << endl;
 	cout << "1. Movieclube" << endl;
 	cout << "2. Television" << endl;

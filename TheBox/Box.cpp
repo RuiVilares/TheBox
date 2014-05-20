@@ -6,9 +6,9 @@ Box::Box(string passwd, Date date):currentDate(date){
 }
 
 
-Date Box::GetCurrentDate(Box box)
+Date Box::GetCurrentDate()
 {
-	return box.currentDate;
+	return currentDate;
 }
 
 string Box::GetPassword()
@@ -21,6 +21,8 @@ bool Box::changePassword(string np){
 	password = np;
 	return true;
 }
+
+
 
 
 void Box::rentMovies(const string &title){
@@ -186,17 +188,49 @@ bool Box::exist_in_movieClub(const string &title){
 }
 
 
-
-vector<Movie> Box::GetSeenMovies()
+void Box::save_movies()
 {
-	return seenMovies;
+	string s;
+	float c;
+	int t;
+	ofstream mfile, sfile;
+	mfile.open("info//Seen Movies.txt");
+	sfile.open("info//Movie Club.txt");
+	mfile.clear();
+	sfile.clear();
+	if (seenMovies.size() > 0)
+	{
+		mfile << "\"" << seenMovies[0].getTitle() << "\" " << seenMovies[0].getCost() << " " << seenMovies[0].getTimesRented();
+		for (int i = 1; i < seenMovies.size(); i++)
+		{
+			mfile << endl << "\"" << seenMovies[i].getTitle() << "\" " << seenMovies[i].getCost() << " " << seenMovies[i].getTimesRented();
+		}
+	}
+	if (movieClub.size() > 0)
+	{
+		sfile << "\"" << movieClub[0].getTitle() << "\" " << movieClub[0].getCost();
+		for (int i = 1; i < movieClub.size(); i++)
+		{
+			sfile << endl << "\"" << movieClub[i].getTitle() << "\" " << movieClub[i].getCost();
+		}
+	}
+	mfile.close();
+	sfile.close();
 }
 
-vector<Movie> Box::GetmovieClub()
+void Box::saveInfo()
 {
-	return movieClub;
+	ofstream file;
+	file.open("info//General Information.txt");
+	file.clear();
+	file << password << endl;
+	file << channels.size() << endl;
+	file << movieClub.size() << endl;
+	file << seenMovies.size() << endl;
+	file << recorded.size() << endl;
+	file << recordList.size();
+	file.close();
 }
-
 
 void Box::saveChannels(){
 	ofstream channels_file;
@@ -235,6 +269,52 @@ void Box::saveChannels(){
 
 
 
+void Box::SetProgramRecorded()
+{
+	bool valid = false;
+	string name;
+	int aux=-1;
+	int i = 0;
+	cout << "Insert a Program's name: ";
+	cin.clear();
+	cin.ignore();
+	getline(cin, name);
+	cout << endl << endl << endl;
+	for (i; i < channels.size(); i++)
+	{
+		aux = searchProgram(string_to_upper(name), channels[i]);
+		if (aux >= 0)
+		{
+			break;
+		}
+	}
+
+	if (aux >= 0)
+	{
+		if (channels[i].getPrograms()[aux].getState())
+		{
+			cout << "The program \"" << channels[i].getPrograms()[aux].getName();
+			cout << "\", from the channel \"" << channels[i].getName() << "\", has been requested to be record." << endl << endl;
+		}
+		else
+		{
+			if (compDates(GetCurrentDate(), channels[i].getPrograms()[aux].getDate()))
+			{
+				cout << "The program \"" << channels[i].getPrograms()[aux].getName();
+				cout << "\", from the channel \"" << channels[i].getName() << "\", was sucefully set to be recorded." << endl << endl << endl << endl;
+				channels[i].getPrograms()[aux].setRecord(true);
+				recordList.push_back(channels[i].getPrograms()[aux]);
+			}
+			else
+			{
+				cout << "The program \"" << channels[i].getPrograms()[aux].getName();
+				cout << "\", from the channel \"" << channels[i].getName() << "\", has been reproduced." << endl << endl << endl << endl;
+			}
+		}
+	}
+	else 
+		cout << "The program \"" << name << "\" doesn't exist." << endl << endl << endl << endl;
+}
 
 
 // Channel CRUD
@@ -319,7 +399,7 @@ int Box::searchProgram(string &program_name, Channel &channel){					// Se encont
 	
 	for (int i = 0; i < channel.getPrograms().size(); i++)
 	{
-		if (channel.getPrograms()[i].getName() == program_name)
+		if (string_to_upper(channel.getPrograms()[i].getName()) == program_name)
 		{
 			return i;
 		}
@@ -328,7 +408,7 @@ int Box::searchProgram(string &program_name, Channel &channel){					// Se encont
 }
 
 
-bool Box::createdProgram(string &channel){
+/*bool Box::createdProgram(string &channel){
 
 
 	Channel * channel_pointer;
@@ -508,6 +588,9 @@ bool Box::createdProgram(string &channel){
 	
 }
 
+*/
+
+
 
 bool Box::removeProgram(string &channel, string &program){
 	char ans;
@@ -536,7 +619,7 @@ bool Box::removeProgram(string &channel, string &program){
 	return false;
 }
 
-
+/*
 bool Box::updateProgram(string &channel, string &program){
 	
 	Program * program_pointer;
@@ -813,6 +896,8 @@ bool Box::updateProgram(string &channel, string &program){
 
 }
 
+*/
+
 // MOVIE CRDU 
 void Box::createMovie()
 {
@@ -903,6 +988,13 @@ void Box::updateMovie(int i, string name)
 {
 	cin.clear();
 	cin.ignore();
+	system("CLS");
+	cout << "     _       _                               _ " << endl;
+	cout << "    / \\   __| |_   ____ _ _ __   ___ ___  __| |" << endl;
+	cout << "   / _ \\ / _` \\ \\ / / _` | '_ \\ / __/ _ \\/ _` |" << endl;
+	cout << "  / ___ \\ (_| |\\ V / (_| | | | | (_|  __/ (_| |" << endl;
+	cout << " /_/   \\_\\__,_| \\_/ \\__,_|_| |_|\\___\\___|\\__,_|" << endl << endl;
+	cout << "\t \t Update a movie" << endl << endl;
 	if (i == 1)
 	{
 		string aux;
@@ -932,7 +1024,7 @@ void Box::updateMovie(int i, string name)
 					cin >> aux;
 				} while (aux < 0);
 				cout << endl << endl << "The movie \"" << movieClub[i].getTitle() << "\"";
-				cout << " was change it's rent cost from " << movieClub[i].getCost() << " (EUR) to " << aux << "(EUR).";
+				cout << " was change it's rent cost from " << movieClub[i].getCost() << " (EUR) to " << aux << " (EUR).";
 				movieClub[i].setCost(aux);
 				break;
 			}
@@ -967,7 +1059,7 @@ void Box::updateMovie(int i, string name)
 					cin >> aux;
 				} while (aux<0);
 				cout << endl << endl << "The movie \"" << seenMovies[i].getTitle() << "\"";
-				cout << " was change it's rent cost from " << seenMovies[i].getCost() << " (EUR) to " << aux << "(EUR).";
+				cout << " was change it's rent cost from " << seenMovies[i].getCost() << " (EUR) to " << aux << " (EUR).";
 				seenMovies[i].setCost(aux);
 				break;
 			}

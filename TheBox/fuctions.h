@@ -18,6 +18,7 @@
 #include "Program.h"
 #include "Movie.h"
 #include "fuctions.h"
+#include "Date.h"
 
 using namespace std;
 
@@ -37,6 +38,8 @@ float string_to_float(string s);
 int string_to_int(string s);
 
 string string_to_upper(string s);
+
+bool compDates(Date d1, Date d2);
 
 void loadConfigs();
 
