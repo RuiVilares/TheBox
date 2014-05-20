@@ -50,6 +50,8 @@ public:
 
   //Television
   void SetProgramRecorded();
+  void RemoveProgramToBeRecorded();
+  void RemoveProgramRecorded();
 
   //Channels
   void saveChannels();

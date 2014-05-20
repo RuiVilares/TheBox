@@ -342,8 +342,8 @@ void tv_menu()
 	cout << "   | |  __/ |  __/\\ V /| \\__ \\ | (_) | | | |" << endl;
 	cout << "   |_|\\___|_|\\___| \\_/ |_|___/_|\\___/|_| |_|" << endl << endl << endl;
 	cout << "1. Set a program to be recorded" << endl;
-	cout << "2. Remove a program to be recorded" << endl;
-	cout << "3. Remove a program already recorded" << endl;
+	cout << "2. Remove a program from the to be recorded's list" << endl;
+	cout << "3. Remove a program from the recorded's list" << endl;
 	cout << "4. List the programs to be recorded" << endl;
 	cout << "5. List the programs already recorded" << endl;
 	cout << "6. List the programs by day" << endl;
@@ -366,7 +366,7 @@ void tv_menu()
 			}
 			cout << endl << "Invalid option" << endl << endl; 
 			Sleep(1000);
-			movieclub_menu();
+			tv_menu();
 		}
 	} 
 	while (!valid);
@@ -374,9 +374,9 @@ void tv_menu()
 	if (yourchoice == 1)
 		tv_menu_setprogram();
 	if (yourchoice == 2)
-		start_menu();
+		tv_menu_removeToBeRecorded();
 	if (yourchoice == 3)
-		start_menu();
+		tv_menu_removeRecorded();
 	if (yourchoice == 4)
 		start_menu();
 	if (yourchoice == 5)
@@ -421,14 +421,94 @@ void tv_menu_setprogram()
 			}
 			cout << endl << "Invalid option" << endl << endl;
 			Sleep(1000);
-			start_menu();
+			tv_menu();
 		}
 	} while (!valid);
 
 	if (yourchoice == 1)
 		tv_menu_setprogram();
 	if (yourchoice == 2)
-		start_menu();
+		tv_menu();
+}
+
+void tv_menu_removeToBeRecorded()
+{
+	int yourchoice;
+	bool valid = false;
+	system("CLS");
+	cout << "  _____    _            _     _             " << endl;
+	cout << " |_   _|__| | _____   _(_)___(_) ___  _ __  " << endl;
+	cout << "   | |/ _ \\ |/ _ \\ \\ / / / __| |/ _ \\| '_ \\ " << endl;
+	cout << "   | |  __/ |  __/\\ V /| \\__ \\ | (_) | | | |" << endl;
+	cout << "   |_|\\___|_|\\___| \\_/ |_|___/_|\\___/|_| |_|" << endl << endl << endl;
+	cout << "\t \t Remove a program from the to be recorded's list" << endl << endl;
+	box.RemoveProgramToBeRecorded();
+	cout << "1. Refresh" << endl;
+	cout << "2. Return" << endl << endl;
+	do
+	{
+		cout << "Choose one of those options: ";
+		cin >> yourchoice;
+		if (yourchoice >= 1 && yourchoice <= 2)
+			valid = true;
+		else
+		{
+			if (cin.fail())
+			{
+				cin.clear();
+				cin.ignore(1000, '\n');
+
+			}
+			cout << endl << "Invalid option" << endl << endl;
+			Sleep(1000);
+			tv_menu();
+		}
+	} while (!valid);
+
+	if (yourchoice == 1)
+		tv_menu_removeToBeRecorded();
+	if (yourchoice == 2)
+		tv_menu();
+}
+
+void tv_menu_removeRecorded()
+{
+	int yourchoice;
+	bool valid = false;
+	system("CLS");
+	cout << "  _____    _            _     _             " << endl;
+	cout << " |_   _|__| | _____   _(_)___(_) ___  _ __  " << endl;
+	cout << "   | |/ _ \\ |/ _ \\ \\ / / / __| |/ _ \\| '_ \\ " << endl;
+	cout << "   | |  __/ |  __/\\ V /| \\__ \\ | (_) | | | |" << endl;
+	cout << "   |_|\\___|_|\\___| \\_/ |_|___/_|\\___/|_| |_|" << endl << endl << endl;
+	cout << "\t \t Remove a program from the recorded's list" << endl << endl;
+	box.RemoveProgramRecorded();
+	cout << "1. Refresh" << endl;
+	cout << "2. Return" << endl << endl;
+	do
+	{
+		cout << "Choose one of those options: ";
+		cin >> yourchoice;
+		if (yourchoice >= 1 && yourchoice <= 2)
+			valid = true;
+		else
+		{
+			if (cin.fail())
+			{
+				cin.clear();
+				cin.ignore(1000, '\n');
+
+			}
+			cout << endl << "Invalid option" << endl << endl;
+			Sleep(1000);
+			tv_menu();
+		}
+	} while (!valid);
+
+	if (yourchoice == 1)
+		tv_menu_removeRecorded();
+	if (yourchoice == 2)
+		tv_menu();
 }
 
 

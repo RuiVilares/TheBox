@@ -271,7 +271,6 @@ void Box::saveChannels(){
 
 void Box::SetProgramRecorded()
 {
-	bool valid = false;
 	string name;
 	int aux=-1;
 	int i = 0;
@@ -294,7 +293,7 @@ void Box::SetProgramRecorded()
 		if (channels[i].getPrograms()[aux].getState())
 		{
 			cout << "The program \"" << channels[i].getPrograms()[aux].getName();
-			cout << "\", from the channel \"" << channels[i].getName() << "\", has been requested to be record." << endl << endl;
+			cout << "\", from the channel \"" << channels[i].getName() << "\", has been requested to be record." << endl << endl << endl << endl;
 		}
 		else
 		{
@@ -313,6 +312,118 @@ void Box::SetProgramRecorded()
 		}
 	}
 	else 
+		cout << "The program \"" << name << "\" doesn't exist." << endl << endl << endl << endl;
+}
+
+void Box::RemoveProgramToBeRecorded()
+{
+	string name;
+	int aux = -1;
+	int i = 0;
+	cout << "Insert a Program's name: ";
+	cin.clear();
+	cin.ignore();
+	getline(cin, name);
+	cout << endl << endl << endl;
+	for (i; i < channels.size(); i++)
+	{
+		aux = searchProgram(string_to_upper(name), channels[i]);
+		if (aux >= 0)
+		{
+			break;
+		}
+	}
+
+	if (aux >= 0)
+	{
+		if (channels[i].getPrograms()[aux].getState())
+		{
+			if (compDates(GetCurrentDate(), channels[i].getPrograms()[aux].getDate()))
+			{
+				cout << "The program \"" << channels[i].getPrograms()[aux].getName();
+				cout << "\", from the channel \"" << channels[i].getName();
+				cout << "\", was sucefully removed from the list of to be recorded programs." << endl << endl << endl << endl;
+				channels[i].getPrograms()[aux].setRecord(false);
+				for (int j = 0; j < recordList.size(); j++)
+				{
+					if (string_to_upper(channels[i].getPrograms()[aux].getName()) == string_to_upper(recordList[j].getName()))
+					{
+						recordList.erase(recordList.begin() + j);
+						break;
+					}
+				}
+			}
+			else
+			{
+				cout << "The program \"" << channels[i].getPrograms()[aux].getName();
+				cout << "\", from the channel \"" << channels[i].getName();
+				cout << "\", is in the list of recorded programs." << endl << endl << endl << endl;
+			}
+		}
+		else
+		{
+			cout << "The program \"" << channels[i].getPrograms()[aux].getName();
+			cout << "\", from the channel \"" << channels[i].getName();
+			cout << "\", isn't in the list of recorded program's nor in the list of to be recorded programs." << endl << endl << endl << endl;
+		}
+	}
+	else
+		cout << "The program \"" << name << "\" doesn't exist." << endl << endl << endl << endl;
+}
+
+void Box::RemoveProgramRecorded()
+{
+	string name;
+	int aux = -1;
+	int i = 0;
+	cout << "Insert a Program's name: ";
+	cin.clear();
+	cin.ignore();
+	getline(cin, name);
+	cout << endl << endl << endl;
+	for (i; i < channels.size(); i++)
+	{
+		aux = searchProgram(string_to_upper(name), channels[i]);
+		if (aux >= 0)
+		{
+			break;
+		}
+	}
+
+	if (aux >= 0)
+	{
+		if (channels[i].getPrograms()[aux].getState())
+		{
+			if (!compDates(GetCurrentDate(), channels[i].getPrograms()[aux].getDate()))
+			{
+				cout << "The program \"" << channels[i].getPrograms()[aux].getName();
+				cout << "\", from the channel \"" << channels[i].getName();
+				cout << "\", was sucefully removed from the list of recorded programs." << endl << endl << endl << endl;
+				channels[i].getPrograms()[aux].setRecord(false);
+				for (int j = 0; j < recorded.size(); j++)
+				{
+					if (string_to_upper(channels[i].getPrograms()[aux].getName()) == string_to_upper(recorded[j].getName()))
+					{
+						recorded.erase(recorded.begin() + j);
+						break;
+					}
+				}
+			}
+			else
+			{
+				cout << "The program \"" << channels[i].getPrograms()[aux].getName();
+				cout << "\", from the channel \"" << channels[i].getName();
+				cout << "\", is in the list of to be recorded programs." << endl << endl << endl << endl;
+			}
+		}
+		else
+		{
+			cout << "The program \"" << channels[i].getPrograms()[aux].getName();
+			cout << "\", from the channel \"" << channels[i].getName();
+			cout << "\", isn't in the list of recorded program's nor in the list of to be recorded programs." << endl << endl << endl << endl;
+		}
+	}
+	else
 		cout << "The program \"" << name << "\" doesn't exist." << endl << endl << endl << endl;
 }
 
