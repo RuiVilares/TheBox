@@ -11,6 +11,7 @@
 #include <algorithm> 
 #include "stdlib.h"
 #include <windows.h>
+#include <conio.h>
 
 
 
@@ -41,6 +42,6 @@ string string_to_upper(string s);
 
 bool compDates(Date d1, Date d2);
 
-void loadConfigs();
+
 
 #endif

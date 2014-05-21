@@ -24,7 +24,7 @@ private:
   vector<Movie> movieClub;
   vector<Movie> seenMovies;
   vector<Program> recordList;
-  vector<Program> recorded;    // removed in the final version of the work text
+  //vector<Program> recorded;    // removed in the final version of the work text
 
 public:
   Date Box::GetCurrentDate();
@@ -42,6 +42,9 @@ public:
   void show_timesWhatched(const string &title);
   bool Whatched(const string &title);
   bool exist_in_movieClub(const string &title);
+
+
+
   void show_movies_movieClub();
   void load_movies_movieClub();
   void show_movies_seen();
@@ -55,6 +58,7 @@ public:
 
   //Channels
   void saveChannels();
+  void loadChannels(int channels_number);
 
   // Channel CRUD
   bool createdChannel(string &n);

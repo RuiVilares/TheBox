@@ -66,5 +66,3 @@ bool compDates(Date d1, Date d2) // true se for passado
 		return false;
 }
 
-void loadConfigs(){
-}

@@ -227,10 +227,12 @@ void Box::saveInfo()
 	file << channels.size() << endl;
 	file << movieClub.size() << endl;
 	file << seenMovies.size() << endl;
-	file << recorded.size() << endl;
+	/*file << recorded.size() << endl;*/
 	file << recordList.size();
 	file.close();
 }
+
+
 
 void Box::saveChannels(){
 	ofstream channels_file;
@@ -267,6 +269,82 @@ void Box::saveChannels(){
 	channels_file.close();
 }
 
+
+void Box::loadChannels(int channels_number){
+	ifstream channels_file;
+	channels_file.open("Info\\Channels.txt");
+
+	for (int i = 0; i < channels_number; i++)
+	{
+		string channel_name;
+		channels_file >> channel_name;
+		Channel new_channel = Channel(channel_name);
+		int program_number;
+		channels_file >> program_number;
+		for (int k = 0; k < program_number; k++)
+		{
+			string name, type, day;
+			int duration, hour, min, state;
+			bool recordState = false;
+			
+			// Add name
+
+			channels_file.ignore(2);
+			
+			do
+			{
+				char name_char;
+				channels_file >> name_char;
+				name.push_back(name_char);
+				if (channels_file.peek()==' ')
+				{
+					name.push_back(' ');
+				}
+			} while (channels_file.peek() != '\"');
+			channels_file.ignore();
+
+			// Add duration
+			channels_file >> duration;
+
+			// Add type
+			channels_file.ignore(2);
+			while (channels_file.peek() != '\"')
+			{
+				char name_char;
+				channels_file >> name_char;
+				type.push_back(name_char);
+			}
+			channels_file.ignore();
+			
+			// Add recordState
+			channels_file >> state;
+			if (state)
+			{
+				recordState = true;
+			}
+
+
+			// Add day
+			channels_file.ignore(2);
+			while (channels_file.peek() != '\"')
+			{
+				char name_char;
+				channels_file >> name_char;
+				day.push_back(name_char);
+			}
+			channels_file.ignore();
+
+			// Add hour and minutes
+			channels_file >> hour >> min;
+
+
+			new_channel.addProgram(name, duration, type, recordState, day, hour, min);
+		}
+
+		channels.push_back(new_channel);
+	}
+
+}
 
 
 void Box::SetProgramRecorded()
@@ -371,9 +449,9 @@ void Box::RemoveProgramToBeRecorded()
 		cout << "The program \"" << name << "\" doesn't exist." << endl << endl << endl << endl;
 }
 
-void Box::RemoveProgramRecorded()
+void Box::RemoveProgramRecorded()					// Comentei porque estava a dar erro e queria ver uma coisa
 {
-	string name;
+	/*string name;
 	int aux = -1;
 	int i = 0;
 	cout << "Insert a Program's name: ";
@@ -424,7 +502,7 @@ void Box::RemoveProgramRecorded()
 		}
 	}
 	else
-		cout << "The program \"" << name << "\" doesn't exist." << endl << endl << endl << endl;
+		cout << "The program \"" << name << "\" doesn't exist." << endl << endl << endl << endl;*/
 }
 
 

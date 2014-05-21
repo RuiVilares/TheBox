@@ -69,6 +69,9 @@ void welcome();
 
 void goodbye();
 
+
+void loadConfigs(Box &box);
+
 void ListbyDay();
 
 void ListbyChannel();

@@ -26,8 +26,8 @@ void welcome()
 	cout <<  "  \\ \\ /\\ / / _ \\ |/ __/ _ \\| '_ ` _ \\ / _ \\" << endl;
 	cout <<  "   \\ V  V /  __/ | (_| (_) | | | | | |  __/" << endl;
 	cout <<  "    \\_/\\_/ \\___|_|\\___\\___/|_| |_| |_|\\___|" << endl << endl << endl;
-	box.load_movies_movieClub();
-	box.load_movies_seen();
+
+	loadConfigs(box);
 }
 
 void goodbye()
@@ -1210,6 +1210,24 @@ void start_menu()
 	if (yourchoice == 4)
 		endprogram_menu();
 	
+}
+
+
+
+//FUNÇÃO LOAD DO PROGRAMA
+
+void loadConfigs(Box &box){
+	ifstream info;
+	info.open("Info\\General Information.txt");
+	string password;
+	int channel_number, movieClub_number, seenMovies_number, recorded_number;
+
+	info >> password >> channel_number >> movieClub_number >> seenMovies_number >> recorded_number;
+	info.close();
+
+	box.loadChannels(channel_number);
+	box.load_movies_movieClub();
+	box.load_movies_seen();
 }
 
 
