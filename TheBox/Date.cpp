@@ -83,7 +83,7 @@ void Date::setMinutes(unsigned int m)
  */
 //-----------------------------------------------
 
- void Date::show()
+ void Date::showDate()
  {
 	 cout << weekDay << " ";
 	 
@@ -148,4 +148,12 @@ int Date::getInt(string daysentence)
 	if (daysentence == "Saturday")
 		day == 7;
 	return day;
+}
+
+
+int Date::getTotalDate(){
+	int totalDate;
+
+	totalDate = Date::getInt(weekDay) * 24 * 60 + getHour() * 60 + getMinutes();
+	return totalDate;
 }

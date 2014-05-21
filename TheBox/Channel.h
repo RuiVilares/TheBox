@@ -20,7 +20,6 @@ public:
 	void addProgram(string &n, int dur, string &t, bool state, string &d, int h, int min);
 	bool removeProgram(string &n);
 	void setName(string &n);
-
 	// Data member accessors
 	string getName();
 	vector<Program> getPrograms();

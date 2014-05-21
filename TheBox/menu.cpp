@@ -45,6 +45,11 @@ void goodbye()
 	exit(0);
 }
 
+//////////////
+//MOVIE CLUB//
+//////////////
+
+
 void movieclub_menu()
 {
 	bool valid = false;
@@ -331,6 +336,13 @@ void movieclub_menu_totalCost()
 
 }
 
+
+
+///////////
+//TV MENU//
+///////////
+
+
 void tv_menu()
 {
 	int yourchoice;
@@ -342,19 +354,17 @@ void tv_menu()
 	cout << "   | |  __/ |  __/\\ V /| \\__ \\ | (_) | | | |" << endl;
 	cout << "   |_|\\___|_|\\___| \\_/ |_|___/_|\\___/|_| |_|" << endl << endl << endl;
 	cout << "1. Set a program to be recorded" << endl;
-	cout << "2. Remove a program from the to be recorded's list" << endl;
-	cout << "3. Remove a program from the recorded's list" << endl;
-	cout << "4. List the programs to be recorded" << endl;
-	cout << "5. List the programs already recorded" << endl;
-	cout << "6. List the programs by day" << endl;
-	cout << "7. List the programs by channel" << endl;
-	cout << "8. List the programs by type of program" << endl;
-	cout << "9. Return" << endl << endl;
+	cout << "2. Recorded Programs" << endl;
+	cout << "3. Delete a recorded program" << endl;
+	cout << "4. List the programs by day" << endl;
+	cout << "5. List the programs by channel" << endl;
+	cout << "6. List the programs by type of program" << endl;
+	cout << "7. Return" << endl << endl;
 	do
 	{
 		cout << "Choose one of those options: ";
 		cin >> yourchoice;
-		if (yourchoice >= 1 && yourchoice <= 9)
+		if (yourchoice >= 1 && yourchoice <= 7)
 			valid = true;
 		else
 		{
@@ -374,20 +384,16 @@ void tv_menu()
 	if (yourchoice == 1)
 		tv_menu_setprogram();
 	if (yourchoice == 2)
-		tv_menu_removeToBeRecorded();
-	if (yourchoice == 3)
 		tv_menu_removeRecorded();
+	if (yourchoice == 3);
+		
 	if (yourchoice == 4)
 		start_menu();
 	if (yourchoice == 5)
-		start_menu();
+		ListbyChannel();
 	if (yourchoice == 6)
 		start_menu();
 	if (yourchoice == 7)
-		start_menu();
-	if (yourchoice == 8)
-		start_menu();
-	if (yourchoice == 9)
 		start_menu();
 }
 
@@ -433,7 +439,7 @@ void tv_menu_setprogram()
 
 void tv_menu_removeToBeRecorded()
 {
-	int yourchoice;
+	/*int yourchoice;
 	bool valid = false;
 	system("CLS");
 	cout << "  _____    _            _     _             " << endl;
@@ -468,7 +474,7 @@ void tv_menu_removeToBeRecorded()
 	if (yourchoice == 1)
 		tv_menu_removeToBeRecorded();
 	if (yourchoice == 2)
-		tv_menu();
+		tv_menu();*/
 }
 
 void tv_menu_removeRecorded()
@@ -512,6 +518,10 @@ void tv_menu_removeRecorded()
 }
 
 
+
+/////////////////
+//ADVANCED MENU//
+/////////////////
 void advanced_menu1()
 {
 	system("CLS");
@@ -1169,7 +1179,7 @@ void start_menu()
 	cout << " \\___ \\| __/ _` | '__| __| | |\\/| |/ _ \\ '_ \\| | | |" << endl;
 	cout << "  ___) | || (_| | |  | |_  | |  | |  __/ | | | |_| |" << endl;
 	cout << " |____/ \\__\\__,_|_|   \\__| |_|  |_|\\___|_| |_|\\__,_|" << endl << '\t' << '\t' << '\t' << '\t';// << endl << endl;
-	box.GetCurrentDate().show();
+	box.GetCurrentDate().showDate();
 	cout << endl << endl;
 	cout << "1. Movieclube" << endl;
 	cout << "2. Television" << endl;
@@ -1213,8 +1223,9 @@ void start_menu()
 }
 
 
-
-//FUNÇÃO LOAD DO PROGRAMA
+///////////////////////////
+//FUNÇÃO LOAD DO PROGRAMA//
+///////////////////////////
 
 void loadConfigs(Box &box){
 	ifstream info;
@@ -1239,7 +1250,127 @@ void ListbyDay()
 
 void ListbyChannel()
 {
-	//Exemplo para compilar
+	
+	system("CLS");
+	cout << "  _____    _            _     _             " << endl;
+	cout << " |_   _|__| | _____   _(_)___(_) ___  _ __  " << endl;
+	cout << "   | |/ _ \\ |/ _ \\ \\ / / / __| |/ _ \\| '_ \\ " << endl;
+	cout << "   | |  __/ |  __/\\ V /| \\__ \\ | (_) | | | |" << endl;
+	cout << "   |_|\\___|_|\\___| \\_/ |_|___/_|\\___/|_| |_|" << endl << endl << endl;
+	
+	int option;
+	box.showChannels();
+	cout <<	endl << box.getChannels().size() + 1 << ". Return\n";
+	cin >> option;
+	/*while (cin.fail())
+	{
+		cin.clear();
+		cin.ignore(100000, '\n');
+		cout << "Invalid Option";
+		cin >> option;
+	}*/
+
+	while (option < 1 || option >(box.getChannels().size() + 1) || cin.fail())
+	{
+		cin.clear();
+		cin.ignore(100000, '\n');
+		cout << "Invalid Option";
+		cin >> option;
+	}
+
+
+	if (option >= 1 || option <= box.getChannels().size())
+	{
+		Channel * channel;
+		channel = &box.getChannels().at(option - 1);
+		
+		system("cls");
+		cout << "  _____    _            _     _             " << endl;
+		cout << " |_   _|__| | _____   _(_)___(_) ___  _ __  " << endl;
+		cout << "   | |/ _ \\ |/ _ \\ \\ / / / __| |/ _ \\| '_ \\ " << endl;
+		cout << "   | |  __/ |  __/\\ V /| \\__ \\ | (_) | | | |" << endl;
+		cout << "   |_|\\___|_|\\___| \\_/ |_|___/_|\\___/|_| |_|" << endl << endl << endl;
+
+		vector<Program> *list_programs = &(channel->getPrograms());
+		box.showPrograms(*list_programs);
+
+
+		cout << endl <<  channel->getPrograms().size() + 1 << ". Return\n";
+		cout << "Enter the number of the program you want to see: ";
+		cin >> option;
+
+		while (option < 1 || option >(channel->getPrograms().size() + 1) || cin.fail())
+		{
+			cin.clear();
+			cin.ignore(100000, '\n');
+			cout << "Invalid Option";
+			cin >> option;
+		}
+
+		if (option == (channel->getPrograms().size() + 1))
+		{
+			tv_menu();
+		}
+		else
+		{
+			Program * program;
+			program = &channel->getPrograms()[option - 1];
+
+			system("cls");
+			cout << "  _____    _            _     _             " << endl;
+			cout << " |_   _|__| | _____   _(_)___(_) ___  _ __  " << endl;
+			cout << "   | |/ _ \\ |/ _ \\ \\ / / / __| |/ _ \\| '_ \\ " << endl;
+			cout << "   | |  __/ |  __/\\ V /| \\__ \\ | (_) | | | |" << endl;
+			cout << "   |_|\\___|_|\\___| \\_/ |_|___/_|\\___/|_| |_|" << endl << endl << endl;
+
+			program->showProgramDetails();
+
+
+			string ans;
+
+			cout << endl << "Do you want to record this program?\nEnter Y to record or N to go return: ";
+			cin >> ans;
+			while (ans != "N" || ans != "Y")
+			{
+				cin.clear();
+				cin.ignore(100000, '\n');
+				cout << "Invalid option";
+				cin >> ans;
+
+			}
+			if (ans=="N")
+			{
+				tv_menu();
+			}
+			else
+			{
+				if (box.RecordProgram(*program))
+				{
+					cout << endl << "Success. Your program was set to be recorded";
+					Sleep(2000);
+					tv_menu();
+				}
+				else
+				{
+					cout << endl << "Error. Your program is recorded";
+					Sleep(2000);
+					tv_menu();
+				}
+			}
+		}
+
+		
+
+
+		
+
+
+	}
+	if (option == box.getChannels().size()+1)
+	{
+		tv_menu();
+	}
+	
 }
 
 void ListbyType()

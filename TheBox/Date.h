@@ -33,7 +33,9 @@ class Date{
 	unsigned int getMinutes();
 	string getStr(int day); 
 	int getInt(string daysentence);
-	void show();
+	int getTotalDate();
+	void showDate();
+	
 	//Date currentDate();
 };
 

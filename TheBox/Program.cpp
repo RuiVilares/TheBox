@@ -26,6 +26,15 @@ Program::Program(string &n, int dur, string &t, bool state, string &d, int h, in
 }
 
 
+
+void Program::showProgramDetails(){
+	cout << "Name: " << name << endl;
+	cout << "Type: " << type << endl;
+	cout << "Duration: " << duration << endl;
+	cout << "Exhibition Date: "; exhibitionDate.showDate();
+}
+
+
 // Data member mutators
 void Program::setName(string &n){
 	name = n;

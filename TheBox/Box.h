@@ -34,6 +34,8 @@ public:
   vector<Program> listByChannel(string  channel, string day) const;
   vector<Program> listByType(string  type, string day) const;
   void saveInfo();
+  vector<Channel> getChannels();
+
  //Password
   bool changePassword(string np);         // ask, verify and change the password
   //Movies
@@ -55,11 +57,14 @@ public:
   void SetProgramRecorded();
   void RemoveProgramToBeRecorded();
   void RemoveProgramRecorded();
+  bool RecordProgram(Program &program);
+
+  void showPrograms(vector<Program> &list_programs);
 
   //Channels
   void saveChannels();
   void loadChannels(int channels_number);
-
+  void showChannels();
   // Channel CRUD
   bool createdChannel(string &n);
   bool removeChannel(string &n);

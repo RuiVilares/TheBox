@@ -19,6 +19,7 @@ class Program{
  public:
   Program(string &n, int dur,string &t,bool state, string &d, int h, int min);
   
+  void showProgramDetails();
   // Data member mutators
   void setName(string &n);
   void setDuration(int &dur);
