@@ -12,6 +12,7 @@
 #include "Program.h"
 #include "Movie.h"
 #include "fuctions.h"
+//#include "menu.h"
 
 using namespace std;
 
@@ -67,10 +68,9 @@ public:
   void showChannels();
   // Channel CRUD
   int searchChannel(string &channel_name);
-
-  bool createdChannel(string &n);
-  bool removeChannel(string &n);
-  bool updateChannel(string &channel_name);
+  void createChannel();
+  void removeChannel();
+  void updateChannel(string &name);
   // Program CRUD
   bool checkProgramDate(Date new_program_date, int duration, Channel &channel);
   int searchProgram(string &program_name, Channel &channel);

@@ -566,7 +566,7 @@ void Box::showChannels(){
 int Box::searchChannel(string &channel_name){
 	for (int i = 0; i < channels.size(); i++)
 	{
-		if (channels[i].getName()==channel_name)
+		if (string_to_upper(channels[i].getName()) == string_to_upper(channel_name))
 		{
 			return i;
 		}
@@ -574,52 +574,68 @@ int Box::searchChannel(string &channel_name){
 	return -1;
 }
 
-
-bool Box::createdChannel(string &n){
-	for (int i = 0; i < channels.size(); i++)
+void Box::createChannel()
+{
+	string name;
+	vector<Program> vec;
+	cout << "Insert a channel's name: ";
+	cin.clear();
+	cin.ignore();
+	getline(cin, name);
+	if (searchChannel(name) == -1)
 	{
-		if (channels[i].getName()==n)
-		{
-			return false;
-		}
+		Channel temp(name);
+		channels.push_back(temp);
+		cout << endl << endl << "The channel \"" << name << "\", was successfully created." << endl << endl << endl;
 	}
-	
-	Channel new_channel(n);	// Isto dá erro    // 17/05/2014- Corrigido o erro. Faltava o construtor na classe
-	channels.push_back(new_channel);
-	saveChannels();
-	return true;
+	else
+	{
+		cout << endl << endl << "The channel \"" << name << "\" already exists." << endl << endl << endl;
+	}
+}
+
+void Box::removeChannel()
+{
+	string name;
+	cout << "Insert a channel's name: ";
+	cin.clear();
+	cin.ignore();
+	getline(cin, name);
+	int aux = searchChannel(name);
+	if (aux != -1)
+	{
+		channels.erase(channels.begin() + aux);
+		cout << endl << endl << "The channel \"" << name << "\", was successfully removed." << endl << endl << endl;
+	}
+	else
+	{
+		cout << endl << endl << "The channel \"" << name << "\" doesn't exist." << endl << endl << endl;
+	}
 }
 
 
-
-bool Box::removeChannel(string &n){
-	for (int i = 0; i < channels.size(); i++)
+void Box::updateChannel(string &name)
+{	
+	system("CLS");
+	cout << "     _       _                               _ " << endl;
+	cout << "    / \\   __| |_   ____ _ _ __   ___ ___  __| |" << endl;
+	cout << "   / _ \\ / _` \\ \\ / / _` | '_ \\ / __/ _ \\/ _` |" << endl;
+	cout << "  / ___ \\ (_| |\\ V / (_| | | | | (_|  __/ (_| |" << endl;
+	cout << " /_/   \\_\\__,_| \\_/ \\__,_|_| |_|\\___\\___|\\__,_|" << endl << endl;
+	cout << "\t \t Update a channel" << endl << endl;
+	string newname;
+	cout << "Insert a new name to this channel: ";
+	cin.clear();
+	cin.ignore();
+	getline(cin, newname);
+	if (string_to_upper(name) == string_to_upper(newname))
 	{
-		if (channels[i].getName() == n)
-		{
-			channels.erase(channels.begin() + i);
-			saveChannels();
-			return true;
-		}
+		cout << endl << endl << "The channel \"" << name << "\" already have this name." << endl << endl << endl;
 	}
-	return false;
-}
-
-bool Box::updateChannel(string &channel_name){
-	system("cls");
-	string new_name;
-	cout << "|||| UPDATE CHANNEL ||||\nChoose the channels new name:\n";
-	getline(cin, new_name);
-	for (int i = 0; i < channels.size(); i++)
+	else
 	{
-		if (channels[i].getName() == channel_name)
-		{
-			channels[i].setName(new_name);
-			saveChannels();
-			return true;
-		}
+		cout << endl << endl << "The name of the channel \"" << name << "\" was change to \"" << newname << "\"." << endl << endl << endl;
 	}
-	return false;
 }
 
 
@@ -838,7 +854,6 @@ int Box::searchProgram(string &program_name, Channel &channel){					// Se encont
 
 	// ADICIONAR Programa
 	channel_pointer->addProgram(new_program, duration, type, recorded, day, hour, min);
-	saveChannels();
 	return true;
 	
 }
@@ -867,7 +882,6 @@ bool Box::removeProgram(string &channel, string &program){
 		if (channels[i].getName()==channel)
 		{
 			channels[i].getPrograms().erase(channels[i].getPrograms().begin() + searchProgram(program, channels[i]));
-			saveChannels();
 			return true;
 		}
 	}
@@ -953,7 +967,6 @@ bool Box::updateProgram(string &channel, string &program){
 						cin >> new_name;
 					}
 					program_pointer->setName(new_name);
-					saveChannels();
 
 				}
 				break;
@@ -992,7 +1005,6 @@ bool Box::updateProgram(string &channel, string &program){
 				}
 
 				program_pointer->setDuration(duration);
-				saveChannels();
 
 			}
 
@@ -1005,7 +1017,6 @@ bool Box::updateProgram(string &channel, string &program){
 				  string type;
 				  cin >> type;
 				  program_pointer->setType(type);
-				  saveChannels();
 			}
 			
 			break;
@@ -1022,7 +1033,6 @@ bool Box::updateProgram(string &channel, string &program){
 					  bool state = true;
 					  program_pointer->setRecord(state);
 				  }
-				  saveChannels();
 				  cout << "Record state changed";
 			}
 			break;
@@ -1128,7 +1138,6 @@ bool Box::updateProgram(string &channel, string &program){
 				  } while (checkProgramDate(new_date, program_pointer->getDuration(), *channel_pointer));
 				  
 				  program_pointer->setDate(day, hour, min);
-				  saveChannels();
 			}
 			break;
 		case 6:

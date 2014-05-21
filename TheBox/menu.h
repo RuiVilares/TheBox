@@ -53,6 +53,12 @@ void advanced_menu_password3();
 
 void advanced_menu_channels();
 
+void advanced_menu_channels_create();
+
+void advanced_menu_channels_update1();
+
+void advanced_menu_channels_remove();
+
 void advanced_menu_programs();
 
 void advanced_menu_movies();
@@ -68,7 +74,6 @@ void endprogram_menu();
 void welcome();
 
 void goodbye();
-
 
 void loadConfigs(Box &box);
 
