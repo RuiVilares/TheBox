@@ -403,22 +403,28 @@ void Box::RemoveProgramRecorded()					// Comentei porque estava a dar erro e que
 }
 
 
-bool Box::RecordProgram(Program &program){
-	
+bool Box::RecordProgram(string &program_name, string &channel_name){
+	int channel_loc = searchChannel(channel_name);
+	Channel * channel = &channels[channel_loc];
+
+	int program = searchProgram(program_name, *channel);
+
 	for (int i = 0; i < recordList.size(); i++)
 	{
-		if (program.getName()==recordList[i].getName())
+		if (channel->getPrograms()[program].getName()==recordList[i].getName())
 		{
 			return false;
 		}
 	}
 	
-	if (currentDate.getTotalDate() < program.getDate().getTotalDate() )
+	if (currentDate.getTotalDate() < channel->getPrograms()[program].getDate().getTotalDate())
 	{
 		bool state = true;
-		program.setRecord(state);
+		channel->getPrograms()[program].setRecord(state);
 	}
-	recordList.push_back(program);
+	recordList.push_back(channel->getPrograms()[program]);
+	saveChannels();
+	/*saveRecordList();*/
 	return true;
 }
 
@@ -556,6 +562,17 @@ void Box::showChannels(){
 
 
 // Channel CRUD
+
+int Box::searchChannel(string &channel_name){
+	for (int i = 0; i < channels.size(); i++)
+	{
+		if (channels[i].getName()==channel_name)
+		{
+			return i;
+		}
+	}
+	return -1;
+}
 
 
 bool Box::createdChannel(string &n){

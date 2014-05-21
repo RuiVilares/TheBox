@@ -31,7 +31,7 @@ void Program::showProgramDetails(){
 	cout << "Name: " << name << endl;
 	cout << "Type: " << type << endl;
 	cout << "Duration: " << duration << endl;
-	cout << "Exhibition Date: "; exhibitionDate.showDate();
+	cout << "Exhibition Date: "; exhibitionDate.showDate();cout << endl;
 }
 
 

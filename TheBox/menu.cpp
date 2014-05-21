@@ -1274,16 +1274,17 @@ void ListbyChannel()
 	{
 		cin.clear();
 		cin.ignore(100000, '\n');
-		cout << "Invalid Option";
+		cout << "Invalid Option\n";
 		cin >> option;
 	}
 
 
 	if (option >= 1 || option <= box.getChannels().size())
 	{
-		Channel * channel;
-		channel = &box.getChannels().at(option - 1);
 		
+		Channel channel = box.getChannels()[(option - 1)];
+
+
 		system("cls");
 		cout << "  _____    _            _     _             " << endl;
 		cout << " |_   _|__| | _____   _(_)___(_) ___  _ __  " << endl;
@@ -1291,30 +1292,29 @@ void ListbyChannel()
 		cout << "   | |  __/ |  __/\\ V /| \\__ \\ | (_) | | | |" << endl;
 		cout << "   |_|\\___|_|\\___| \\_/ |_|___/_|\\___/|_| |_|" << endl << endl << endl;
 
-		vector<Program> *list_programs = &(channel->getPrograms());
-		box.showPrograms(*list_programs);
+		vector<Program> list_programs = (channel.getPrograms());
+		box.showPrograms(list_programs);
 
 
-		cout << endl <<  channel->getPrograms().size() + 1 << ". Return\n";
+		cout << endl <<  channel.getPrograms().size() + 1 << ". Return\n";
 		cout << "Enter the number of the program you want to see: ";
 		cin >> option;
 
-		while (option < 1 || option >(channel->getPrograms().size() + 1) || cin.fail())
+		while (option < 1 || option >(channel.getPrograms().size() + 1) || cin.fail())
 		{
 			cin.clear();
 			cin.ignore(100000, '\n');
-			cout << "Invalid Option";
+			cout << "Invalid Option\n";
 			cin >> option;
 		}
 
-		if (option == (channel->getPrograms().size() + 1))
+		if (option == (channel.getPrograms().size() + 1))
 		{
 			tv_menu();
 		}
 		else
 		{
-			Program * program;
-			program = &channel->getPrograms()[option - 1];
+			Program program = channel.getPrograms()[option - 1];
 
 			system("cls");
 			cout << "  _____    _            _     _             " << endl;
@@ -1323,28 +1323,28 @@ void ListbyChannel()
 			cout << "   | |  __/ |  __/\\ V /| \\__ \\ | (_) | | | |" << endl;
 			cout << "   |_|\\___|_|\\___| \\_/ |_|___/_|\\___/|_| |_|" << endl << endl << endl;
 
-			program->showProgramDetails();
+			program.showProgramDetails();
 
 
-			string ans;
+			char ans;
 
-			cout << endl << "Do you want to record this program?\nEnter Y to record or N to go return: ";
+			cout << endl << endl << "Do you want to record this program?\nEnter Y to record or N to go return: ";
 			cin >> ans;
-			while (ans != "N" || ans != "Y")
+			while (ans != 'N' && ans != 'Y')
 			{
 				cin.clear();
 				cin.ignore(100000, '\n');
-				cout << "Invalid option";
+				cout << "Invalid option\n";
 				cin >> ans;
 
 			}
-			if (ans=="N")
+			if (ans=='N')
 			{
 				tv_menu();
 			}
 			else
 			{
-				if (box.RecordProgram(*program))
+				if (box.RecordProgram(program.getName(), channel.getName()))
 				{
 					cout << endl << "Success. Your program was set to be recorded";
 					Sleep(2000);

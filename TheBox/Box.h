@@ -57,7 +57,7 @@ public:
   void SetProgramRecorded();
   void RemoveProgramToBeRecorded();
   void RemoveProgramRecorded();
-  bool RecordProgram(Program &program);
+  bool RecordProgram(string &program_name, string &channel_name);
 
   void showPrograms(vector<Program> &list_programs);
 
@@ -66,6 +66,8 @@ public:
   void loadChannels(int channels_number);
   void showChannels();
   // Channel CRUD
+  int searchChannel(string &channel_name);
+
   bool createdChannel(string &n);
   bool removeChannel(string &n);
   bool updateChannel(string &channel_name);
