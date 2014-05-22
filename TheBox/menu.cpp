@@ -1188,7 +1188,7 @@ void advanced_menu_programs_update()
 	}
 	else
 	{
-		cout << "1. Change name\n"
+		cout << endl << endl << "1. Change name\n"
 			<< "2. Change duration\n"
 			<< "3. Change type\n"
 			<< "4. Change record state\n"
@@ -1220,13 +1220,16 @@ void advanced_menu_programs_update()
 			box.updateProgramDuration(programn);
 		if (yourchoice == 3)
 			box.updateProgramType(programn);
-		if (yourchoice == 4);
+		if (yourchoice == 4)
 			box.updateProgramState(programn);
 		if (yourchoice == 5)
 			box.updateProgramDate(programn);
 		if (yourchoice == 6);
 			advanced_menu_programs();
 	}
+
+
+
 }
 
 void advanced_menu_programs_remove()
