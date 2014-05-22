@@ -734,7 +734,7 @@ int Box::searchProgram(string &program_name, Channel &channel){					// Se encont
 	
 	for (int i = 0; i < channel.getPrograms().size(); i++)
 	{
-		if (channel.getPrograms()[i].getName() == program_name || string_to_upper(channel.getPrograms()[i].getName()) == program_name)
+		if (string_to_upper(channel.getPrograms()[i].getName()) == string_to_upper(program_name))
 		{
 			return i;
 		}
@@ -757,21 +757,23 @@ bool Box::createdProgram(string &channel){
 			channel_pointer = &channels[i];
 		}
 	}
-	
+	system("CLS");
 	string new_program;
-	cout << "|||| CREATE PROGRAM ||||";
-	cout << endl << "Program name:\n";
+	cout << "     _       _                               _ " << endl;
+	cout << "    / \\   __| |_   ____ _ _ __   ___ ___  __| |" << endl;
+	cout << "   / _ \\ / _` \\ \\ / / _` | '_ \\ / __/ _ \\/ _` |" << endl;
+	cout << "  / ___ \\ (_| |\\ V / (_| | | | | (_|  __/ (_| |" << endl;
+	cout << " /_/   \\_\\__,_| \\_/ \\__,_|_| |_|\\___\\___|\\__,_|" << endl << endl;
+	cout << "\t \t Create a program" << endl << endl;
+	cout << endl << "Program name: ";
 	getline(cin, new_program);
-	while (-1 != searchProgram(new_program, *channel_pointer))
+	if (-1 != searchProgram(new_program, *channel_pointer))
 	{
-		system("cls");
-		cout << "|||| CREATE PROGRAM ||||";
-		cout << endl << "This name is already in use by another program\n Enter another name:\n";
-		cin >> new_program;
-
+		cout << endl << endl << "This name is already in use by another program.";
+		Sleep(2000);
+		createdProgram(channel);
 	}
 
-	system("cls");
 	int duration, hour, min;
 	string type, day;
 
@@ -789,9 +791,8 @@ bool Box::createdProgram(string &channel){
 
 
 
-	do
-	{
-		cout << "Insert the programs:\n";
+	//do {
+		cout << endl << endl << "Insert the program specifications:\n \n";
 		//INSERIR DURACAO
 		cout << "Duration(in minutes): ";
 		cin >> duration;
@@ -799,48 +800,53 @@ bool Box::createdProgram(string &channel){
 		{
 			cin.clear();
 			cin.ignore(10000, '\n');
-			cout << "Wrong format. Please insert a number equal or bigger then 1: ";
+			cout << "Wrong format. Please insert a number equal or bigger then 1.\n";
+			cout << "Duration(in minutes): ";
 			cin >> duration;
 		}
 
 
 		//INSERIR HORA INÍCIO
 
-		cout << "\nStarting hour: "; cin >> hour;
+		cout << "Starting hour: "; cin >> hour;
 		while (cin.fail() || hour > 23 || hour < 0)
 		{
 			cin.clear();
 			cin.ignore(10000, '\n');
-			cout << "Wrong format. Please insert a number between 0 and 23: ";
+			cout << "Wrong format. Please insert a number between 0 and 23.";
+			cout << "\nStarting hour: ";
 			cin >> hour;
 		}
 
 
 		// INSERIR MINUTOS
-		cout << "minutes: "; cin >> min;
+		cout << "Starting minutes: "; cin >> min;
 		while (cin.fail() || min > 59 || min < 0)
 		{
 			cin.clear();
 			cin.ignore(10000, '\n');
-			cout << "Wrong format. Please insert a number between 0 and 59: ";
+			cout << "Wrong format. Please insert a number between 0 and 59.";
+			cout << "minutes: ";
 			cin >> min;
 		}
 
 
 		// INSERIR DIA DA SEMANA
 		int option;
-		cout << "Choose a day of the week:\n1.Sunday\n2.Monday\n3.Tuesday\n4.Wednesday\n5.Thursday\n6.Friday\n7.Saturday\n";
+		cout << "\n1.Sunday\n2.Monday\n3.Tuesday\n4.Wednesday\n5.Thursday\n6.Friday\n7.Saturday\n";
+		cout << "Choose a day of the week : ";
 		cin >> option;
 
-		while (cin.fail())
+		while (cin.fail() || option < 1 || option > 7)
 		{
 			cin.clear();
 			cin.ignore(10000, '\n');
 			cout << "Option mismatch. Please choose a number between 1 and 7: ";
 			cin >> option;
 		}
-		bool repeat;
-		do
+		
+		/*bool repeat;
+		do 
 		{
 			repeat = false;
 			switch (option)
@@ -879,19 +885,19 @@ bool Box::createdProgram(string &channel){
 				}
 				break;
 			}
-		} while (repeat);
+		} while (repeat);*/
+		day = new_program_date.getStr(option);
 
 		new_program_date.setDate(day, hour, min);
 		
 		if (!checkProgramDate(new_program_date, duration, *channel_pointer))
 		{
-		system("cls");
-		cout << "|||| CREATE PROGRAM ||||";
 		cout << endl << "Error. The exhibition time matches the exhibition time of an already existing program.\nPlease enter different values\n";
+		createdProgram(channel);
 		}
 
 		
-	} while (checkProgramDate(new_program_date, duration, *channel_pointer));
+	//} while (checkProgramDate(new_program_date, duration, *channel_pointer));
 
 
 	// ADICIONAR TIPO DE PROGRAMA
@@ -929,31 +935,31 @@ bool Box::createdProgram(string &channel){
 
 
 
-bool Box::removeProgram(string &channel, string &program){
-	char ans;
-	cout << "|||| DELETE PROGRAM ||||";
-	cout << "Are you sure you want to delete this program(Y/N)?\n";
-	cin >> ans;
-	while (ans != 'Y' && ans != 'N')
+void Box::removeProgram(){
+	string channeln, programn;
+	cout << "Insert a channel name: ";
+	cin.ignore();
+	cin.clear();
+	getline(cin, channeln);
+	int channel_position = searchChannel(channeln);
+	if (channel_position == -1)
+		cout << endl << endl << "This channel doesn't exist." << endl << endl << endl;
+	else
 	{
-		cout << "Option mismatch. Enter Y to yes or N to no: ";
-	}
-	
-	if ('N' == ans)
-	{
-		return false;
-	}
-	
-	for (int i = 0; i < channels.size(); i++)
-	{
-		if (channels[i].getName()==channel)
+		cout << "\nInsert a program name: ";
+		getline(cin, programn);
+		int program_position = searchProgram(programn, channels[channel_position]);
+		if (program_position == -1)
 		{
-			channels[i].getPrograms().erase(channels[i].getPrograms().begin() + searchProgram(program, channels[i]));
-			saveChannels();
-			return true;
+			cout << endl << endl << "This program doesn't exist." << endl << endl << endl;
+		}
+		else
+		{
+			cout << endl << endl << "The program \"" << channels[channel_position].getPrograms()[program_position].getName();
+			cout << "\", from the channel \"" << channels[channel_position].getName() << "\", was sucefully removed" << endl << endl << endl;
+			channels[channel_position].removeProgram(channel_position);
 		}
 	}
-	return false;
 }
 
 

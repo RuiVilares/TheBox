@@ -80,7 +80,7 @@ public:
 
 
   bool createdProgram(string &channel);
-  bool removeProgram(string &channel, string &program);
+  void removeProgram();
   bool updateProgram(string &channel, string &program);
   // Movie CRUD
   void createMovie();

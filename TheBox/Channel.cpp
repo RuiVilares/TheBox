@@ -41,6 +41,10 @@ bool Channel::removeProgram(string &n){
 	return state;
 }
 
+void Channel::removeProgram(int pos){
+	programs.erase(programs.begin() + pos);
+}
+
 void Channel::setName(string &n){
 	name = n;
 }

@@ -65,6 +65,8 @@ void advanced_menu_programs();
 
 void advanced_menu_programs_create();
 
+void advanced_menu_programs_remove();
+
 void advanced_menu_movies();
 
 void advanced_menu_movies_create();

@@ -3,4 +3,6 @@ RTP1
 "Jornal de noticias" 120 "Informacao" 0 "Monday" 19 59
 "Game of Thrones" 55 "Acao" 0 "Thursday" 22 0
 SIC
-0
+2
+"Vale Tudo" 30 "comedia" 0 "Thursday" 21 0
+"jornal da noite" 60 "information" 0 "Sunday" 20 0
