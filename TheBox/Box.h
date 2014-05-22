@@ -81,7 +81,12 @@ public:
 
   bool createdProgram(string &channel);
   void removeProgram();
-  bool updateProgram(string &channel, string &program);
+  bool updateProgram(string &program);
+  void updateProgramName(string &programn);
+  void updateProgramDuration(string &programn);
+  void updateProgramType(string &programn);
+  void updateProgramState(string &programn);
+  void updateProgramDate(string &programn);
   // Movie CRUD
   void createMovie();
   void removeMovie();

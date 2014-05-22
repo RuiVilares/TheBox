@@ -45,6 +45,26 @@ void Channel::removeProgram(int pos){
 	programs.erase(programs.begin() + pos);
 }
 
+void Channel::setProgramName(string &n, int pos){
+	programs[pos].setName(n);
+}
+
+void Channel::setProgramDuration(int dur, int pos){
+	programs[pos].setDuration(dur);
+}
+
+void Channel::setProgramType(string &n, int pos){
+	programs[pos].setType(n);
+}
+
+void Channel::setProgramState(int pos){
+	programs[pos].setRecord(!programs[pos].getState());
+}
+
+void Channel::setProgramDate(string d, int h, int m, int pos){
+	programs[pos].setDate(d, h, m);
+}
+
 void Channel::setName(string &n){
 	name = n;
 }

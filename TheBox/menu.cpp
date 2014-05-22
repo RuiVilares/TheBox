@@ -1069,8 +1069,8 @@ void advanced_menu_programs()
 	
 	if (yourchoice == 1)
 		advanced_menu_programs_create();
-	if (yourchoice == 2);
-		//Completar
+	if (yourchoice == 2)
+		advanced_menu_programs_update();
 	if (yourchoice == 3)
 		advanced_menu_programs_remove();
 	if (yourchoice == 4)
@@ -1137,6 +1137,96 @@ void advanced_menu_programs_create()
 		advanced_menu_programs_create();
 	if (yourchoice == 2)
 		advanced_menu_programs();
+}
+
+
+void advanced_menu_programs_update()
+{
+	int yourchoice;
+	bool valid = false;
+	system("CLS");
+	cout << "     _       _                               _ " << endl;
+	cout << "    / \\   __| |_   ____ _ _ __   ___ ___  __| |" << endl;
+	cout << "   / _ \\ / _` \\ \\ / / _` | '_ \\ / __/ _ \\/ _` |" << endl;
+	cout << "  / ___ \\ (_| |\\ V / (_| | | | | (_|  __/ (_| |" << endl;
+	cout << " /_/   \\_\\__,_| \\_/ \\__,_|_| |_|\\___\\___|\\__,_|" << endl << endl;
+	cout << "\t \t Update a program" << endl << endl;
+	string programn;
+	cin.ignore();
+	cin.clear();
+	cout << "\nInsert a program name: ";
+	getline(cin, programn);
+	if (!box.updateProgram(programn))
+	{
+		box.updateProgram(programn);
+		cout << "1. Refresh" << endl;
+		cout << "2. Return" << endl << endl;
+		do
+		{
+			cout << "Choose one of those options: ";
+			cin >> yourchoice;
+			if (yourchoice >= 1 && yourchoice <= 2)
+				valid = true;
+			else
+			{
+				if (cin.fail())
+				{
+					cin.clear();
+					cin.ignore(1000, '\n');
+
+				}
+				cout << endl << "Invalid option" << endl << endl;
+				Sleep(1000);
+				advanced_menu_programs();
+			}
+		} while (!valid);
+
+		if (yourchoice == 1)
+			advanced_menu_programs_update();
+		if (yourchoice == 2)
+			advanced_menu_programs();
+	}
+	else
+	{
+		cout << "1. Change name\n"
+			<< "2. Change duration\n"
+			<< "3. Change type\n"
+			<< "4. Change record state\n"
+			<< "5. Change exhibition date\n"
+			<< "6. Return\n \n";
+		do
+		{
+			cout << "Choose one of those options: ";
+			cin >> yourchoice;
+			if (yourchoice >= 1 && yourchoice <= 6)
+				valid = true;
+			else
+			{
+				if (cin.fail())
+				{
+					cin.clear();
+					cin.ignore(1000, '\n');
+
+				}
+				cout << endl << "Invalid option" << endl << endl;
+				Sleep(1000);
+				advanced_menu_programs();
+			}
+		} while (!valid);
+
+		if (yourchoice == 1)
+			box.updateProgramName(programn);
+		if (yourchoice == 2)
+			box.updateProgramDuration(programn);
+		if (yourchoice == 3)
+			box.updateProgramType(programn);
+		if (yourchoice == 4);
+			box.updateProgramState(programn);
+		if (yourchoice == 5)
+			box.updateProgramDate(programn);
+		if (yourchoice == 6);
+			advanced_menu_programs();
+	}
 }
 
 void advanced_menu_programs_remove()
