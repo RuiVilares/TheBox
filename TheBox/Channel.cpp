@@ -25,6 +25,10 @@ void Channel::addProgram(string &n, int dur, string &t, bool state, string &d, i
 	programs.push_back(Program(n,dur,t,state,d,h,min));
 }
 
+void Channel::addProgram(Program p1){
+	programs.push_back(p1);
+}
+
 
 // Data member mutators
 bool Channel::removeProgram(string &n){
@@ -64,6 +68,7 @@ void Channel::setProgramState(int pos){
 void Channel::setProgramDate(string d, int h, int m, int pos){
 	programs[pos].setDate(d, h, m);
 }
+
 
 void Channel::setName(string &n){
 	name = n;

@@ -66,3 +66,11 @@ bool compDates(Date d1, Date d2) // true se for passado
 		return false;
 }
 
+int count_numbers(int num) {
+	int count = 0;
+	while (num != 0) {
+		count++;
+		num /= 10;
+	}
+	return count;
+}

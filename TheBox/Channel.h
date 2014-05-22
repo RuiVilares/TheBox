@@ -18,6 +18,7 @@ public:
 
 	// Data member mutators
 	void addProgram(string &n, int dur, string &t, bool state, string &d, int h, int min);
+	void addProgram(Program p1);
 	bool removeProgram(string &n);
 	void removeProgram(int pos);
 	void setName(string &n);

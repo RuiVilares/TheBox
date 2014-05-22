@@ -42,6 +42,6 @@ string string_to_upper(string s);
 
 bool compDates(Date d1, Date d2);
 
-
+int count_numbers(int num);
 
 #endif

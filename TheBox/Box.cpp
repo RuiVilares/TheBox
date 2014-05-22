@@ -597,12 +597,13 @@ bool Box::RecordProgram(string &program_name, string &channel_name){
 
 void Box::ProgramRecordedShow()
 {
-	cout << "Name" << setw(27) << "Type" << setw(20) << "Date" << setw(17) << "Duration" << endl;
+	cout << "Name" << setw(27) << "Type" << setw(17) << "Duration" << setw(20) << "Date" << endl;
 	for (int i = 0; i < recordList.size(); i++)
 	{
-		cout << recordList[i].getName() << setw(35 - recordList[i].getName().size()) << recordList[i].getType() << setw(25 - recordList[i].getType().size());
+		cout << recordList[i].getName() << setw(32 - recordList[i].getName().size()) << recordList[i].getType() << setw(25 - recordList[i].getType().size());
+		cout << recordList[i].getDuration() << setw(20 - count_numbers(recordList[i].getDuration()));
 		recordList[i].getDate().showDate();
-		cout << setw(10) << recordList[i].getDuration() << endl;
+		cout << endl;
 	}
 	cout << endl << endl;
 }
@@ -979,7 +980,6 @@ bool Box::updateProgram(string &programn){
 	}
 	if (program_position == -1)
 	{
-		cout << endl << endl << "This program doesn't exist." << endl << endl << endl;
 		return false;
 	}
 	else
@@ -1035,22 +1035,26 @@ void Box::updateProgramDuration(string &programn)
 		if (program_position != -1)
 			break;
 	}
-	/*
-	if (channels[channel_position].getPrograms().size() > program_position)
+
+	Channel * channel_pointer;
+	channel_pointer = &channels[channel_position];
+	Program oldp(channels[channel_position].getPrograms()[program_position]);
+	Program newp(channels[channel_position].getPrograms()[program_position]);
+	newp.setDuration(newdur);
+	channels[channel_position].removeProgram(program_position);
+	if (!checkProgramDate(oldp.getDate(), newdur, *channel_pointer))
 	{
-		if (Validduration(channels[channel_position].getPrograms()[program_position], channels[channel_position].getPrograms()[program_position + 1]))
-		{
-			cout << endl << "Error. The exhibition time matches the exhibition time of an already existing program.\nPlease enter different values\n";
-			Sleep(2000);
-			updateProgramDuration(programn);
-		}
+		channels[channel_position].addProgram(oldp);
+		cout << endl << "Error. The exhibition time matches the exhibition time of an \n";
+		cout << "already existing program.\n \nPlease enter different values\n";
+		Sleep(3000);
 	}
-	else*/
+	else
 	{
-		cout << endl << endl << "The duration of the program \"" << channels[channel_position].getPrograms()[program_position].getName() << "\"";
+		channels[channel_position].addProgram(newp);
+		cout << endl << endl << "The duration of the program \"" << newp.getName() << "\"";
 		cout << " was change to \"" << newdur << "\"";
 		Sleep(3000);
-		channels[channel_position].setProgramDuration(newdur, program_position);
 	}
 	
 }
@@ -1155,7 +1159,7 @@ void Box::updateProgramDate(string &programn)
 		cin.clear();
 		cin.ignore(10000, '\n');
 		cout << "Wrong format. Please insert a number between 0 and 59.";
-		cout << "New starting minutes: ";
+		cout << "\nNew starting minutes: ";
 		cin >> min;
 	}
 
@@ -1182,24 +1186,29 @@ void Box::updateProgramDate(string &programn)
 		if (program_position != -1)
 			break;
 	}
-	/*if (channels[channel_position].getPrograms().size() > program_position)
+	Channel * channel_pointer;
+	channel_pointer = &channels[channel_position];
+	Program oldp(channels[channel_position].getPrograms()[program_position]);
+	Program newp(channels[channel_position].getPrograms()[program_position]);
+	newp.setDate(day, hour, min);
+	channels[channel_position].removeProgram(program_position);
+	if (!checkProgramDate(newp.getDate(), oldp.getDuration(), *channel_pointer))
 	{
-		if (Validduration(channels[channel_position].getPrograms()[program_position], channels[channel_position].getPrograms()[program_position + 1]))
-		{
-			cout << endl << "Error. The exhibition time matches the exhibition time of an already existing program.\nPlease enter different values\n";
-			Sleep(2000);
-			updateProgramDate(programn);
-		}
-	}
-	else*/
-	{
-		channels[channel_position].setProgramDate(day, hour, min, program_position);
-		cout << endl << endl << "The date of the program \"" << channels[channel_position].getPrograms()[program_position].getName() << "\"";
-		cout << " was change to ";
-		channels[channel_position].getPrograms()[program_position].getDate().showDate();
+		channels[channel_position].addProgram(oldp);
+		cout << endl << "Error. The exhibition time matches the exhibition time of an \n";
+		cout << "already existing program.\n \nPlease enter different values\n";
 		Sleep(3000);
-		
 	}
+	else
+	{
+		channels[channel_position].addProgram(newp);
+		cout << endl << endl << "The date of the program \"" << newp.getName() << "\"";
+		cout << " was change to \"";
+		newp.getDate().showDate();
+		cout << "\"";
+		Sleep(3000);
+	}
+
 }
 
 /*
