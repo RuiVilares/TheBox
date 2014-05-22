@@ -44,6 +44,165 @@ vector<Channel> Box::getChannels(){
 }
 
 
+
+void Box::saveChannels(){
+	ofstream channels_file;
+	channels_file.open("Info\\Channels.txt");
+
+	for (int i = 0; i < channels.size(); i++)
+	{
+		vector<Program> program_list;
+		program_list = channels[i].getPrograms();
+
+		channels_file << channels[i].getName() << endl;
+		channels_file << program_list.size() << endl;
+
+		for (int k = 0; k < program_list.size(); k++)
+		{
+			channels_file << '\"' << program_list[k].getName() << '\"';
+			channels_file << " " << program_list[k].getDuration();
+			channels_file << " " << '\"' << program_list[k].getType() << '\"';
+
+			if (program_list[k].getState())
+			{
+				channels_file << " " << 1;
+			}
+			else
+			{
+				channels_file << " " << 0;
+			}
+
+			channels_file << " " << '\"' << program_list[k].getDate().getDay() << '\"';
+			channels_file << " " << program_list[k].getDate().getHour();
+			channels_file << " " << program_list[k].getDate().getMinutes() << endl;
+		}
+	}
+	channels_file.close();
+
+
+	saveInfo();
+}
+
+
+void Box::loadChannels(int channels_number){
+	ifstream channels_file;
+	channels_file.open("Info\\Channels.txt");
+
+	for (int i = 0; i < channels_number; i++)
+	{
+		string channel_name;
+		channels_file >> channel_name;
+		Channel new_channel = Channel(channel_name);
+		int program_number;
+		channels_file >> program_number;
+		for (int k = 0; k < program_number; k++)
+		{
+			string name, type, day;
+			int duration, hour, min, state;
+			bool recordState = false;
+
+			// Add name
+
+			channels_file.ignore(2);
+
+			do
+			{
+				char name_char;
+				channels_file >> name_char;
+				name.push_back(name_char);
+				if (channels_file.peek() == ' ')
+				{
+					name.push_back(' ');
+				}
+			} while (channels_file.peek() != '\"');
+			channels_file.ignore();
+
+			// Add duration
+			channels_file >> duration;
+
+			// Add type
+			channels_file.ignore(2);
+			while (channels_file.peek() != '\"')
+			{
+				char name_char;
+				channels_file >> name_char;
+				type.push_back(name_char);
+			}
+			channels_file.ignore();
+
+			// Add recordState
+			channels_file >> state;
+			if (state)
+			{
+				recordState = true;
+			}
+
+
+			// Add day
+			channels_file.ignore(2);
+			while (channels_file.peek() != '\"')
+			{
+				char name_char;
+				channels_file >> name_char;
+				day.push_back(name_char);
+			}
+			channels_file.ignore();
+
+			// Add hour and minutes
+			channels_file >> hour >> min;
+
+
+			new_channel.addProgram(name, duration, type, recordState, day, hour, min);
+		}
+
+		channels.push_back(new_channel);
+	}
+
+}
+
+
+void Box::saveRecorded(){
+	ofstream recorded_file;
+	recorded_file.open("Info\\Recorded.txt");
+	for (int i = 0; i < recordList.size(); i++)
+	{
+		recorded_file << recordList[i].getName() << endl;
+	}
+	saveInfo();
+}
+
+void Box::loadRecorded(int recorded_number){
+	ifstream recorded_file;
+	recorded_file.open("Info\\Recorded.txt");
+
+	for (int i = 0; i < recorded_number; i++)
+	{
+		string name;
+		getline(recorded_file, name);
+		for (int i = 0; i < channels.size(); i++)
+		{
+			if (searchProgram(name, channels[i]) != -1)
+			{
+				
+				//Avalia a data do programa com a data actual
+				if (currentDate.getTotalDate()>channels[i].getPrograms()[searchProgram(name, channels[i])].getDate().getTotalDate())
+				{
+					bool state = true;
+					channels[i].getPrograms()[searchProgram(name, channels[i])].setRecord(state);
+				}
+				else
+				{
+					bool state = false;
+					channels[i].getPrograms()[searchProgram(name, channels[i])].setRecord(state);
+				}
+				
+				// Copia o programa para o recordList
+				recordList.push_back(channels[i].getPrograms()[searchProgram(name, channels[i])]);
+			}
+		}
+	}
+}
+
 //MOVIE CLUB
 
 void Box::rentMovies(const string &title){
@@ -417,14 +576,14 @@ bool Box::RecordProgram(string &program_name, string &channel_name){
 		}
 	}
 	
-	if (currentDate.getTotalDate() < channel->getPrograms()[program].getDate().getTotalDate())
+	if (currentDate.getTotalDate() > channel->getPrograms()[program].getDate().getTotalDate())
 	{
 		bool state = true;
 		channel->getPrograms()[program].setRecord(state);
 	}
 	recordList.push_back(channel->getPrograms()[program]);
 	saveChannels();
-	/*saveRecordList();*/
+	saveRecorded();
 	return true;
 }
 
@@ -439,118 +598,6 @@ void Box::showPrograms(vector<Program> &list_programs){
 
 
 //CHANNELS
-
-void Box::saveChannels(){
-	ofstream channels_file;
-	channels_file.open("Info\\Channels.txt");
-
-	for (int i = 0; i < channels.size(); i++)
-	{
-		vector<Program> program_list;
-		program_list = channels[i].getPrograms();
-
-		channels_file << channels[i].getName() << endl;
-		channels_file << program_list.size() << endl;
-
-		for (int k = 0; k < program_list.size(); k++)
-		{
-			channels_file << '\"' << program_list[k].getName() << '\"';
-			channels_file << " " << program_list[k].getDuration();
-			channels_file << " " << '\"' << program_list[k].getType() << '\"';
-
-			if (program_list[k].getState())
-			{
-				channels_file << " " << 1;
-			}
-			else
-			{
-				channels_file << " " << 0;
-			}
-
-			channels_file << " " << '\"' << program_list[k].getDate().getDay() << '\"';
-			channels_file << " " << program_list[k].getDate().getHour();
-			channels_file << " " << program_list[k].getDate().getMinutes() << endl;
-		}
-	}
-	channels_file.close();
-}
-
-
-void Box::loadChannels(int channels_number){
-	ifstream channels_file;
-	channels_file.open("Info\\Channels.txt");
-
-	for (int i = 0; i < channels_number; i++)
-	{
-		string channel_name;
-		channels_file >> channel_name;
-		Channel new_channel = Channel(channel_name);
-		int program_number;
-		channels_file >> program_number;
-		for (int k = 0; k < program_number; k++)
-		{
-			string name, type, day;
-			int duration, hour, min, state;
-			bool recordState = false;
-
-			// Add name
-
-			channels_file.ignore(2);
-
-			do
-			{
-				char name_char;
-				channels_file >> name_char;
-				name.push_back(name_char);
-				if (channels_file.peek() == ' ')
-				{
-					name.push_back(' ');
-				}
-			} while (channels_file.peek() != '\"');
-			channels_file.ignore();
-
-			// Add duration
-			channels_file >> duration;
-
-			// Add type
-			channels_file.ignore(2);
-			while (channels_file.peek() != '\"')
-			{
-				char name_char;
-				channels_file >> name_char;
-				type.push_back(name_char);
-			}
-			channels_file.ignore();
-
-			// Add recordState
-			channels_file >> state;
-			if (state)
-			{
-				recordState = true;
-			}
-
-
-			// Add day
-			channels_file.ignore(2);
-			while (channels_file.peek() != '\"')
-			{
-				char name_char;
-				channels_file >> name_char;
-				day.push_back(name_char);
-			}
-			channels_file.ignore();
-
-			// Add hour and minutes
-			channels_file >> hour >> min;
-
-
-			new_channel.addProgram(name, duration, type, recordState, day, hour, min);
-		}
-
-		channels.push_back(new_channel);
-	}
-
-}
 
 
 void Box::showChannels(){
@@ -679,10 +726,12 @@ int Box::searchProgram(string &program_name, Channel &channel){					// Se encont
 }
 
 
-/*bool Box::createdProgram(string &channel){
+bool Box::createdProgram(string &channel){
 
 
 	Channel * channel_pointer;
+
+	channel_pointer = &Channel(channel); // Esta linha serve para o programa não dar erro porque existe a possibilidade de o apontador não ser inicializado
 
 	for (int i = 0; i < channels.size(); i++)
 	{
@@ -858,7 +907,7 @@ int Box::searchProgram(string &program_name, Channel &channel){					// Se encont
 	
 }
 
-*/
+
 
 
 
@@ -882,17 +931,20 @@ bool Box::removeProgram(string &channel, string &program){
 		if (channels[i].getName()==channel)
 		{
 			channels[i].getPrograms().erase(channels[i].getPrograms().begin() + searchProgram(program, channels[i]));
+			saveChannels();
 			return true;
 		}
 	}
 	return false;
 }
 
-/*
+
 bool Box::updateProgram(string &channel, string &program){
 	
-	Program * program_pointer;
+	int program_loc;
 	Channel * channel_pointer;
+
+	channel_pointer = &Channel(channel); // Esta linha serve para o programa não dar erro porque existe a possibilidade de o apontador não ser inicializado
 
 	for (int i = 0; i < channels.size(); i++)
 	{
@@ -902,7 +954,9 @@ bool Box::updateProgram(string &channel, string &program){
 		}
 	}
 	
-	program_pointer= &channel_pointer->getPrograms()[searchProgram(program, *channel_pointer)];
+
+	//channel_pointer->getPrograms()[program_loc];
+	program_loc= searchProgram(program, *channel_pointer);
 	
 	int option;
 
@@ -966,7 +1020,7 @@ bool Box::updateProgram(string &channel, string &program){
 						cout << "Name already in use by another program. Please choose other name.\n";
 						cin >> new_name;
 					}
-					program_pointer->setName(new_name);
+					channel_pointer->getPrograms()[program_loc].setName(new_name);
 
 				}
 				break;
@@ -988,9 +1042,9 @@ bool Box::updateProgram(string &channel, string &program){
 					}
 
 					Channel new_channel = *channel_pointer;
-					new_channel.removeProgram(program_pointer->getName());
+					new_channel.removeProgram(channel_pointer->getPrograms()[program_loc].getName());
 
-					while (!checkProgramDate(program_pointer->getDate(), duration, new_channel))
+					while (!checkProgramDate(channel_pointer->getPrograms()[program_loc].getDate(), duration, new_channel))
 					{
 						cout << "The duration of the program overlaps with another program\nPlease enter another value: ";
 						cin >> duration;
@@ -1004,7 +1058,7 @@ bool Box::updateProgram(string &channel, string &program){
 						}
 				}
 
-				program_pointer->setDuration(duration);
+					channel_pointer->getPrograms()[program_loc].setDuration(duration);
 
 			}
 
@@ -1016,22 +1070,22 @@ bool Box::updateProgram(string &channel, string &program){
 				  cout << "\n Choose new type:\n";
 				  string type;
 				  cin >> type;
-				  program_pointer->setType(type);
+				  channel_pointer->getPrograms()[program_loc].setType(type);
 			}
 			
 			break;
 		case 4:
 			{
 				  system("cls");
-				  if (program_pointer->getState())
+				  if (channel_pointer->getPrograms()[program_loc].getState())
 				  {
 					  bool state = false;
-					  program_pointer->setRecord(state);
+					  channel_pointer->getPrograms()[program_loc].setRecord(state);
 				  }
 				  else
 				  {
 					  bool state = true;
-					  program_pointer->setRecord(state);
+					  channel_pointer->getPrograms()[program_loc].setRecord(state);
 				  }
 				  cout << "Record state changed";
 			}
@@ -1128,16 +1182,16 @@ bool Box::updateProgram(string &channel, string &program){
 
 					  new_date.setDate(day, hour, min);
 
-					  if (!checkProgramDate(new_date, program_pointer->getDuration(), *channel_pointer))
+					  if (!checkProgramDate(new_date, channel_pointer->getPrograms()[program_loc].getDuration(), *channel_pointer))
 					  {
 						  system("cls");
 						  cout << "|||| CREATE PROGRAM ||||";
 						  cout << endl << "Error. The exhibition time matches the exhibition time of an already existing program.\nPlease enter different values\n";
 					  }
 					 
-				  } while (checkProgramDate(new_date, program_pointer->getDuration(), *channel_pointer));
+				  } while (checkProgramDate(new_date, channel_pointer->getPrograms()[program_loc].getDuration(), *channel_pointer));
 				  
-				  program_pointer->setDate(day, hour, min);
+				  channel_pointer->getPrograms()[program_loc].setDate(day, hour, min);
 			}
 			break;
 		case 6:
@@ -1160,7 +1214,7 @@ bool Box::updateProgram(string &channel, string &program){
 
 }
 
-*/
+
 
 // MOVIE CRDU 
 void Box::createMovie()

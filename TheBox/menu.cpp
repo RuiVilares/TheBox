@@ -1433,6 +1433,7 @@ void loadConfigs(Box &box){
 	box.loadChannels(channel_number);
 	box.load_movies_movieClub();
 	box.load_movies_seen();
+	box.loadRecorded(recorded_number);
 }
 
 

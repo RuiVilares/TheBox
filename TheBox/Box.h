@@ -53,6 +53,10 @@ public:
   void show_movies_seen();
   void load_movies_seen();
   void save_movies();
+  void saveChannels();
+  void loadChannels(int channels_number);
+  void saveRecorded();
+  void loadRecorded(int recorded_number);
 
   //Television
   void SetProgramRecorded();
@@ -63,8 +67,7 @@ public:
   void showPrograms(vector<Program> &list_programs);
 
   //Channels
-  void saveChannels();
-  void loadChannels(int channels_number);
+  
   void showChannels();
   // Channel CRUD
   int searchChannel(string &channel_name);
