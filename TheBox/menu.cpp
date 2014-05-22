@@ -385,11 +385,11 @@ void tv_menu()
 	if (yourchoice == 1)
 		tv_menu_setprogram();
 	if (yourchoice == 2)
-		tv_menu_removeRecorded();
+		tv_menu_showRecorded();
 	if (yourchoice == 3)
-		start_menu();
+		tv_menu_removeRecorded();
 	if (yourchoice == 4)
-		ListbyChannel();
+		ListbyDay();
 	if (yourchoice == 5)
 		ListbyChannel();
 	if (yourchoice == 6)
@@ -411,7 +411,7 @@ void tv_menu_setprogram()
 	cout << "\t \t Set a program to be recorded" << endl << endl;
 	box.SetProgramRecorded();
 	cout << "1. Refresh" << endl;
-	cout << "2. Return"  << endl << endl;
+	cout << "2. Return" << endl << endl;
 	do
 	{
 		cout << "Choose one of those options: ";
@@ -514,6 +514,46 @@ void tv_menu_removeRecorded()
 
 	if (yourchoice == 1)
 		tv_menu_removeRecorded();
+	if (yourchoice == 2)
+		tv_menu();
+}
+
+void tv_menu_showRecorded()
+{
+	int yourchoice;
+	bool valid = false;
+	system("CLS");
+	cout << "  _____    _            _     _             " << endl;
+	cout << " |_   _|__| | _____   _(_)___(_) ___  _ __  " << endl;
+	cout << "   | |/ _ \\ |/ _ \\ \\ / / / __| |/ _ \\| '_ \\ " << endl;
+	cout << "   | |  __/ |  __/\\ V /| \\__ \\ | (_) | | | |" << endl;
+	cout << "   |_|\\___|_|\\___| \\_/ |_|___/_|\\___/|_| |_|" << endl << endl << endl;
+	cout << "\t \t Recorded list" << endl << endl;
+	box.ProgramRecordedShow();
+	cout << "1. Refresh" << endl;
+	cout << "2. Return" << endl << endl;
+	do
+	{
+		cout << "Choose one of those options: ";
+		cin >> yourchoice;
+		if (yourchoice >= 1 && yourchoice <= 2)
+			valid = true;
+		else
+		{
+			if (cin.fail())
+			{
+				cin.clear();
+				cin.ignore(1000, '\n');
+
+			}
+			cout << endl << "Invalid option" << endl << endl;
+			Sleep(1000);
+			tv_menu();
+		}
+	} while (!valid);
+
+	if (yourchoice == 1)
+		tv_menu_showRecorded();
 	if (yourchoice == 2)
 		tv_menu();
 }
@@ -1474,7 +1514,7 @@ void ListbyChannel()
 	}
 
 
-	if (option >= 1 || option <= box.getChannels().size())
+	if (option >= 1 && option <= box.getChannels().size())
 	{
 		
 		Channel channel = box.getChannels()[(option - 1)];

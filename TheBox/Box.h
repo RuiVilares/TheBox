@@ -63,7 +63,7 @@ public:
   void RemoveProgramToBeRecorded();
   void RemoveProgramRecorded();
   bool RecordProgram(string &program_name, string &channel_name);
-
+  void ProgramRecordedShow();
   void showPrograms(vector<Program> &list_programs);
 
   //Channels

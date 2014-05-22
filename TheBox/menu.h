@@ -41,6 +41,8 @@ void tv_menu_removeToBeRecorded();
 
 void tv_menu_removeRecorded();
 
+void tv_menu_showRecorded();
+
 void advanced_menu1();
 
 void advanced_menu2();

@@ -507,54 +507,57 @@ void Box::RemoveProgramToBeRecorded()
 
 void Box::RemoveProgramRecorded()					// Comentei porque estava a dar erro e queria ver uma coisa
 {
-	/*string name;
+	string name;
 	int aux = -1;
-	int i = 0;
+	bool found = false;
 	cout << "Insert a Program's name: ";
 	cin.clear();
 	cin.ignore();
 	getline(cin, name);
 	cout << endl << endl << endl;
-	for (i; i < channels.size(); i++)
+	for (int i=0; i < recordList.size(); i++)
 	{
-		aux = searchProgram(string_to_upper(name), channels[i]);
-		if (aux >= 0)
+		if (string_to_upper(recordList[i].getName())==string_to_upper(name))
 		{
-			break;
+			recordList.erase(recordList.begin() + i);
+			saveRecorded();
+			cout << "The program \"" << name;
+			cout << "\", was sucefully removed from the list of recorded programs." << endl << endl << endl << endl;
+			found = true;
+
 		}
+		
 	}
 
-	if (aux >= 0)
+	if (found==false)
 	{
-		if (channels[i].getPrograms()[aux].getState())
+		cout << "The program \"" << name << "\", isn't in the list of recorded programs." << endl << endl << endl << endl;
+	}
+
+
+	/*if (aux >= 0)
+	{
+		for (int j = 0; j < recordList.size(); j)
+		if (channels[i].getPrograms()[aux].getName())
 		{
-			if (!compDates(GetCurrentDate(), channels[i].getPrograms()[aux].getDate()))
-			{
 				cout << "The program \"" << channels[i].getPrograms()[aux].getName();
 				cout << "\", from the channel \"" << channels[i].getName();
 				cout << "\", was sucefully removed from the list of recorded programs." << endl << endl << endl << endl;
 				channels[i].getPrograms()[aux].setRecord(false);
-				for (int j = 0; j < recorded.size(); j++)
+				for (int j = 0; j < recordList.size(); j++)
 				{
-					if (string_to_upper(channels[i].getPrograms()[aux].getName()) == string_to_upper(recorded[j].getName()))
+					if (string_to_upper(channels[i].getPrograms()[aux].getName()) == string_to_upper(recordList[j].getName()))
 					{
-						recorded.erase(recorded.begin() + j);
+						recordList.erase(recordList.begin() + j);
 						break;
 					}
 				}
-			}
-			else
-			{
-				cout << "The program \"" << channels[i].getPrograms()[aux].getName();
-				cout << "\", from the channel \"" << channels[i].getName();
-				cout << "\", is in the list of to be recorded programs." << endl << endl << endl << endl;
-			}
 		}
 		else
 		{
 			cout << "The program \"" << channels[i].getPrograms()[aux].getName();
 			cout << "\", from the channel \"" << channels[i].getName();
-			cout << "\", isn't in the list of recorded program's nor in the list of to be recorded programs." << endl << endl << endl << endl;
+			cout << "\", isn't in the list of recorded programs." << endl << endl << endl << endl;
 		}
 	}
 	else
@@ -588,6 +591,20 @@ bool Box::RecordProgram(string &program_name, string &channel_name){
 }
 
 
+
+void Box::ProgramRecordedShow()
+{
+	cout << "Name" << setw(27) << "Type" << setw(20) << "Date" << setw(17) << "Duration" << endl;
+	for (int i = 0; i < recordList.size(); i++)
+	{
+		cout << recordList[i].getName() << setw(35 - recordList[i].getName().size()) << recordList[i].getType() << setw(25 - recordList[i].getType().size());
+		recordList[i].getDate().showDate();
+		cout << setw(10) << recordList[i].getDuration() << endl;
+	}
+	cout << endl << endl;
+}
+
+
 void Box::showPrograms(vector<Program> &list_programs){
 	for (int i = 0; i < list_programs.size(); i++)
 	{
@@ -613,7 +630,7 @@ void Box::showChannels(){
 int Box::searchChannel(string &channel_name){
 	for (int i = 0; i < channels.size(); i++)
 	{
-		if (string_to_upper(channels[i].getName()) == string_to_upper(channel_name))
+		if (string_to_upper(channels[i].getName()) == string_to_upper(channel_name) || channels[i].getName() == string_to_upper(channel_name))
 		{
 			return i;
 		}
@@ -717,7 +734,7 @@ int Box::searchProgram(string &program_name, Channel &channel){					// Se encont
 	
 	for (int i = 0; i < channel.getPrograms().size(); i++)
 	{
-		if (channel.getPrograms()[i].getName() == program_name)
+		if (channel.getPrograms()[i].getName() == program_name || string_to_upper(channel.getPrograms()[i].getName()) == program_name)
 		{
 			return i;
 		}
