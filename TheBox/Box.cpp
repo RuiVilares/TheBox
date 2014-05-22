@@ -670,7 +670,7 @@ int Box::searchProgram(string &program_name, Channel &channel){					// Se encont
 	
 	for (int i = 0; i < channel.getPrograms().size(); i++)
 	{
-		if (string_to_upper(channel.getPrograms()[i].getName()) == program_name)
+		if (channel.getPrograms()[i].getName() == program_name)
 		{
 			return i;
 		}

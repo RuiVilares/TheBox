@@ -140,13 +140,13 @@ int Date::getInt(string daysentence)
 	if (daysentence == "Tuesday")
 		day = 3;
 	if (daysentence == "Wednesday")
-		day == 4;
+		day = 4;
 	if (daysentence == "Thursday")
-		day == 5;
+		day = 5;
 	if (daysentence == "Friday")
-		day == 6;
+		day = 6;
 	if (daysentence == "Saturday")
-		day == 7;
+		day = 7;
 	return day;
 }
 
