@@ -761,7 +761,7 @@ bool Box::createdProgram(string &channel){
 	string new_program;
 	cout << "|||| CREATE PROGRAM ||||";
 	cout << endl << "Program name:\n";
-	cin >> new_program;
+	getline(cin, new_program);
 	while (-1 != searchProgram(new_program, *channel_pointer))
 	{
 		system("cls");
@@ -920,6 +920,7 @@ bool Box::createdProgram(string &channel){
 
 	// ADICIONAR Programa
 	channel_pointer->addProgram(new_program, duration, type, recorded, day, hour, min);
+	saveChannels();
 	return true;
 	
 }
