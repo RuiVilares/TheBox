@@ -4,6 +4,10 @@
 #include<iostream>
 #include<vector>
 #include<string>
+#include<iomanip>
+#include<stdlib.h>
+#include<sstream>
+
 
 #include "Program.h"
 
@@ -15,6 +19,8 @@ private:
 	vector<Program> programs;
 public:
 	Channel(string &n);
+	static bool compareName(Program &prog1, Program &prog2);
+	void orderPrograms();
 
 	// Data member mutators
 	void addProgram(string &n, int dur, string &t, bool state, string &d, int h, int min);

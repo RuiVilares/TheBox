@@ -1,9 +1,9 @@
 #include "Channel.h"
 #include "Program.h"
+#include "fuctions.h"
 
 #include <iostream>
 #include <cstdlib>
-#include <iostream> 
 #include <iomanip> 
 #include <string>
 #include <cctype> 
@@ -11,14 +11,45 @@
 #include <vector>
 #include <fstream>
 #include <algorithm> 
-#include "stdlib.h"
+#include <stdlib.h>
+#include <stdio.h>
 #include <windows.h>
 #include <conio.h>
+#include <fstream>
 
 using namespace std;
 
 Channel::Channel(string &n){
 	name = n;
+}
+
+bool Channel::compareName(Program &prog1, Program &prog2){
+	bool result = false;
+	string name1 = string_to_upper(prog1.getName());
+	string name2 = string_to_upper(prog2.getName());
+	int i = 0;
+	while (i < name1.size() && i < name2.size())
+	{
+		int letter1, letter2;
+
+		letter1 = int(name1[i]);
+		letter2 = int(name2[i]);
+
+
+		if (letter2 == letter1)
+		{
+
+		}
+		else
+		{
+			return (letter1 < letter2);
+		}
+		i++;
+	}
+}
+
+void Channel::orderPrograms(){
+	sort(programs.begin(), programs.end(), compareName);
 }
 
 void Channel::addProgram(string &n, int dur, string &t, bool state, string &d, int h, int min){

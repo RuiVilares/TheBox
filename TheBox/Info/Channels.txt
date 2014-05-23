@@ -1,15 +1,17 @@
 RTP1
 2
-"Jornal de noticias" 120 "Informacao" 1 "Monday" 19 59
 "Game of Thrones" 55 "Acao" 0 "Thursday" 22 0
+"Jornal de noticias" 120 "Informacao" 1 "Monday" 19 59
 SIC
-3
-"Vale Tudo" 30 "Comedia" 0 "Thursday" 21 0
-"Jornal da Noite" 60 "information" 0 "Sunday" 20 0
-"Globos de Ouro" 180 "cultural" 0 "Saturday" 21 0
-TVI
 4
-"Casa dos segredos" 90 "Comedia" 0 "Thursday" 21 0
-"Jornal da Tarde" 60 "information" 0 "Sunday" 13 0
+"Globos de Ouro" 180 "cultural" 0 "Saturday" 21 0
+"Jornal da Noite" 60 "information" 0 "Sunday" 20 0
+"Jornal da tarde" 60 "Informacao" 0 "Monday" 13 0
+"Vale Tudo" 30 "Comedia" 0 "Thursday" 21 0
+TVI
+5
 "Belmonte" 45 "cultural" 0 "Saturday" 21 50
+"Casa dos segredos" 90 "Comedia" 0 "Thursday" 21 0
+"Final Casa dos segredos" 120 "Comedia" 0 "Monday" 20 0
 "Final Champions" 120 "deporto" 0 "Saturday" 19 45
+"Jornal da Tarde" 60 "information" 0 "Sunday" 13 0
