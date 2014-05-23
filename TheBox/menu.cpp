@@ -43,6 +43,7 @@ void goodbye()
 	box.save_movies();
 	box.saveInfo();
 	box.saveChannels();
+	box.saveRecorded();
 	exit(0);
 }
 
@@ -438,45 +439,7 @@ void tv_menu_setprogram()
 		tv_menu();
 }
 
-void tv_menu_removeToBeRecorded()
-{
-	/*int yourchoice;
-	bool valid = false;
-	system("CLS");
-	cout << "  _____    _            _     _             " << endl;
-	cout << " |_   _|__| | _____   _(_)___(_) ___  _ __  " << endl;
-	cout << "   | |/ _ \\ |/ _ \\ \\ / / / __| |/ _ \\| '_ \\ " << endl;
-	cout << "   | |  __/ |  __/\\ V /| \\__ \\ | (_) | | | |" << endl;
-	cout << "   |_|\\___|_|\\___| \\_/ |_|___/_|\\___/|_| |_|" << endl << endl << endl;
-	cout << "\t \t Remove a program from the to be recorded's list" << endl << endl;
-	box.RemoveProgramToBeRecorded();
-	cout << "1. Refresh" << endl;
-	cout << "2. Return" << endl << endl;
-	do
-	{
-		cout << "Choose one of those options: ";
-		cin >> yourchoice;
-		if (yourchoice >= 1 && yourchoice <= 2)
-			valid = true;
-		else
-		{
-			if (cin.fail())
-			{
-				cin.clear();
-				cin.ignore(1000, '\n');
 
-			}
-			cout << endl << "Invalid option" << endl << endl;
-			Sleep(1000);
-			tv_menu();
-		}
-	} while (!valid);
-
-	if (yourchoice == 1)
-		tv_menu_removeToBeRecorded();
-	if (yourchoice == 2)
-		tv_menu();*/
-}
 
 void tv_menu_removeRecorded()
 {
@@ -530,7 +493,7 @@ void tv_menu_showRecorded()
 	cout << "   |_|\\___|_|\\___| \\_/ |_|___/_|\\___/|_| |_|" << endl << endl << endl;
 	cout << "\t \t Recorded list" << endl << endl;
 	box.ProgramRecordedShow();
-	cout << "1. Refresh" << endl;
+	cout << "1. Remove a program from the recorded's list" << endl;
 	cout << "2. Return" << endl << endl;
 	do
 	{
@@ -553,7 +516,7 @@ void tv_menu_showRecorded()
 	} while (!valid);
 
 	if (yourchoice == 1)
-		tv_menu_showRecorded();
+		tv_menu_removeRecorded();
 	if (yourchoice == 2)
 		tv_menu();
 }
@@ -1690,13 +1653,6 @@ void ListbyChannel()
 	cout << endl << box.getChannels().size() + 1 << ". Return\n \n";
 	cout << "Choose one of those options: ";
 	cin >> option;
-	/*while (cin.fail())
-	{
-		cin.clear();
-		cin.ignore(100000, '\n');
-		cout << "Invalid Option";
-		cin >> option;
-	}*/
 
 	if (option < 1 || option >(box.getChannels().size() + 1) || cin.fail())
 	{
@@ -1755,40 +1711,68 @@ void ListbyChannel()
 
 				program.showProgramDetails();
 
-
-				cout << "\n \n1. Yes \n2. No";
-				cout << endl << endl << "Do you want to record this program? "; //Enter Y to record or N to go return: ";
-
-				cin >> ans;
-				if (ans < 1 && ans > 2)
+				if (compDates(box.GetCurrentDate(), program.getDate()))
 				{
-					cin.clear();
-					cin.ignore(100000, '\n');
-					cout << "\n \nInvalid option\n";
-					Sleep(2000);
+					cout << "\n \n1. Yes \n2. No";
+					cout << endl << endl << "Do you want to record this program? ";
 
-				}
-			}
-			while (ans < 1 && ans > 2);
-			if (ans==2)
-			{
-				tv_menu();
-			}
-			else
-			{
-				if (box.RecordProgram(program.getName(), channel.getName()))
-				{
-					cout << endl << "Success. Your program was set to be recorded";
-					Sleep(2000);
-					tv_menu();
+					cin >> ans;
+					if (ans < 1 || ans > 2)
+					{
+						cin.clear();
+						cin.ignore(100000, '\n');
+						cout << "\n \nInvalid option\n";
+						Sleep(2000);
+						tv_menu();
+					}
+					if (ans == 2)
+					{
+						tv_menu();
+					}
+					if (ans == 1)
+					{
+						if (box.RecordProgram(program.getName(), channel.getName()))
+						{
+							cout << endl << "Success. Your program was set to be recorded";
+							Sleep(2000);
+							tv_menu();
+						}
+						else
+						{
+							cout << endl << "Error. Your program was already set to be recorded";
+							Sleep(2000);
+							tv_menu();
+						}
+
+					}
 				}
 				else
 				{
-					cout << endl << "Error. Your program is recorded";
-					Sleep(2000);
-					tv_menu();
+					cout << "\n \n1. Start Menu \n2. Tv Menu";
+					cout << endl << endl << "Choose one of this options: ";
+
+					cin >> ans;
+					if (ans < 1 || ans > 2)
+					{
+						cin.clear();
+						cin.ignore(100000, '\n');
+						cout << "\n \nInvalid option\n";
+						Sleep(2000);
+						tv_menu();
+					}
+					if (ans == 1)
+					{
+						start_menu();
+					}
+					if (ans == 2)
+					{
+						tv_menu();
+
+					}
 				}
 			}
+			while (ans < 1 && ans > 2);
+			
 		}
 
 		

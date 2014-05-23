@@ -65,6 +65,10 @@ void Channel::setProgramState(int pos){
 	programs[pos].setRecord(!programs[pos].getState());
 }
 
+void Channel::setProgramState(int pos, bool state){
+	programs[pos].setRecord(state);
+}
+
 void Channel::setProgramDate(string d, int h, int m, int pos){
 	programs[pos].setDate(d, h, m);
 }

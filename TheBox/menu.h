@@ -37,8 +37,6 @@ void tv_menu();
 
 void tv_menu_setprogram();
 
-void tv_menu_removeToBeRecorded();
-
 void tv_menu_removeRecorded();
 
 void tv_menu_showRecorded();

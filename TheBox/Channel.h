@@ -26,6 +26,7 @@ public:
 	void setProgramDuration(int dur, int pos);
 	void setProgramType(string &n, int pos);
 	void setProgramState(int pos);
+	void Channel::setProgramState(int pos, bool state);
 	void setProgramDate(string d, int h, int m, int pos);
 	// Data member accessors
 	string getName();

@@ -25,7 +25,6 @@ private:
   vector<Movie> movieClub;
   vector<Movie> seenMovies;
   vector<Program> recordList;
-  //vector<Program> recorded;    // removed in the final version of the work text
 
 public:
   Date Box::GetCurrentDate();
@@ -61,7 +60,6 @@ public:
 
   //Television
   void SetProgramRecorded();
-  void RemoveProgramToBeRecorded();
   void RemoveProgramRecorded();
   bool RecordProgram(string &program_name, string &channel_name);
   void ProgramRecordedShow();

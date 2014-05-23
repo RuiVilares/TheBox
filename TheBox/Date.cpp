@@ -67,21 +67,7 @@ void Date::setMinutes(unsigned int m)
 
 //-----------------------------------------------
 
- /*Date Date::currentDate()
- {
-	Date current;
-	string wd;
-	int d, h, m;
-	srand (time(NULL));
-    d = rand() % 7 + 1;
-	h = rand() % 25;
-	m = rand() % 60;
-	wd = current.getStr(d);
-	current.setDate(wd, h, m);
-	return current;
- }
- */
-//-----------------------------------------------
+
 
  void Date::showDate()
  {

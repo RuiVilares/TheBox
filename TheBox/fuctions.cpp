@@ -3,25 +3,6 @@
 
 
 
-void RentMovie()
-{
-	// Completar depois
-}
-
-void ListNeverSeen()
-{
-	// Completar
-}
-
-void ListPreviouslySeen()
-{
-	// Completar
-}
-
-void MoneySpent()
-{
-	// Completar
-}
 
 
 string LoadPassword()

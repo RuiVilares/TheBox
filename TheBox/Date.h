@@ -36,7 +36,6 @@ class Date{
 	int getTotalDate();
 	void showDate();
 	
-	//Date currentDate();
 };
 
 #endif

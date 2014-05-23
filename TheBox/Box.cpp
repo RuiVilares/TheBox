@@ -32,7 +32,6 @@ void Box::saveInfo()
 	file << channels.size() << endl;
 	file << movieClub.size() << endl;
 	file << seenMovies.size() << endl;
-	/*file << recorded.size() << endl;*/
 	file << recordList.size();
 	file.close();
 }
@@ -171,6 +170,8 @@ void Box::saveRecorded(){
 	saveInfo();
 }
 
+
+
 void Box::loadRecorded(int recorded_number){
 	ifstream recorded_file;
 	recorded_file.open("Info\\Recorded.txt");
@@ -183,19 +184,19 @@ void Box::loadRecorded(int recorded_number){
 		{
 			if (searchProgram(name, channels[i]) != -1)
 			{
-				
+
 				//Avalia a data do programa com a data actual
 				if (currentDate.getTotalDate()>channels[i].getPrograms()[searchProgram(name, channels[i])].getDate().getTotalDate())
 				{
 					bool state = true;
-					channels[i].getPrograms()[searchProgram(name, channels[i])].setRecord(state);
+					channels[i].setProgramState(searchProgram(name, channels[i]), state);
 				}
 				else
 				{
 					bool state = false;
-					channels[i].getPrograms()[searchProgram(name, channels[i])].setRecord(state);
+					channels[i].setProgramState(searchProgram(name, channels[i]), state);
 				}
-				
+
 				// Copia o programa para o recordList
 				recordList.push_back(channels[i].getPrograms()[searchProgram(name, channels[i])]);
 			}
@@ -416,29 +417,35 @@ void Box::SetProgramRecorded()
 	cin.ignore();
 	getline(cin, name);
 	cout << endl << endl << endl;
-	for (i; i < channels.size(); i++)
+	int existInRecord = false;
+	for (int j = 0; j < recordList.size(); j++)
 	{
-		aux = searchProgram(string_to_upper(name), channels[i]);
-		if (aux >= 0)
+		if (string_to_upper(name) == string_to_upper(recordList[j].getName()))
 		{
+			existInRecord = true;
+			cout << "The program \"" << name << "\", is in the list of recorded programs." << endl << endl << endl << endl;
 			break;
 		}
 	}
-
-	if (aux >= 0)
+	if (!existInRecord)
 	{
-		/*if (channels[i].getPrograms()[aux].getState())
+		for (i; i < channels.size(); i++)
 		{
-			cout << "The program \"" << channels[i].getPrograms()[aux].getName();
-			cout << "\", from the channel \"" << channels[i].getName() << "\", has been requested to be record." << endl << endl << endl << endl;
+			aux = searchProgram(string_to_upper(name), channels[i]);
+			if (aux >= 0)
+			{
+				break;
+			}
 		}
-		else
-		{*/
+
+		if (aux >= 0)
+		{
+
 			if (compDates(GetCurrentDate(), channels[i].getPrograms()[aux].getDate()))
 			{
 				cout << "The program \"" << channels[i].getPrograms()[aux].getName();
-				cout << "\", from the channel \"" << channels[i].getName() << "\", was sucefully set to be recorded." << endl << endl << endl << endl;
-				//[i].getPrograms()[aux].setRecord(true);
+				cout << "\", from the channel \"" << channels[i].getName() << "\", was sucefully\n";
+				cout << "set to be recorded." << endl << endl << endl << endl;
 				recordList.push_back(channels[i].getPrograms()[aux]);
 			}
 			else
@@ -446,69 +453,15 @@ void Box::SetProgramRecorded()
 				cout << "The program \"" << channels[i].getPrograms()[aux].getName();
 				cout << "\", from the channel \"" << channels[i].getName() << "\", has been reproduced." << endl << endl << endl << endl;
 			}
-		//}
-	}
-	else 
-		cout << "The program \"" << name << "\" doesn't exist." << endl << endl << endl << endl;
-}
-
-void Box::RemoveProgramToBeRecorded()
-{
-	string name;
-	int aux = -1;
-	int i = 0;
-	cout << "Insert a Program's name: ";
-	cin.clear();
-	cin.ignore();
-	getline(cin, name);
-	cout << endl << endl << endl;
-	for (i; i < channels.size(); i++)
-	{
-		aux = searchProgram(string_to_upper(name), channels[i]);
-		if (aux >= 0)
-		{
-			break;
-		}
-	}
-
-	if (aux >= 0)
-	{
-		if (channels[i].getPrograms()[aux].getState())
-		{
-			if (compDates(GetCurrentDate(), channels[i].getPrograms()[aux].getDate()))
-			{
-				cout << "The program \"" << channels[i].getPrograms()[aux].getName();
-				cout << "\", from the channel \"" << channels[i].getName();
-				cout << "\", was sucefully removed from the list of to be recorded programs." << endl << endl << endl << endl;
-				//channels[i].getPrograms()[aux].setRecord(false);
-				for (int j = 0; j < recordList.size(); j++)
-				{
-					if (string_to_upper(channels[i].getPrograms()[aux].getName()) == string_to_upper(recordList[j].getName()))
-					{
-						recordList.erase(recordList.begin() + j);
-						break;
-					}
-				}
-			}
-			else
-			{
-				cout << "The program \"" << channels[i].getPrograms()[aux].getName();
-				cout << "\", from the channel \"" << channels[i].getName();
-				cout << "\", is in the list of recorded programs." << endl << endl << endl << endl;
-			}
 		}
 		else
-		{
-			cout << "The program \"" << channels[i].getPrograms()[aux].getName();
-			cout << "\", from the channel \"" << channels[i].getName();
-			cout << "\", isn't in the list of recorded program's nor in the list of to be recorded programs." << endl << endl << endl << endl;
-		}
+			cout << "The program \"" << name << "\" doesn't exist." << endl << endl << endl << endl;
 	}
-	else
-		cout << "The program \"" << name << "\" doesn't exist." << endl << endl << endl << endl;
 }
 
-void Box::RemoveProgramRecorded()					// Comentei porque estava a dar erro e queria ver uma coisa
+
+
+void Box::RemoveProgramRecorded()
 {
 	string name;
 	int aux = -1;
@@ -518,53 +471,27 @@ void Box::RemoveProgramRecorded()					// Comentei porque estava a dar erro e que
 	cin.ignore();
 	getline(cin, name);
 	cout << endl << endl << endl;
-	for (int i=0; i < recordList.size(); i++)
+	for (int i = 0; i < recordList.size(); i++)
 	{
-		if (string_to_upper(recordList[i].getName())==string_to_upper(name))
+		if (string_to_upper(recordList[i].getName()) == string_to_upper(name))
 		{
 			recordList.erase(recordList.begin() + i);
 			saveRecorded();
 			cout << "The program \"" << name;
-			cout << "\", was sucefully removed from the list of recorded programs." << endl << endl << endl << endl;
+			cout << "\", was sucefully removed from the list\n";
+			cout << "of recorded programs." << endl << endl << endl << endl;
 			found = true;
 
 		}
-		
+
 	}
 
-	if (found==false)
+	if (found == false)
 	{
 		cout << "The program \"" << name << "\", isn't in the list of recorded programs." << endl << endl << endl << endl;
 	}
 
 
-	/*if (aux >= 0)
-	{
-		for (int j = 0; j < recordList.size(); j)
-		if (channels[i].getPrograms()[aux].getName())
-		{
-				cout << "The program \"" << channels[i].getPrograms()[aux].getName();
-				cout << "\", from the channel \"" << channels[i].getName();
-				cout << "\", was sucefully removed from the list of recorded programs." << endl << endl << endl << endl;
-				channels[i].getPrograms()[aux].setRecord(false);
-				for (int j = 0; j < recordList.size(); j++)
-				{
-					if (string_to_upper(channels[i].getPrograms()[aux].getName()) == string_to_upper(recordList[j].getName()))
-					{
-						recordList.erase(recordList.begin() + j);
-						break;
-					}
-				}
-		}
-		else
-		{
-			cout << "The program \"" << channels[i].getPrograms()[aux].getName();
-			cout << "\", from the channel \"" << channels[i].getName();
-			cout << "\", isn't in the list of recorded programs." << endl << endl << endl << endl;
-		}
-	}
-	else
-		cout << "The program \"" << name << "\" doesn't exist." << endl << endl << endl << endl;*/
 }
 
 
@@ -597,12 +524,14 @@ bool Box::RecordProgram(string &program_name, string &channel_name){
 
 void Box::ProgramRecordedShow()
 {
-	cout << "Name" << setw(27) << "Type" << setw(17) << "Duration" << setw(20) << "Date" << endl;
+	cout << "Name" << setw(27) << "Type" << setw(10) << "Duration" << setw(10) << "Date" << setw(25) << "Already recorded" <<  endl;
 	for (int i = 0; i < recordList.size(); i++)
 	{
-		cout << recordList[i].getName() << setw(32 - recordList[i].getName().size()) << recordList[i].getType() << setw(25 - recordList[i].getType().size());
-		cout << recordList[i].getDuration() << setw(20 - count_numbers(recordList[i].getDuration()));
+		cout << recordList[i].getName() << setw(32 - recordList[i].getName().size()) << recordList[i].getType();
+		cout << setw(8) << recordList[i].getDuration() << setw(10);
 		recordList[i].getDate().showDate();
+		if (recordList[i].getState())
+			cout << setw(15) << "X";
 		cout << endl;
 	}
 	cout << endl << endl;
@@ -795,7 +724,7 @@ bool Box::createdProgram(string &channel){
 
 
 
-	//do {
+	
 		cout << endl << endl << "Insert the program specifications:\n \n";
 		//INSERIR DURACAO
 		cout << "Duration(in minutes): ";
@@ -849,47 +778,7 @@ bool Box::createdProgram(string &channel){
 			cin >> option;
 		}
 		
-		/*bool repeat;
-		do 
-		{
-			repeat = false;
-			switch (option)
-			{
-			case 1:
-				day = "Sunday";
-				break;
-			case 2:
-				day = "Monday";
-				break;
-			case 3:
-				day = "Tuesday";
-				break;
-			case 4:
-				day = "Wednesday";
-				break;
-			case 5:
-				day = "Thursday";
-				break;
-			case 6:
-				day = "Friday";
-				break;
-			case 7:
-				day = "Saturday";
-				break;
-			default:
-				repeat = true;
-				cout << "Option mismatch. Please choose a number between 1 and 7: ";
-				cin >> option;
-				while (cin.fail())
-				{
-					cin.clear();
-					cin.ignore(10000, '\n');
-					cout << "Option mismatch. Please choose a number between 1 and 7: ";
-					cin >> option;
-				}
-				break;
-			}
-		} while (repeat);*/
+		
 		day = new_program_date.getStr(option);
 
 		new_program_date.setDate(day, hour, min);
@@ -901,8 +790,7 @@ bool Box::createdProgram(string &channel){
 		createdProgram(channel);
 		}
 
-		
-	//} while (checkProgramDate(new_program_date, duration, *channel_pointer));
+	
 
 
 	// ADICIONAR TIPO DE PROGRAMA
@@ -914,17 +802,6 @@ bool Box::createdProgram(string &channel){
 
 	 
 	
-	  //// ADICIONAR RECORDED
-		//int begin_new_program = (new_program_date.getInt(new_program_date.getDay()) - 1) * 24 * 60 + new_program_date.getHour() * 60 + new_program_date.getMinutes();
-		//int current_date_min = (currentDate.getInt(currentDate.getDay()) - 1) * 24 * 60 + currentDate.getHour() * 60 + currentDate.getMinutes();
-		//if (begin_new_program > current_date_min)
-		//{
-		//	recorded = false;
-		//}
-		//else
-		//{
-		//	recorded = true;
-		//}		
 	
 
 	bool recorded = false;
@@ -1211,282 +1088,7 @@ void Box::updateProgramDate(string &programn)
 
 }
 
-/*
-bool Box::updateProgram(string &programn, int selection)
-	int program_loc;
-	Channel * channel_pointer;
 
-	channel_pointer = &Channel(channel); // Esta linha serve para o programa não dar erro porque existe a possibilidade de o apontador não ser inicializado
-
-	for (int i = 0; i < channels.size(); i++)
-	{
-		if (channels[i].getName() == channel)
-		{
-			channel_pointer = &channels[i];
-		}
-	}
-	
-
-	//channel_pointer->getPrograms()[program_loc];
-	program_loc= searchProgram(program, *channel_pointer);
-	
-	
-
-	system("cls");
-	cout << "|||| UPDATE PROGRAM ||||";
-	cout << "Select one of the options:\n";
-	
-	int option;
-	cout << "1. Change name\n"
-		<< "2. Change duration\n"
-		<< "3. Change type\n"
-		<< "4. Change record state\n"
-		<< "5. Change exhibition date\n"
-		<< "6. Return"
-		<< "Choose one of those options: ";
-
-	cin >> option;
-	while (cin.fail())
-	{
-		cin.clear();
-		cin.ignore(10000, '\n');
-		cout << "Option mismatch. Please choose a number between 1 and 6: ";
-		cin >> option;
-	}
-
-
-
-
-	
-	
-	bool repeat;
-	do
-	{
-		system("cls");
-		cout << "|||| UPDATE PROGRAM ||||";
-		cout << endl << "Select one of the options:\n"
-			<< "1. Change name"
-			<< "2. Change duration"
-			<< "3. Change type"
-			<< "4. Change record state"
-			<< "5. Change exhibition date\n"
-			<< "6. Return"
-			<< "Option number: ";
-		cin >> option;
-		while (cin.fail())
-		{
-			cin.clear();
-			cin.ignore(10000, '\n');
-			cout << "Option mismatch. Please choose a number between 1 and 6: ";
-			cin >> option;
-		}
-		switch (selection)
-		{
-			case 1:
-				{
-					string new_name;
-					system("cls");
-					cout << "|||| UPDATE PROGRAM ||||";
-					cout << "\nChoose a new name:";
-					cin >> new_name;
-
-					while (searchProgram(new_name, *channel_pointer) && new_name != program)
-					{
-						cout << "Name already in use by another program. Please choose other name.\n";
-						cin >> new_name;
-					}
-					channel_pointer->getPrograms()[program_loc].setName(new_name);
-
-				}
-				break;
-			case 2:
-				{	
-						int duration;
-
-					system("cls");
-					cout << "|||| UPDATE PROGRAM ||||";
-					cout << "Enter duration: ";
-					cin >> duration;
-
-					if (cin.fail())
-					{
-						cin.clear();
-						cin.ignore(100000, '\n');
-						cout << "Invalid input. Please enter another value for duration: ";
-						cin >> duration;
-					}
-
-					Channel new_channel = *channel_pointer;
-					new_channel.removeProgram(channel_pointer->getPrograms()[program_loc].getName());
-
-					while (!checkProgramDate(channel_pointer->getPrograms()[program_loc].getDate(), duration, new_channel))
-					{
-						cout << "The duration of the program overlaps with another program\nPlease enter another value: ";
-						cin >> duration;
-
-						if (cin.fail())
-						{
-							cin.clear();
-							cin.ignore(100000, '\n');
-							cout << "Invalid input. Please enter another value for duration: ";
-							cin >> duration;
-						}
-				}
-
-					channel_pointer->getPrograms()[program_loc].setDuration(duration);
-
-			}
-
-			break;
-		case 3:
-			{
-				  system("cls");
-				  cout << "|||| UPDATE PROGRAM ||||";
-				  cout << "\n Choose new type:\n";
-				  string type;
-				  cin >> type;
-				  channel_pointer->getPrograms()[program_loc].setType(type);
-			}
-			
-			break;
-		case 4:
-			{
-				  system("cls");
-				  if (channel_pointer->getPrograms()[program_loc].getState())
-				  {
-					  bool state = false;
-					  channel_pointer->getPrograms()[program_loc].setRecord(state);
-				  }
-				  else
-				  {
-					  bool state = true;
-					  channel_pointer->getPrograms()[program_loc].setRecord(state);
-				  }
-				  cout << "Record state changed";
-			}
-			break;
-		case 5:
-			{
-				  system("cls");
-				  cout << "|||| UPDATE PROGRAM ||||";
-				  int hour, min;
-				  string day;
-
-				  Date new_date = Date();
-
-				  do
-				  {
-					  cout << "Insert the programs:\n";
-					  
-					  //INSERIR HORA INÍCIO
-
-					  cout << "\nStarting hour: "; cin >> hour;
-					  while (cin.fail() || hour > 23 || hour < 0)
-					  {
-						  cin.clear();
-						  cin.ignore(10000, '\n');
-						  cout << "Wrong format. Please insert a number between 0 and 23: ";
-						  cin >> hour;
-					  }
-
-
-					  // INSERIR MINUTOS
-					  cout << "minutes: "; cin >> min;
-					  while (cin.fail() || min > 59 || min < 0)
-					  {
-						  cin.clear();
-						  cin.ignore(10000, '\n');
-						  cout << "Wrong format. Please insert a number between 0 and 59: ";
-						  cin >> min;
-					  }
-
-
-					  // INSERIR DIA DA SEMANA
-					  int option;
-					  cout << "Choose a day of the week:\n1.Sunday\n2.Monday\n3.Tuesday\n4.Wednesday\n5.Thursday\n6.Friday\n7.Saturday\n";
-					  cin >> option;
-
-					  while (cin.fail())
-					  {
-						  cin.clear();
-						  cin.ignore(10000, '\n');
-						  cout << "Option mismatch. Please choose a number between 1 and 7: ";
-						  cin >> option;
-					  }
-					  bool repeat;
-					  do
-					  {
-						  repeat = false;
-						  switch (option)
-						  {
-						  case 1:
-							  day = "Sunday";
-							  break;
-						  case 2:
-							  day = "Monday";
-							  break;
-						  case 3:
-							  day = "Tuesday";
-							  break;
-						  case 4:
-							  day = "Wednesday";
-							  break;
-						  case 5:
-							  day = "Thursday";
-							  break;
-						  case 6:
-							  day = "Friday";
-							  break;
-						  case 7:
-							  day = "Saturday";
-							  break;
-						  default:
-							  repeat = true;
-							  cout << "Option mismatch. Please choose a number between 1 and 7: ";
-							  cin >> option;
-							  while (cin.fail())
-							  {
-								  cin.clear();
-								  cin.ignore(10000, '\n');
-								  cout << "Option mismatch. Please choose a number between 1 and 7: ";
-								  cin >> option;
-							  }
-							  break;
-						  }
-					  } while (repeat);
-
-					  new_date.setDate(day, hour, min);
-
-					  if (!checkProgramDate(new_date, channel_pointer->getPrograms()[program_loc].getDuration(), *channel_pointer))
-					  {
-						  system("cls");
-						  cout << "|||| CREATE PROGRAM ||||";
-						  cout << endl << "Error. The exhibition time matches the exhibition time of an already existing program.\nPlease enter different values\n";
-					  }
-					 
-				  } while (checkProgramDate(new_date, channel_pointer->getPrograms()[program_loc].getDuration(), *channel_pointer));
-				  
-				  channel_pointer->getPrograms()[program_loc].setDate(day, hour, min);
-			}
-			break;
-		case 6:
-			return true;
-			break;
-		default:
-			repeat = true;
-			cout << "Option mismatch. Please choose a number between 1 and 6: ";
-			cin >> option;
-			while (cin.fail())
-			{
-				cin.clear();
-				cin.ignore(10000, '\n');
-				cout << "Option mismatch. Please choose a number between 1 and 6: ";
-				cin >> option;
-			}
-			break;
-		}
-	} while (repeat);
-*/
 
 
 // MOVIE CRDU 

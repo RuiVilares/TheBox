@@ -23,14 +23,6 @@
 
 using namespace std;
 
-void RentMovie();
-
-void ListNeverSeen();
-
-void ListPreviouslySeen();
-
-void MoneySpent();
-
 
 string LoadPassword();
 
