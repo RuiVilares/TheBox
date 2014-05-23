@@ -31,11 +31,12 @@ public:
   Date Box::GetCurrentDate();
   string Box::GetPassword();
   Box(string passwd, Date currentDate);
-  vector<Program> listByDay(string day) const;
-  vector<Program> listByChannel(string  channel, string day) const;
-  vector<Program> listByType(string  type, string day) const;
+  vector<Program> listByDay(string &day);
+  vector<Program> listByChannel(string  &channel, string day);
+  vector<Program> listByType(string  &type, string &day);
   void saveInfo();
   vector<Channel> getChannels();
+  static bool compareDate(Program &prog1, Program &prog2);
 
  //Password
   bool changePassword(string np);         // ask, verify and change the password
