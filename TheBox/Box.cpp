@@ -45,6 +45,12 @@ vector<Channel> Box::getChannels(){
 
 
 void Box::saveChannels(){
+
+	for (int i = 0; i < channels.size(); i++)
+	{
+		channels[i].orderPrograms();
+	}
+
 	ofstream channels_file;
 	channels_file.open("Info\\Channels.txt");
 
@@ -545,6 +551,68 @@ void Box::showPrograms(vector<Program> &list_programs){
 	}
 }
 
+bool Box::compareDate(Program &prog1, Program &prog2){
+	return prog1.getDate().getTotalDate()<prog2.getDate().getTotalDate();
+}
+
+//bool Box::compareName(Program &prog1, Program &prog2){
+//	bool result = false;
+//	string name1 = string_to_upper( prog1.getName());
+//	string name2 = string_to_upper(prog2.getName());
+//	for (int i = 0; i < name1.size(); i++)
+//	{
+//		stringstream str;
+//		int letter1, letter2;
+//
+//		str << name1[i];
+//		str >> letter1;
+//		str << name2[i];
+//		str >> letter2;
+//		if (letter2==letter1)
+//		{
+//
+//		}
+//		else
+//		{
+//			return letter1 < letter2;
+//		}
+//	}
+//}
+
+vector<Program> Box::listByDay(string &day){
+	vector<Program> listByDay;
+
+	for (int i = 0; i < channels.size(); i++)			//CICLO PARA VERIFICAR TODOS OS CHANNELS
+	{
+
+		for (int k = 0; k < channels[i].getPrograms().size(); k++)
+		{
+			if (channels[i].getPrograms()[k].getDate().getDay() == day)
+			{
+				listByDay.push_back(channels[i].getPrograms()[k]);
+			}
+		}
+
+	}
+
+
+	sort(listByDay.begin(), listByDay.end(), compareDate);
+	return listByDay;
+}
+
+vector<Program> Box::listByType(string  &type, string &day){
+	vector<Program> list_day = listByDay(day);
+	vector<Program> listByType;
+	for (int i = 0; i < list_day.size(); i++)
+	{
+		if (list_day[i].getType() == type)
+		{
+			listByType.push_back(list_day[i]);
+		}
+	}
+	sort(listByType.begin(), listByType.end(), compareDate);
+	return listByType;
+}
 
 
 //CHANNELS

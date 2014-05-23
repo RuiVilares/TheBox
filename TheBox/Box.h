@@ -6,6 +6,7 @@
 #include<string>
 #include<iomanip>
 #include<stdlib.h>
+#include<sstream>
 
 #include "Date.h"
 #include "Channel.h"
@@ -36,6 +37,7 @@ public:
   void saveInfo();
   vector<Channel> getChannels();
   static bool compareDate(Program &prog1, Program &prog2);
+  
 
  //Password
   bool changePassword(string np);         // ask, verify and change the password

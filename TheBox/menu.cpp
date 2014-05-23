@@ -1635,7 +1635,135 @@ void loadConfigs(Box &box){
 //Estas funções devem ser uns menus que irão aparecer ainda antes de apresentar os resultados finais que estão definidos nas classes
 void ListbyDay()
 {
-	//Exemplo para compilar
+	tvLayout();
+
+	int option;
+
+	cout << "1. Today\n2. Choose day\n";
+	cin >> option;
+	while (option < 1 || option > 2 || cin.fail())
+	{
+		cin.clear();
+		cin.ignore(10000, '\n');
+		cout << "Invalid option\n";
+		cin >> option;
+	}
+
+	if (option == 1)
+	{
+		outputListByDay(currentDate().getDay());
+	}
+	else
+	{
+		tvLayout();
+		cout << "1. Sunday" << endl
+			<< "2. Monday" << endl
+			<< "3. Tuesday" << endl
+			<< "4. Wednesday" << endl
+			<< "5. Thursday" << endl
+			<< "6. Friday" << endl
+			<< "7. Saturday" << endl
+			<< "8. Sunday" << endl << endl
+			<< "9. Return" << endl;
+
+		cin >> option;
+		while (option < 1 || option > 9 || cin.fail())
+		{
+			cin.clear();
+			cin.ignore(10000, '\n');
+			cout << "Invalid option\n";
+			cin >> option;
+		}
+		if (option != 9)
+		{
+			outputListByDay(currentDate().getStr(option));
+		}
+		else
+		{
+			tv_menu();
+		}
+
+	}
+}
+
+void outputListByDay(string &date){
+	vector<Program> listDay = box.listByDay(date);
+
+	tvLayout();
+
+	for (int i = 0; i < listDay.size(); i++)
+	{
+		cout << i + 1 << ". " << listDay[i].getName() << endl;
+	}
+	cout << listDay.size() + 1 << ". Return\n";
+
+	int option;
+	cin >> option;
+
+	while (option <1 || option > listDay.size() + 1 || cin.fail())
+	{
+		cin.clear();
+		cin.ignore(1000, '\n');
+		cout << "Invalid output" << endl;
+		cin >> option;
+	}
+
+	if (option == listDay.size() + 1)
+	{
+		tv_menu();
+	}
+	else
+	{
+		Program program = listDay[option - 1];
+
+		Channel channel = Channel(date);
+
+		for (int i = 0; i < box.getChannels().size(); i++)
+		{
+			if (box.searchProgram(program.getName(), box.getChannels()[i]) != -1)
+			{
+				channel = box.getChannels()[i];
+				break;
+			}
+		}
+
+		tvLayout();
+
+		program.showProgramDetails();
+
+
+		char ans;
+
+		cout << endl << endl << "Do you want to record this program?\nEnter Y to record or N to go return: ";
+		cin >> ans;
+		while (ans != 'N' && ans != 'Y')
+		{
+			cin.clear();
+			cin.ignore(100000, '\n');
+			cout << "Invalid option\n";
+			cin >> ans;
+
+		}
+		if (ans == 'N')
+		{
+			tv_menu();
+		}
+		else
+		{
+			if (box.RecordProgram(program.getName(), channel.getName()))
+			{
+				cout << endl << "Success. Your program was set to be recorded";
+				Sleep(2000);
+				tv_menu();
+			}
+			else
+			{
+				cout << endl << "Error. Your program is recorded";
+				Sleep(2000);
+				tv_menu();
+			}
+		}
+	}
 }
 
 void ListbyChannel()
@@ -1791,9 +1919,163 @@ void ListbyChannel()
 
 void ListbyType()
 {
-	//Exemplo para compilar
+	tvLayout();
+
+	int option;
+
+	cout << "1. Today\n2. Choose day\n";
+	cin >> option;
+	while (option < 1 || option > 2 || cin.fail())
+	{
+		cin.clear();
+		cin.ignore(10000, '\n');
+		cout << "Invalid option\n";
+		cin >> option;
+	}
+
+	if (option == 1)
+	{
+		outputListByType(currentDate().getDay());
+	}
+	else
+	{
+		tvLayout();
+		cout << "1. Sunday" << endl
+			<< "2. Monday" << endl
+			<< "3. Tuesday" << endl
+			<< "4. Wednesday" << endl
+			<< "5. Thursday" << endl
+			<< "6. Friday" << endl
+			<< "7. Saturday" << endl
+			<< "8. Sunday" << endl << endl
+			<< "9. Return\n";
+
+		cin >> option;
+		while (option < 1 || option > 9 || cin.fail())
+		{
+			cin.clear();
+			cin.ignore(10000, '\n');
+			cout << "Invalid option\n";
+			cin >> option;
+		}
+		if (option != 9)
+		{
+			outputListByType(currentDate().getStr(option));
+		}
+		else
+		{
+			tv_menu();
+		}
+	}
 }
 
+void outputListByType(string &date){
+	tvLayout();
+
+	string type_name;
+
+	cout << "Enter type of program(Press CTRL+Z to exit): \n";
+	cin >> type_name;
+
+	if (cin.eof())
+	{
+		tv_menu();
+	}
+	else
+	{
+		vector<Program> listType = box.listByType(date, type_name);
+
+		if (listType.size() == 0)
+		{
+			cout << "Error. Program with type" << type_name << "was not found.";
+			Sleep(2000);
+			outputListByType(date);
+		}
+
+		for (int i = 0; i < listType.size(); i++)
+		{
+			cout << i + 1 << ". " << listType[i].getName() << endl;
+		}
+		cout << listType.size() + 1 << ". Return";
+
+		int option;
+		cin >> option;
+
+		while (option <1 || option > listType.size() + 1 || cin.fail())
+		{
+			cin.clear();
+			cin.ignore(1000, '\n');
+			cout << "Invalid output" << endl;
+			cin >> option;
+		}
+
+		if (option == listType.size() + 1)
+		{
+			tv_menu();
+		}
+		else
+		{
+			Program program = listType[option - 1];
+
+			Channel channel = Channel(date);
+
+			for (int i = 0; i < box.getChannels().size(); i++)
+			{
+				if (box.searchProgram(program.getName(), box.getChannels()[i]) != -1)
+				{
+					channel = box.getChannels()[i];
+					break;
+				}
+			}
+
+			tvLayout();
+
+			program.showProgramDetails();
+
+
+			char ans;
+
+			cout << endl << endl << "Do you want to record this program?\nEnter Y to record or N to go return: ";
+			cin >> ans;
+			while (ans != 'N' && ans != 'Y')
+			{
+				cin.clear();
+				cin.ignore(100000, '\n');
+				cout << "Invalid option\n";
+				cin >> ans;
+
+			}
+			if (ans == 'N')
+			{
+				tv_menu();
+			}
+			else
+			{
+				if (box.RecordProgram(program.getName(), channel.getName()))
+				{
+					cout << endl << "Success. Your program was set to be recorded";
+					Sleep(2000);
+					tv_menu();
+				}
+				else
+				{
+					cout << endl << "Error. Your program is recorded";
+					Sleep(2000);
+					tv_menu();
+				}
+			}
+		}
+	}
+}
+
+void tvLayout(){
+	system("cls");
+	cout << "  _____    _            _     _             " << endl;
+	cout << " |_   _|__| | _____   _(_)___(_) ___  _ __  " << endl;
+	cout << "   | |/ _ \\ |/ _ \\ \\ / / / __| |/ _ \\| '_ \\ " << endl;
+	cout << "   | |  __/ |  __/\\ v /| \\__ \\ | (_) | | | |" << endl;
+	cout << "   |_|\\___|_|\\___| \\_/ |_|___/_|\\___/|_| |_|" << endl << endl << endl;
+}
 
 
 

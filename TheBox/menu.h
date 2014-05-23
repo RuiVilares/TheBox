@@ -85,18 +85,15 @@ void loadConfigs(Box &box);
 
 void ListbyDay();
 
+void outputListByDay(string &date);
+
 void ListbyChannel();
 
 void ListbyType();
 
-void EditPass();
-
-void EditChannels();
-
-void EditPrograms();
-
-void EditMovies();
+void outputListByType(string &date);
 
 void pass();
 
+void tvLayout();
 #endif

@@ -1,52 +1,24 @@
-﻿Build started 23/05/2014 10:26:30.
-     1>Project "C:\Users\Rui Vilares\Documents\GitHub\TheBox\TheBox\TheBox.vcxproj" on node 2 (Build target(s)).
+﻿Build started 23/05/2014 14:49:44.
+     1>Project "C:\Users\Duarte\Documents\GitHub\TheBox\TheBox\TheBox.vcxproj" on node 2 (Build target(s)).
      1>ClCompile:
-         C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\CL.exe /c /ZI /nologo /W3 /WX- /sdl /Od /Oy- /D WIN32 /D _DEBUG /D _CONSOLE /D _UNICODE /D UNICODE /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo"Debug\\" /Fd"Debug\vc120.pdb" /Gd /TP /analyze- /errorReport:prompt Box.cpp
-         Box.cpp
-     1>c:\users\rui vilares\documents\github\thebox\thebox\box.cpp(51): warning C4018: '<' : signed/unsigned mismatch
-     1>c:\users\rui vilares\documents\github\thebox\thebox\box.cpp(59): warning C4018: '<' : signed/unsigned mismatch
-     1>c:\users\rui vilares\documents\github\thebox\thebox\box.cpp(166): warning C4018: '<' : signed/unsigned mismatch
-     1>c:\users\rui vilares\documents\github\thebox\thebox\box.cpp(183): warning C4018: '<' : signed/unsigned mismatch
-     1>c:\users\rui vilares\documents\github\thebox\thebox\box.cpp(214): warning C4018: '<' : signed/unsigned mismatch
-     1>c:\users\rui vilares\documents\github\thebox\thebox\box.cpp(228): warning C4018: '<' : signed/unsigned mismatch
-     1>c:\users\rui vilares\documents\github\thebox\thebox\box.cpp(246): warning C4018: '<' : signed/unsigned mismatch
-     1>c:\users\rui vilares\documents\github\thebox\thebox\box.cpp(257): warning C4018: '<' : signed/unsigned mismatch
-     1>c:\users\rui vilares\documents\github\thebox\thebox\box.cpp(332): warning C4018: '<' : signed/unsigned mismatch
-     1>c:\users\rui vilares\documents\github\thebox\thebox\box.cpp(340): warning C4018: '<' : signed/unsigned mismatch
-     1>c:\users\rui vilares\documents\github\thebox\thebox\box.cpp(351): warning C4018: '<' : signed/unsigned mismatch
-     1>c:\users\rui vilares\documents\github\thebox\thebox\box.cpp(364): warning C4018: '<' : signed/unsigned mismatch
-     1>c:\users\rui vilares\documents\github\thebox\thebox\box.cpp(387): warning C4018: '<' : signed/unsigned mismatch
-     1>c:\users\rui vilares\documents\github\thebox\thebox\box.cpp(395): warning C4018: '<' : signed/unsigned mismatch
-     1>c:\users\rui vilares\documents\github\thebox\thebox\box.cpp(377): warning C4101: 'c' : unreferenced local variable
-     1>c:\users\rui vilares\documents\github\thebox\thebox\box.cpp(378): warning C4101: 't' : unreferenced local variable
-     1>c:\users\rui vilares\documents\github\thebox\thebox\box.cpp(421): warning C4018: '<' : signed/unsigned mismatch
-     1>c:\users\rui vilares\documents\github\thebox\thebox\box.cpp(432): warning C4018: '<' : signed/unsigned mismatch
-     1>c:\users\rui vilares\documents\github\thebox\thebox\box.cpp(474): warning C4018: '<' : signed/unsigned mismatch
-     1>c:\users\rui vilares\documents\github\thebox\thebox\box.cpp(504): warning C4018: '<' : signed/unsigned mismatch
-     1>c:\users\rui vilares\documents\github\thebox\thebox\box.cpp(528): warning C4018: '<' : signed/unsigned mismatch
-     1>c:\users\rui vilares\documents\github\thebox\thebox\box.cpp(542): warning C4018: '<' : signed/unsigned mismatch
-     1>c:\users\rui vilares\documents\github\thebox\thebox\box.cpp(554): warning C4018: '<' : signed/unsigned mismatch
-     1>c:\users\rui vilares\documents\github\thebox\thebox\box.cpp(564): warning C4018: '<' : signed/unsigned mismatch
-     1>c:\users\rui vilares\documents\github\thebox\thebox\box.cpp(642): warning C4018: '<' : signed/unsigned mismatch
-     1>c:\users\rui vilares\documents\github\thebox\thebox\box.cpp(668): warning C4018: '<' : signed/unsigned mismatch
-     1>c:\users\rui vilares\documents\github\thebox\thebox\box.cpp(686): warning C4018: '<' : signed/unsigned mismatch
-     1>c:\users\rui vilares\documents\github\thebox\thebox\box.cpp(828): warning C4018: '<' : signed/unsigned mismatch
-     1>c:\users\rui vilares\documents\github\thebox\thebox\box.cpp(852): warning C4018: '<' : signed/unsigned mismatch
-     1>c:\users\rui vilares\documents\github\thebox\thebox\box.cpp(883): warning C4018: '<' : signed/unsigned mismatch
-     1>c:\users\rui vilares\documents\github\thebox\thebox\box.cpp(909): warning C4018: '<' : signed/unsigned mismatch
-     1>c:\users\rui vilares\documents\github\thebox\thebox\box.cpp(955): warning C4018: '<' : signed/unsigned mismatch
-     1>c:\users\rui vilares\documents\github\thebox\thebox\box.cpp(978): warning C4018: '<' : signed/unsigned mismatch
-     1>c:\users\rui vilares\documents\github\thebox\thebox\box.cpp(1060): warning C4018: '<' : signed/unsigned mismatch
-     1>c:\users\rui vilares\documents\github\thebox\thebox\box.cpp(1152): warning C4018: '<' : signed/unsigned mismatch
-     1>c:\users\rui vilares\documents\github\thebox\thebox\box.cpp(1165): warning C4018: '<' : signed/unsigned mismatch
-     1>c:\users\rui vilares\documents\github\thebox\thebox\box.cpp(1140): warning C4101: 'cost' : unreferenced local variable
-     1>c:\users\rui vilares\documents\github\thebox\thebox\box.cpp(1194): warning C4018: '<' : signed/unsigned mismatch
-     1>c:\users\rui vilares\documents\github\thebox\thebox\box.cpp(1210): warning C4018: '<' : signed/unsigned mismatch
-     1>c:\users\rui vilares\documents\github\thebox\thebox\box.cpp(1229): warning C4018: '<' : signed/unsigned mismatch
-     1>c:\users\rui vilares\documents\github\thebox\thebox\box.cpp(1245): warning C4018: '<' : signed/unsigned mismatch
-     1>c:\users\rui vilares\documents\github\thebox\thebox\box.cpp(1264): warning C4018: '<' : signed/unsigned mismatch
+         C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\CL.exe /c /ZI /nologo /W3 /WX- /sdl /Od /Oy- /D WIN32 /D _DEBUG /D _CONSOLE /D _UNICODE /D UNICODE /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo"Debug\\" /Fd"Debug\vc120.pdb" /Gd /TP /analyze- /errorReport:prompt menu.cpp
+         menu.cpp
+     1>c:\users\duarte\documents\github\thebox\thebox\menu.cpp(8): warning C4244: 'argument' : conversion from 'time_t' to 'unsigned int', possible loss of data
+     1>c:\users\duarte\documents\github\thebox\thebox\menu.cpp(696): warning C4101: 'yourchoice' : unreferenced local variable
+     1>c:\users\duarte\documents\github\thebox\thebox\menu.cpp(1191): warning C4390: ';' : empty controlled statement found; is this the intent?
+     1>c:\users\duarte\documents\github\thebox\thebox\menu.cpp(1235): warning C4390: ';' : empty controlled statement found; is this the intent?
+     1>c:\users\duarte\documents\github\thebox\thebox\menu.cpp(1527): warning C4129: '_' : unrecognized character escape sequence
+     1>c:\users\duarte\documents\github\thebox\thebox\menu.cpp(1694): warning C4018: '<' : signed/unsigned mismatch
+     1>c:\users\duarte\documents\github\thebox\thebox\menu.cpp(1703): warning C4018: '>' : signed/unsigned mismatch
+     1>c:\users\duarte\documents\github\thebox\thebox\menu.cpp(1721): warning C4018: '<' : signed/unsigned mismatch
+     1>c:\users\duarte\documents\github\thebox\thebox\menu.cpp(1785): warning C4018: '>' : signed/unsigned mismatch
+     1>c:\users\duarte\documents\github\thebox\thebox\menu.cpp(1794): warning C4018: '<=' : signed/unsigned mismatch
+     1>c:\users\duarte\documents\github\thebox\thebox\menu.cpp(1815): warning C4018: '>' : signed/unsigned mismatch
+     1>c:\users\duarte\documents\github\thebox\thebox\menu.cpp(1995): warning C4018: '<' : signed/unsigned mismatch
+     1>c:\users\duarte\documents\github\thebox\thebox\menu.cpp(2004): warning C4018: '>' : signed/unsigned mismatch
+     1>c:\users\duarte\documents\github\thebox\thebox\menu.cpp(2022): warning C4018: '<' : signed/unsigned mismatch
        Link:
-         C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\link.exe /ERRORREPORT:PROMPT /OUT:"C:\Users\Rui Vilares\Documents\GitHub\TheBox\Debug\TheBox.exe" /INCREMENTAL /NOLOGO kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /DEBUG /PDB:"C:\Users\Rui Vilares\Documents\GitHub\TheBox\Debug\TheBox.pdb" /SUBSYSTEM:CONSOLE /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"C:\Users\Rui Vilares\Documents\GitHub\TheBox\Debug\TheBox.lib" /MACHINE:X86 Debug\Box.obj
+         C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\link.exe /ERRORREPORT:PROMPT /OUT:"C:\Users\Duarte\Documents\GitHub\TheBox\Debug\TheBox.exe" /INCREMENTAL /NOLOGO kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /DEBUG /PDB:"C:\Users\Duarte\Documents\GitHub\TheBox\Debug\TheBox.pdb" /SUBSYSTEM:CONSOLE /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"C:\Users\Duarte\Documents\GitHub\TheBox\Debug\TheBox.lib" /MACHINE:X86 Debug\Box.obj
          Debug\Channel.obj
          Debug\Date.obj
          Debug\fuctions.obj
@@ -54,9 +26,9 @@
          Debug\menu.obj
          Debug\Movie.obj
          Debug\Program.obj
-         TheBox.vcxproj -> C:\Users\Rui Vilares\Documents\GitHub\TheBox\Debug\TheBox.exe
-     1>Done Building Project "C:\Users\Rui Vilares\Documents\GitHub\TheBox\TheBox\TheBox.vcxproj" (Build target(s)).
+         TheBox.vcxproj -> C:\Users\Duarte\Documents\GitHub\TheBox\Debug\TheBox.exe
+     1>Done Building Project "C:\Users\Duarte\Documents\GitHub\TheBox\TheBox\TheBox.vcxproj" (Build target(s)).
 
 Build succeeded.
 
-Time Elapsed 00:00:02.97
+Time Elapsed 00:00:03.33
