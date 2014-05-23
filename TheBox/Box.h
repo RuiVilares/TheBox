@@ -33,7 +33,9 @@ public:
   Box(string passwd, Date currentDate);
   vector<Program> listByDay(string &day);
   vector<Program> listByChannel(string  &channel, string day);
-  vector<Program> listByType(string  &type, string &day);
+  //vector<Program> listByType(string  &type, string &day);
+  vector<string> EveryTypes(); //
+  vector<Program> listByType(string  &type); //
   void saveInfo();
   vector<Channel> getChannels();
   static bool compareDate(Program &prog1, Program &prog2);

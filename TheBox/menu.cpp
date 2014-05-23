@@ -394,7 +394,7 @@ void tv_menu()
 	if (yourchoice == 5)
 		ListbyChannel();
 	if (yourchoice == 6)
-		start_menu();
+		ListbyType();
 	if (yourchoice == 7)
 		start_menu();
 }
@@ -1639,21 +1639,23 @@ void ListbyDay()
 
 	int option;
 
-	cout << "1. Today\n2. Choose day\n";
+	cout << "1. Today\n2. Choose day\n \n3. Return";
+	cout << endl << endl << "Choose one of this options: ";
 	cin >> option;
-	while (option < 1 || option > 2 || cin.fail())
+	while (option < 1 || option > 3 || cin.fail())
 	{
 		cin.clear();
 		cin.ignore(10000, '\n');
-		cout << "Invalid option\n";
-		cin >> option;
+		cout << "\n \nInvalid option\n";
+		Sleep(2000);
+		ListbyDay();
 	}
 
 	if (option == 1)
 	{
 		outputListByDay(currentDate().getDay());
 	}
-	else
+	if (option == 2)
 	{
 		tvLayout();
 		cout << "1. Sunday" << endl
@@ -1663,27 +1665,29 @@ void ListbyDay()
 			<< "5. Thursday" << endl
 			<< "6. Friday" << endl
 			<< "7. Saturday" << endl
-			<< "8. Sunday" << endl << endl
-			<< "9. Return" << endl;
-
+			<< "8. Return" << endl << endl;
+		cout << "Choose one of those options: ";
 		cin >> option;
-		while (option < 1 || option > 9 || cin.fail())
+		while (option < 1 || option > 8 || cin.fail())
 		{
 			cin.clear();
 			cin.ignore(10000, '\n');
 			cout << "Invalid option\n";
-			cin >> option;
+			Sleep(2000);
+			ListbyDay();
 		}
-		if (option != 9)
+		if (option != 8)
 		{
 			outputListByDay(currentDate().getStr(option));
 		}
 		else
 		{
-			tv_menu();
+			ListbyDay();
 		}
 
 	}
+	if (option == 3)
+		tv_menu();
 }
 
 void outputListByDay(string &date){
@@ -1695,22 +1699,23 @@ void outputListByDay(string &date){
 	{
 		cout << i + 1 << ". " << listDay[i].getName() << endl;
 	}
-	cout << listDay.size() + 1 << ". Return\n";
-
+	cout << listDay.size() + 1 << ". Return\n \n";
+	cout << "Choose one of those options: ";
 	int option;
 	cin >> option;
 
-	while (option <1 || option > listDay.size() + 1 || cin.fail())
+	if (option <1 || option > listDay.size() + 1 || cin.fail())
 	{
 		cin.clear();
 		cin.ignore(1000, '\n');
 		cout << "Invalid output" << endl;
-		cin >> option;
+		Sleep(2000);
+		ListbyDay();
 	}
 
 	if (option == listDay.size() + 1)
 	{
-		tv_menu();
+		ListbyDay();
 	}
 	else
 	{
@@ -1730,6 +1735,74 @@ void outputListByDay(string &date){
 		tvLayout();
 
 		program.showProgramDetails();
+		int ans;
+
+		if (compDates(box.GetCurrentDate(), program.getDate()))
+		{
+			cout << "\n \n1. Yes \n2. No";
+			cout << endl << endl << "Do you want to record this program? ";
+
+			cin >> ans;
+			if (ans < 1 || ans > 2)
+			{
+				cin.clear();
+				cin.ignore(100000, '\n');
+				cout << "\n \nInvalid option\n";
+				Sleep(2000);
+				ListbyDay();
+			}
+			if (ans == 2)
+			{
+				tv_menu();
+			}
+			if (ans == 1)
+			{
+				if (box.RecordProgram(program.getName(), channel.getName()))
+				{
+					cout << endl << "Success. Your program was set to be recorded";
+					Sleep(2000);
+					tv_menu();
+				}
+				else
+				{
+					cout << endl << "Error. Your program was already set to be recorded";
+					Sleep(2000);
+					tv_menu();
+				}
+
+			}
+		}
+		else
+		{
+			cout << "\n \n1. Start Menu \n2. Tv Menu";
+			cout << endl << endl << "Choose one of this options: ";
+
+			cin >> ans;
+			if (ans < 1 || ans > 2)
+			{
+				cin.clear();
+				cin.ignore(100000, '\n');
+				cout << "\n \nInvalid option\n";
+				Sleep(2000);
+				tv_menu();
+			}
+			if (ans == 1)
+			{
+				start_menu();
+			}
+			if (ans == 2)
+			{
+				tv_menu();
+
+			}
+		}
+
+
+
+
+
+
+		/*
 
 
 		char ans;
@@ -1762,7 +1835,7 @@ void outputListByDay(string &date){
 				Sleep(2000);
 				tv_menu();
 			}
-		}
+		}*/
 	}
 }
 
@@ -1787,6 +1860,7 @@ void ListbyChannel()
 		cin.clear();
 		cin.ignore(100000, '\n');
 		cout << "Invalid Option\n";
+		Sleep(2000);
 		ListbyChannel();
 	}
 
@@ -1817,7 +1891,8 @@ void ListbyChannel()
 			cin.clear();
 			cin.ignore(100000, '\n');
 			cout << "Invalid Option\n";
-			cin >> option;
+			Sleep(2000);
+			ListbyChannel();
 		}
 
 		if (option == (channel.getPrograms().size() + 1))
@@ -1919,7 +1994,137 @@ void ListbyChannel()
 
 void ListbyType()
 {
+	system("CLS");
 	tvLayout();
+	vector<string>types = box.EveryTypes();
+	int option;
+	for (int i = 0; i < types.size(); i++)
+	{
+		cout << i + 1 << ". " << types[i] << endl;
+	}
+
+	cout << endl << types.size() + 1 << ". Return\n \n";
+	cout << "Choose one of those options: ";
+	cin >> option;
+
+	if (option < 1 || option >(types.size() + 1) || cin.fail())
+	{
+		cin.clear();
+		cin.ignore(100000, '\n');
+		cout << "\n \nInvalid option\n";
+		Sleep(2000);
+		tv_menu();
+	}
+
+	if (option >= 1 && option <= types.size())
+	{
+		system("CLS");
+		tvLayout();
+		vector<Program> listType = box.listByType(types[option-1]);
+		for (int i = 0; i < listType.size(); i++)
+		{
+			cout << i + 1 << ". " << listType[i].getName() << endl;
+		}
+		cout << listType.size() + 1 << ". Return\n \n";
+		cout << "Choose one of those options: ";
+		int option;
+		cin >> option;
+
+		if (option <1 || option > listType.size() + 1 || cin.fail())
+		{
+			cin.clear();
+			cin.ignore(1000, '\n');
+			cout << "\n \nInvalid option\n";
+			Sleep(2000);
+			tv_menu;
+		}
+
+
+
+		if (option == listType.size() + 1)
+		{
+			ListbyType();
+		}
+
+		else
+		{
+				Program program = listType[option-1];
+
+
+				tvLayout();
+
+				program.showProgramDetails();
+				int ans;
+
+				if (compDates(box.GetCurrentDate(), program.getDate()))
+				{
+					cout << "\n \n1. Yes \n2. No";
+					cout << endl << endl << "Do you want to record this program? ";
+
+					cin >> ans;
+					if (ans < 1 || ans > 2)
+					{
+						cin.clear();
+						cin.ignore(100000, '\n');
+						cout << "\n \nInvalid option\n";
+						Sleep(2000);
+						ListbyDay();
+					}
+					if (ans == 2)
+					{
+						tv_menu();
+					}
+					if (ans == 1)
+					{
+						/*
+						if (box.RecordProgram(program.getName(), program..getName()))
+						{
+							cout << endl << "Success. Your program was set to be recorded";
+							Sleep(2000);
+							tv_menu();
+						}
+						else*/
+						{
+							cout << endl << "Error. Your program was already set to be recorded";
+							Sleep(2000);
+							tv_menu();
+						}
+
+					}
+				}
+				else
+				{
+					cout << "\n \n1. Start Menu \n2. Tv Menu";
+					cout << endl << endl << "Choose one of this options: ";
+
+					cin >> ans;
+					if (ans < 1 || ans > 2)
+					{
+						cin.clear();
+						cin.ignore(100000, '\n');
+						cout << "\n \nInvalid option\n";
+						Sleep(2000);
+						tv_menu();
+					}
+					if (ans == 1)
+					{
+						start_menu();
+					}
+					if (ans == 2)
+					{
+						tv_menu();
+
+					}
+				}
+		}
+
+		
+	}
+	if (option == types.size()+1)
+		tv_menu();
+
+
+	/*tvLayout();
 
 	int option;
 
@@ -1966,9 +2171,11 @@ void ListbyType()
 		{
 			tv_menu();
 		}
-	}
+	}*/
 }
 
+
+/*
 void outputListByType(string &date){
 	tvLayout();
 
@@ -2067,7 +2274,7 @@ void outputListByType(string &date){
 		}
 	}
 }
-
+*/
 void tvLayout(){
 	system("cls");
 	cout << "  _____    _            _     _             " << endl;

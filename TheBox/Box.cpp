@@ -600,19 +600,53 @@ vector<Program> Box::listByDay(string &day){
 	return listByDay;
 }
 
-vector<Program> Box::listByType(string  &type, string &day){
+vector<string> Box::EveryTypes()
+{
+	vector<string> types;
+	for (int i = 0; i < channels.size(); i++)
+	{
+		for (int j = 0; j < channels[i].getPrograms().size(); j++)
+		{
+			bool found=false;
+			for (int z = 0; z < types.size(); z++)
+			{
+				if (string_to_upper(channels[i].getPrograms()[j].getType()) == string_to_upper(types[z]))
+					found = true;
+			}
+			if (!found)
+				types.push_back(channels[i].getPrograms()[j].getType());
+		}
+	}
+	return types;
+}
+
+vector<Program> Box::listByType(string  &type){
+	vector<Program> listByType;
+	for (int i = 0; i < channels.size(); i++)
+	{
+		for (int j = 0; j < channels[i].getPrograms().size(); j++)
+		if (string_to_upper(channels[i].getPrograms()[j].getType()) == string_to_upper(type))
+			{
+				listByType.push_back(channels[i].getPrograms()[j]);
+			}
+	}
+	sort(listByType.begin(), listByType.end(), compareDate);
+	return listByType;
+}
+
+/*vector<Program> Box::listByType(string  &type, string &day){
 	vector<Program> list_day = listByDay(day);
 	vector<Program> listByType;
 	for (int i = 0; i < list_day.size(); i++)
 	{
-		if (list_day[i].getType() == type)
+		if (string_to_upper(list_day[i].getType()) == string_to_upper(type))
 		{
 			listByType.push_back(list_day[i]);
 		}
 	}
 	sort(listByType.begin(), listByType.end(), compareDate);
 	return listByType;
-}
+}*/
 
 
 //CHANNELS
